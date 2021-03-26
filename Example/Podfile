@@ -1,0 +1,18 @@
+platform :ios, '10.0'
+source 'https://github.com/gini/gini-podspecs.git'
+source 'https://github.com/CocoaPods/Specs.git'
+
+def project_pods
+    pod 'GiniPayBusiness', :path => '../', :testspecs => ['Tests']
+
+end
+
+target 'Example' do
+
+    project_pods
+
+    target 'GiniPayBusinessSDKTests' do
+        inherit! :search_paths
+    end
+end
+
