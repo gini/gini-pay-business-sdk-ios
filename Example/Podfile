@@ -7,7 +7,7 @@ def project_pods
 
 end
 
-target 'Example' do
+target 'Example Swift' do
 
     project_pods
 
