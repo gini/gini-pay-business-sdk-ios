@@ -28,6 +28,13 @@
 			remoteGlobalIDString = F43B0B71260E4D1900B89DF6;
 			remoteInfo = GiniPayBusinessSDK;
 		};
+		F49243CF260E5F3100BEB975 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F43B0B69260E4D1900B89DF6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F4EF0EF4260E5BF1003BDDC7;
+			remoteInfo = "Example Swift";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -205,6 +212,7 @@
 			);
 			dependencies = (
 				F43B0B7E260E4D1900B89DF6 /* PBXTargetDependency */,
+				F49243D0260E5F3100BEB975 /* PBXTargetDependency */,
 			);
 			name = GiniPayBusinessSDKTests;
 			productName = GiniPayBusinessSDKTests;
@@ -242,6 +250,7 @@
 					};
 					F43B0B7A260E4D1900B89DF6 = {
 						CreatedOnToolsVersion = 12.4;
+						TestTargetID = F4EF0EF4260E5BF1003BDDC7;
 					};
 					F4EF0EF4260E5BF1003BDDC7 = {
 						CreatedOnToolsVersion = 12.4;
@@ -354,6 +363,11 @@
 			isa = PBXTargetDependency;
 			target = F43B0B71260E4D1900B89DF6 /* GiniPayBusinessSDK */;
 			targetProxy = F43B0B7D260E4D1900B89DF6 /* PBXContainerItemProxy */;
+		};
+		F49243D0260E5F3100BEB975 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F4EF0EF4260E5BF1003BDDC7 /* Example Swift */;
+			targetProxy = F49243CF260E5F3100BEB975 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -563,6 +577,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Example Swift.app/Example Swift";
 			};
 			name = Debug;
 		};
@@ -582,6 +597,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Example Swift.app/Example Swift";
 			};
 			name = Release;
 		};
