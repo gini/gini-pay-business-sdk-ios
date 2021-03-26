@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  Example
+//  Example Swift
 //
 //  Created by Nadya Karaban on 26.03.21.
 //

@@ -7,19 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6EC509EDDD598FFB694C5AAF /* libPods-Example Swift.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62C13052E07D13AF846DCE1B /* libPods-Example Swift.a */; };
 		D9B0B17994E637E667D23704 /* libPods-GiniPayBusinessSDKTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FCC6306C97B8BF18B680E145 /* libPods-GiniPayBusinessSDKTests.a */; };
 		F43B0B7C260E4D1900B89DF6 /* GiniPayBusinessSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F43B0B72260E4D1900B89DF6 /* GiniPayBusinessSDK.framework */; };
 		F43B0B81260E4D1900B89DF6 /* GiniPayBusinessSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43B0B80260E4D1900B89DF6 /* GiniPayBusinessSDKTests.swift */; };
 		F43B0B83260E4D1900B89DF6 /* GiniPayBusinessSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = F43B0B75260E4D1900B89DF6 /* GiniPayBusinessSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F460BFD9260E5390000C760B /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = F460BFD6260E5390000C760B /* Podfile */; };
 		F460BFDB260E5390000C760B /* GiniPayBusinessSDKTests in Resources */ = {isa = PBXBuildFile; fileRef = F460BFD8260E5390000C760B /* GiniPayBusinessSDKTests */; };
-		F460BFE7260E542E000C760B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F460BFE6260E542E000C760B /* AppDelegate.swift */; };
-		F460BFE9260E542E000C760B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F460BFE8260E542E000C760B /* SceneDelegate.swift */; };
-		F460BFEB260E542E000C760B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F460BFEA260E542E000C760B /* ViewController.swift */; };
-		F460BFEE260E542E000C760B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F460BFEC260E542E000C760B /* Main.storyboard */; };
-		F460BFF0260E542E000C760B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F460BFEF260E542E000C760B /* Assets.xcassets */; };
-		F460BFF3260E542E000C760B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F460BFF1260E542E000C760B /* LaunchScreen.storyboard */; };
+		F4EF0EF8260E5BF1003BDDC7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EF0EF7260E5BF1003BDDC7 /* AppDelegate.swift */; };
+		F4EF0EFC260E5BF1003BDDC7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EF0EFB260E5BF1003BDDC7 /* ViewController.swift */; };
+		F4EF0EFF260E5BF1003BDDC7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4EF0EFD260E5BF1003BDDC7 /* Main.storyboard */; };
+		F4EF0F01260E5BF1003BDDC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4EF0F00260E5BF1003BDDC7 /* Assets.xcassets */; };
+		F4EF0F04260E5BF1003BDDC7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4EF0F02260E5BF1003BDDC7 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,14 +46,13 @@
 		F43B0B82260E4D1900B89DF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F460BFD6260E5390000C760B /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		F460BFD8260E5390000C760B /* GiniPayBusinessSDKTests */ = {isa = PBXFileReference; lastKnownFileType = folder; path = GiniPayBusinessSDKTests; sourceTree = "<group>"; };
-		F460BFE4260E542E000C760B /* Example Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Example Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		F460BFE6260E542E000C760B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F460BFE8260E542E000C760B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		F460BFEA260E542E000C760B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		F460BFED260E542E000C760B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		F460BFEF260E542E000C760B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		F460BFF2260E542E000C760B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		F460BFF4260E542E000C760B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F4EF0EF5260E5BF1003BDDC7 /* Example Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Example Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4EF0EF7260E5BF1003BDDC7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F4EF0EFB260E5BF1003BDDC7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F4EF0EFE260E5BF1003BDDC7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F4EF0F00260E5BF1003BDDC7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F4EF0F03260E5BF1003BDDC7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F4EF0F05260E5BF1003BDDC7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FCC6306C97B8BF18B680E145 /* libPods-GiniPayBusinessSDKTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GiniPayBusinessSDKTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -76,11 +73,10 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F460BFE1260E542E000C760B /* Frameworks */ = {
+		F4EF0EF2260E5BF1003BDDC7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6EC509EDDD598FFB694C5AAF /* libPods-Example Swift.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,7 +112,7 @@
 				F460BFD6260E5390000C760B /* Podfile */,
 				F43B0B74260E4D1900B89DF6 /* GiniPayBusinessSDK */,
 				F43B0B7F260E4D1900B89DF6 /* GiniPayBusinessSDKTests */,
-				F460BFE5260E542E000C760B /* Example */,
+				F4EF0EF6260E5BF1003BDDC7 /* Example Swift */,
 				F43B0B73260E4D1900B89DF6 /* Products */,
 				D0D9DD1EAFB72F1BC1EB9A95 /* Pods */,
 				43446D7724614D5A8DFE6621 /* Frameworks */,
@@ -128,7 +124,7 @@
 			children = (
 				F43B0B72260E4D1900B89DF6 /* GiniPayBusinessSDK.framework */,
 				F43B0B7B260E4D1900B89DF6 /* GiniPayBusinessSDKTests.xctest */,
-				F460BFE4260E542E000C760B /* Example Swift.app */,
+				F4EF0EF5260E5BF1003BDDC7 /* Example Swift.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -151,18 +147,17 @@
 			path = GiniPayBusinessSDKTests;
 			sourceTree = "<group>";
 		};
-		F460BFE5260E542E000C760B /* Example */ = {
+		F4EF0EF6260E5BF1003BDDC7 /* Example Swift */ = {
 			isa = PBXGroup;
 			children = (
-				F460BFE6260E542E000C760B /* AppDelegate.swift */,
-				F460BFE8260E542E000C760B /* SceneDelegate.swift */,
-				F460BFEA260E542E000C760B /* ViewController.swift */,
-				F460BFEC260E542E000C760B /* Main.storyboard */,
-				F460BFEF260E542E000C760B /* Assets.xcassets */,
-				F460BFF1260E542E000C760B /* LaunchScreen.storyboard */,
-				F460BFF4260E542E000C760B /* Info.plist */,
+				F4EF0EF7260E5BF1003BDDC7 /* AppDelegate.swift */,
+				F4EF0EFB260E5BF1003BDDC7 /* ViewController.swift */,
+				F4EF0EFD260E5BF1003BDDC7 /* Main.storyboard */,
+				F4EF0F00260E5BF1003BDDC7 /* Assets.xcassets */,
+				F4EF0F02260E5BF1003BDDC7 /* LaunchScreen.storyboard */,
+				F4EF0F05260E5BF1003BDDC7 /* Info.plist */,
 			);
-			path = Example;
+			path = "Example Swift";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -216,22 +211,21 @@
 			productReference = F43B0B7B260E4D1900B89DF6 /* GiniPayBusinessSDKTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		F460BFE3260E542E000C760B /* Example Swift */ = {
+		F4EF0EF4260E5BF1003BDDC7 /* Example Swift */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F460BFF5260E542E000C760B /* Build configuration list for PBXNativeTarget "Example Swift" */;
+			buildConfigurationList = F4EF0F06260E5BF1003BDDC7 /* Build configuration list for PBXNativeTarget "Example Swift" */;
 			buildPhases = (
-				6F1F82A1DE52F4ECD57A255F /* [CP] Check Pods Manifest.lock */,
-				F460BFE0260E542E000C760B /* Sources */,
-				F460BFE1260E542E000C760B /* Frameworks */,
-				F460BFE2260E542E000C760B /* Resources */,
+				F4EF0EF1260E5BF1003BDDC7 /* Sources */,
+				F4EF0EF2260E5BF1003BDDC7 /* Frameworks */,
+				F4EF0EF3260E5BF1003BDDC7 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = "Example Swift";
-			productName = Example;
-			productReference = F460BFE4260E542E000C760B /* Example Swift.app */;
+			productName = "Example Swift";
+			productReference = F4EF0EF5260E5BF1003BDDC7 /* Example Swift.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -249,7 +243,7 @@
 					F43B0B7A260E4D1900B89DF6 = {
 						CreatedOnToolsVersion = 12.4;
 					};
-					F460BFE3260E542E000C760B = {
+					F4EF0EF4260E5BF1003BDDC7 = {
 						CreatedOnToolsVersion = 12.4;
 					};
 				};
@@ -269,7 +263,7 @@
 			targets = (
 				F43B0B71260E4D1900B89DF6 /* GiniPayBusinessSDK */,
 				F43B0B7A260E4D1900B89DF6 /* GiniPayBusinessSDKTests */,
-				F460BFE3260E542E000C760B /* Example Swift */,
+				F4EF0EF4260E5BF1003BDDC7 /* Example Swift */,
 			);
 		};
 /* End PBXProject section */
@@ -291,41 +285,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F460BFE2260E542E000C760B /* Resources */ = {
+		F4EF0EF3260E5BF1003BDDC7 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F460BFF3260E542E000C760B /* LaunchScreen.storyboard in Resources */,
-				F460BFF0260E542E000C760B /* Assets.xcassets in Resources */,
-				F460BFEE260E542E000C760B /* Main.storyboard in Resources */,
+				F4EF0F04260E5BF1003BDDC7 /* LaunchScreen.storyboard in Resources */,
+				F4EF0F01260E5BF1003BDDC7 /* Assets.xcassets in Resources */,
+				F4EF0EFF260E5BF1003BDDC7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		6F1F82A1DE52F4ECD57A255F /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Example Swift-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		A59938B643854EDD1CE265D6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -366,13 +338,12 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F460BFE0260E542E000C760B /* Sources */ = {
+		F4EF0EF1260E5BF1003BDDC7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F460BFEB260E542E000C760B /* ViewController.swift in Sources */,
-				F460BFE7260E542E000C760B /* AppDelegate.swift in Sources */,
-				F460BFE9260E542E000C760B /* SceneDelegate.swift in Sources */,
+				F4EF0EFC260E5BF1003BDDC7 /* ViewController.swift in Sources */,
+				F4EF0EF8260E5BF1003BDDC7 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -387,18 +358,18 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		F460BFEC260E542E000C760B /* Main.storyboard */ = {
+		F4EF0EFD260E5BF1003BDDC7 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				F460BFED260E542E000C760B /* Base */,
+				F4EF0EFE260E5BF1003BDDC7 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		F460BFF1260E542E000C760B /* LaunchScreen.storyboard */ = {
+		F4EF0F02260E5BF1003BDDC7 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				F460BFF2260E542E000C760B /* Base */,
+				F4EF0F03260E5BF1003BDDC7 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -614,42 +585,40 @@
 			};
 			name = Release;
 		};
-		F460BFF6260E542E000C760B /* Debug */ = {
+		F4EF0F07260E5BF1003BDDC7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 322E86B8C4964D3E5FB93080 /* Pods-Example Swift.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BQY9KX4V88;
-				INFOPLIST_FILE = Example/Info.plist;
+				INFOPLIST_FILE = "Example Swift/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = net.gini.ginipaybank.Example;
+				PRODUCT_BUNDLE_IDENTIFIER = "net.gini.ginipaybank.Example-Swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		F460BFF7260E542E000C760B /* Release */ = {
+		F4EF0F08260E5BF1003BDDC7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0B27DF49AC536FFAB752F8C2 /* Pods-Example Swift.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BQY9KX4V88;
-				INFOPLIST_FILE = Example/Info.plist;
+				INFOPLIST_FILE = "Example Swift/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = net.gini.ginipaybank.Example;
+				PRODUCT_BUNDLE_IDENTIFIER = "net.gini.ginipaybank.Example-Swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -686,11 +655,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F460BFF5260E542E000C760B /* Build configuration list for PBXNativeTarget "Example Swift" */ = {
+		F4EF0F06260E5BF1003BDDC7 /* Build configuration list for PBXNativeTarget "Example Swift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				F460BFF6260E542E000C760B /* Debug */,
-				F460BFF7260E542E000C760B /* Release */,
+				F4EF0F07260E5BF1003BDDC7 /* Debug */,
+				F4EF0F08260E5BF1003BDDC7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
