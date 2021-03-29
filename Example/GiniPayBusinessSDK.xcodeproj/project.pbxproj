@@ -3,20 +3,17 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D9B0B17994E637E667D23704 /* libPods-GiniPayBusinessSDKTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FCC6306C97B8BF18B680E145 /* libPods-GiniPayBusinessSDKTests.a */; };
+		6A61E34BEF5AF685292632EF /* libPods-GiniPayBusinessSDKTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37AD0598801CA9B54A0A8F3C /* libPods-GiniPayBusinessSDKTests.a */; };
+		BA7402864DFADFF312D77D39 /* libPods-Example Swift.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A65B1E49B5854CF88C918432 /* libPods-Example Swift.a */; };
 		F43B0B7C260E4D1900B89DF6 /* GiniPayBusinessSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F43B0B72260E4D1900B89DF6 /* GiniPayBusinessSDK.framework */; };
 		F43B0B81260E4D1900B89DF6 /* GiniPayBusinessSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43B0B80260E4D1900B89DF6 /* GiniPayBusinessSDKTests.swift */; };
-		F43B0B83260E4D1900B89DF6 /* GiniPayBusinessSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = F43B0B75260E4D1900B89DF6 /* GiniPayBusinessSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F460BFD9260E5390000C760B /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = F460BFD6260E5390000C760B /* Podfile */; };
-		F460BFDB260E5390000C760B /* GiniPayBusinessSDKTests in Resources */ = {isa = PBXBuildFile; fileRef = F460BFD8260E5390000C760B /* GiniPayBusinessSDKTests */; };
 		F4EF0EF8260E5BF1003BDDC7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EF0EF7260E5BF1003BDDC7 /* AppDelegate.swift */; };
 		F4EF0EFC260E5BF1003BDDC7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EF0EFB260E5BF1003BDDC7 /* ViewController.swift */; };
 		F4EF0EFF260E5BF1003BDDC7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4EF0EFD260E5BF1003BDDC7 /* Main.storyboard */; };
-		F4EF0F01260E5BF1003BDDC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4EF0F00260E5BF1003BDDC7 /* Assets.xcassets */; };
 		F4EF0F04260E5BF1003BDDC7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4EF0F02260E5BF1003BDDC7 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -38,13 +35,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0B27DF49AC536FFAB752F8C2 /* Pods-Example Swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example Swift.release.xcconfig"; path = "Target Support Files/Pods-Example Swift/Pods-Example Swift.release.xcconfig"; sourceTree = "<group>"; };
-		10F32882C40AC4C549670446 /* Pods-GiniPayBusinessSDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GiniPayBusinessSDKTests.release.xcconfig"; path = "Target Support Files/Pods-GiniPayBusinessSDKTests/Pods-GiniPayBusinessSDKTests.release.xcconfig"; sourceTree = "<group>"; };
-		322E86B8C4964D3E5FB93080 /* Pods-Example Swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example Swift.debug.xcconfig"; path = "Target Support Files/Pods-Example Swift/Pods-Example Swift.debug.xcconfig"; sourceTree = "<group>"; };
-		3ED4D7325156FB55D48BC04E /* Pods-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.debug.xcconfig"; path = "Target Support Files/Pods-Example/Pods-Example.debug.xcconfig"; sourceTree = "<group>"; };
-		497C29C6C6C884B938373B38 /* Pods-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.release.xcconfig"; path = "Target Support Files/Pods-Example/Pods-Example.release.xcconfig"; sourceTree = "<group>"; };
-		62C13052E07D13AF846DCE1B /* libPods-Example Swift.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Example Swift.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C1AB663DE55C38BDB0B632C7 /* Pods-GiniPayBusinessSDKTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GiniPayBusinessSDKTests.debug.xcconfig"; path = "Target Support Files/Pods-GiniPayBusinessSDKTests/Pods-GiniPayBusinessSDKTests.debug.xcconfig"; sourceTree = "<group>"; };
+		193483D31C5A1CD725FFA8AF /* Pods-GiniPayBusinessSDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GiniPayBusinessSDKTests.release.xcconfig"; path = "Target Support Files/Pods-GiniPayBusinessSDKTests/Pods-GiniPayBusinessSDKTests.release.xcconfig"; sourceTree = "<group>"; };
+		37AD0598801CA9B54A0A8F3C /* libPods-GiniPayBusinessSDKTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GiniPayBusinessSDKTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7109B8AD18AE74FA25C1F75E /* Pods-GiniPayBusinessSDKTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GiniPayBusinessSDKTests.debug.xcconfig"; path = "Target Support Files/Pods-GiniPayBusinessSDKTests/Pods-GiniPayBusinessSDKTests.debug.xcconfig"; sourceTree = "<group>"; };
+		A65B1E49B5854CF88C918432 /* libPods-Example Swift.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Example Swift.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AAB82AEA0147762539C09CA9 /* Pods-Example Swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example Swift.debug.xcconfig"; path = "Target Support Files/Pods-Example Swift/Pods-Example Swift.debug.xcconfig"; sourceTree = "<group>"; };
+		D854B64948AE3ADBA2A11CDB /* Pods-Example Swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example Swift.release.xcconfig"; path = "Target Support Files/Pods-Example Swift/Pods-Example Swift.release.xcconfig"; sourceTree = "<group>"; };
 		F43B0B72260E4D1900B89DF6 /* GiniPayBusinessSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GiniPayBusinessSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F43B0B75260E4D1900B89DF6 /* GiniPayBusinessSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GiniPayBusinessSDK.h; sourceTree = "<group>"; };
 		F43B0B76260E4D1900B89DF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -52,7 +48,6 @@
 		F43B0B80260E4D1900B89DF6 /* GiniPayBusinessSDKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiniPayBusinessSDKTests.swift; sourceTree = "<group>"; };
 		F43B0B82260E4D1900B89DF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F460BFD6260E5390000C760B /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		F460BFD8260E5390000C760B /* GiniPayBusinessSDKTests */ = {isa = PBXFileReference; lastKnownFileType = folder; path = GiniPayBusinessSDKTests; sourceTree = "<group>"; };
 		F4EF0EF5260E5BF1003BDDC7 /* Example Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Example Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4EF0EF7260E5BF1003BDDC7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F4EF0EFB260E5BF1003BDDC7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -60,7 +55,6 @@
 		F4EF0F00260E5BF1003BDDC7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F4EF0F03260E5BF1003BDDC7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F4EF0F05260E5BF1003BDDC7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FCC6306C97B8BF18B680E145 /* libPods-GiniPayBusinessSDKTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GiniPayBusinessSDKTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,7 +70,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F43B0B7C260E4D1900B89DF6 /* GiniPayBusinessSDK.framework in Frameworks */,
-				D9B0B17994E637E667D23704 /* libPods-GiniPayBusinessSDKTests.a in Frameworks */,
+				6A61E34BEF5AF685292632EF /* libPods-GiniPayBusinessSDKTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,17 +78,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA7402864DFADFF312D77D39 /* libPods-Example Swift.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		43446D7724614D5A8DFE6621 /* Frameworks */ = {
+		0C61644CE3A33803D0B123B4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				FCC6306C97B8BF18B680E145 /* libPods-GiniPayBusinessSDKTests.a */,
-				62C13052E07D13AF846DCE1B /* libPods-Example Swift.a */,
+				A65B1E49B5854CF88C918432 /* libPods-Example Swift.a */,
+				37AD0598801CA9B54A0A8F3C /* libPods-GiniPayBusinessSDKTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -102,12 +97,10 @@
 		D0D9DD1EAFB72F1BC1EB9A95 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3ED4D7325156FB55D48BC04E /* Pods-Example.debug.xcconfig */,
-				497C29C6C6C884B938373B38 /* Pods-Example.release.xcconfig */,
-				C1AB663DE55C38BDB0B632C7 /* Pods-GiniPayBusinessSDKTests.debug.xcconfig */,
-				10F32882C40AC4C549670446 /* Pods-GiniPayBusinessSDKTests.release.xcconfig */,
-				322E86B8C4964D3E5FB93080 /* Pods-Example Swift.debug.xcconfig */,
-				0B27DF49AC536FFAB752F8C2 /* Pods-Example Swift.release.xcconfig */,
+				AAB82AEA0147762539C09CA9 /* Pods-Example Swift.debug.xcconfig */,
+				D854B64948AE3ADBA2A11CDB /* Pods-Example Swift.release.xcconfig */,
+				7109B8AD18AE74FA25C1F75E /* Pods-GiniPayBusinessSDKTests.debug.xcconfig */,
+				193483D31C5A1CD725FFA8AF /* Pods-GiniPayBusinessSDKTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -115,14 +108,13 @@
 		F43B0B68260E4D1900B89DF6 = {
 			isa = PBXGroup;
 			children = (
-				F460BFD8260E5390000C760B /* GiniPayBusinessSDKTests */,
 				F460BFD6260E5390000C760B /* Podfile */,
 				F43B0B74260E4D1900B89DF6 /* GiniPayBusinessSDK */,
 				F43B0B7F260E4D1900B89DF6 /* GiniPayBusinessSDKTests */,
 				F4EF0EF6260E5BF1003BDDC7 /* Example Swift */,
 				F43B0B73260E4D1900B89DF6 /* Products */,
 				D0D9DD1EAFB72F1BC1EB9A95 /* Pods */,
-				43446D7724614D5A8DFE6621 /* Frameworks */,
+				0C61644CE3A33803D0B123B4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -174,7 +166,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F43B0B83260E4D1900B89DF6 /* GiniPayBusinessSDK.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,7 +194,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F43B0B89260E4D1900B89DF6 /* Build configuration list for PBXNativeTarget "GiniPayBusinessSDKTests" */;
 			buildPhases = (
-				A59938B643854EDD1CE265D6 /* [CP] Check Pods Manifest.lock */,
+				43F4C8754D6AE1B0459186BF /* [CP] Check Pods Manifest.lock */,
 				F43B0B77260E4D1900B89DF6 /* Sources */,
 				F43B0B78260E4D1900B89DF6 /* Frameworks */,
 				F43B0B79260E4D1900B89DF6 /* Resources */,
@@ -223,9 +214,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F4EF0F06260E5BF1003BDDC7 /* Build configuration list for PBXNativeTarget "Example Swift" */;
 			buildPhases = (
+				8B5DEEECC86B1B5DF14AF6CC /* [CP] Check Pods Manifest.lock */,
 				F4EF0EF1260E5BF1003BDDC7 /* Sources */,
 				F4EF0EF2260E5BF1003BDDC7 /* Frameworks */,
 				F4EF0EF3260E5BF1003BDDC7 /* Resources */,
+				67AB9EC4C485D9964A6A22B6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -282,8 +275,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F460BFDB260E5390000C760B /* GiniPayBusinessSDKTests in Resources */,
-				F460BFD9260E5390000C760B /* Podfile in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,7 +290,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4EF0F04260E5BF1003BDDC7 /* LaunchScreen.storyboard in Resources */,
-				F4EF0F01260E5BF1003BDDC7 /* Assets.xcassets in Resources */,
 				F4EF0EFF260E5BF1003BDDC7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -307,7 +297,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		A59938B643854EDD1CE265D6 /* [CP] Check Pods Manifest.lock */ = {
+		43F4C8754D6AE1B0459186BF /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -323,6 +313,45 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-GiniPayBusinessSDKTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		67AB9EC4C485D9964A6A22B6 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Example Swift/Pods-Example Swift-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Example Swift/Pods-Example Swift-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Example Swift/Pods-Example Swift-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8B5DEEECC86B1B5DF14AF6CC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Example Swift-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -563,7 +592,7 @@
 		};
 		F43B0B8A260E4D1900B89DF6 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C1AB663DE55C38BDB0B632C7 /* Pods-GiniPayBusinessSDKTests.debug.xcconfig */;
+			baseConfigurationReference = 7109B8AD18AE74FA25C1F75E /* Pods-GiniPayBusinessSDKTests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BQY9KX4V88;
@@ -583,7 +612,7 @@
 		};
 		F43B0B8B260E4D1900B89DF6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 10F32882C40AC4C549670446 /* Pods-GiniPayBusinessSDKTests.release.xcconfig */;
+			baseConfigurationReference = 193483D31C5A1CD725FFA8AF /* Pods-GiniPayBusinessSDKTests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BQY9KX4V88;
@@ -603,6 +632,7 @@
 		};
 		F4EF0F07260E5BF1003BDDC7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AAB82AEA0147762539C09CA9 /* Pods-Example Swift.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -623,6 +653,7 @@
 		};
 		F4EF0F08260E5BF1003BDDC7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D854B64948AE3ADBA2A11CDB /* Pods-Example Swift.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

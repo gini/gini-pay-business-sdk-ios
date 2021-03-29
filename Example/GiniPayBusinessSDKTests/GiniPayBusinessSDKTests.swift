@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import GiniPayBusinessSDK
+
 
 class GiniPayBusinessSDKTests: XCTestCase {
 
