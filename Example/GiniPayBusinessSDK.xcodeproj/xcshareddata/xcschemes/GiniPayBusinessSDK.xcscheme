@@ -28,16 +28,6 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F43B0B7A260E4D1900B89DF6"
-               BuildableName = "GiniPayBusinessSDKTests.xctest"
-               BlueprintName = "GiniPayBusinessSDKTests"
-               ReferencedContainer = "container:GiniPayBusinessSDK.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
