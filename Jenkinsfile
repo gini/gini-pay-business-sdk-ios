@@ -28,12 +28,12 @@ pipeline {
     }
     stage('Build') {
       steps {
-        sh 'xcodebuild -workspace Example/GiniPayBusinessSDK.xcworkspace -scheme "Example Swift" -destination \'platform=iOS Simulator,name=iPhone 11\''
+        sh 'xcodebuild -workspace GiniPayBusinessSDK.xcworkspace -scheme "Example Swift" -destination \'platform=iOS Simulator,name=iPhone 11\''
       }
     }
     stage('Unit tests') {
       steps {
-        sh 'xcodebuild test -workspace Example/GiniPayBusinessSDK.xcworkspace -scheme "GiniPayBusinessSDKTests" -destination \'platform=iOS Simulator,name=iPhone 11\''
+        sh 'xcodebuild test -workspace GiniPayBusinessSDK.xcworkspace -scheme "GiniPayBusinessSDKTests" -destination \'platform=iOS Simulator,name=iPhone 11\''
       }
     }
     stage('Documentation') {
