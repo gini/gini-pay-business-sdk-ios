@@ -33,7 +33,7 @@ pipeline {
     }
     stage('Unit tests') {
       steps {
-        sh 'xcodebuild test -workspace Example/GiniPayBusinessSDK.xcworkspace -scheme "GiniPayBusinessSDKTests" -destination \'platform=iOS Simulator,name=iPhone 11\''
+        sh 'xcodebuild test -workspace GiniPayBusinessSDK.xcworkspace -scheme "GiniPayBusiness-Unit-Tests" -destination \'platform=iOS Simulator,name=iPhone 11\''
       }
     }
     stage('Documentation') {
