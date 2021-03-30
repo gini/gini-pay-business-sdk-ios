@@ -1,6 +1,6 @@
 //
-//  GiniPayBank.swift
-//  GiniPayBank
+//  GiniPayBusiness.swift
+//  GiniPayBusiness
 //
 //  Created by Nadya Karaban on 18.02.21.
 //

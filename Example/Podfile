@@ -11,6 +11,10 @@ end
 target 'Example Swift' do
 
     project_pods
+    
+    target 'Example_Tests' do
+        inherit! :search_paths
+    end
 
     target 'GiniPayBusinessSDKTests' do
         inherit! :search_paths
