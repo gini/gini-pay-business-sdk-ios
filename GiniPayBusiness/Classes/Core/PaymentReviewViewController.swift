@@ -24,9 +24,13 @@ public final class PaymentReviewViewController: UIViewController, UIScrollViewDe
             return
         }
         /**
-         Moves the root view up by the distance of keyboard height
+         Moves the root view up by the distance of keyboard height  taking in account safeAreaInsets.bottom
          */
-        view.frame.origin.y = 0 - keyboardSize.height
+        if #available(iOS 11.0, *) {
+            view.frame.origin.y = 0 - keyboardSize.height + view.safeAreaInsets.bottom
+        } else {
+            view.frame.origin.y = 0 - keyboardSize.height
+        }
     }
 
     @objc func keyboardWillHide(notification: NSNotification) {
