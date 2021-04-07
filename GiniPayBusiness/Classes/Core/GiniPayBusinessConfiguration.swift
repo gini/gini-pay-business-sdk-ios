@@ -23,19 +23,24 @@ public final class GiniPayBusinessConfiguration: NSObject {
     
     
     /**
-     Sets the backgroundColor  on the payment revierw screen for pay button
+     Sets the backgroundColor  on the payment review screen for pay button
      */
     @objc public var payButtonBackgroundColor = GiniColor(lightModeColor: .blue, darkModeColor: .blue)
     
     /**
-     Sets the font of the pay button on the payment revierw screen
+     Sets the font of the pay button on the payment review screen
      */
     @objc public var payButtonTextFont = UIFont.systemFont(ofSize: 20, weight: .bold)
     
     /**
-     Sets the text color of the pay button on the payment revierw screen
+     Sets the text color of the pay button on the payment review screen
      */
     @objc public var payButtonTextColor = GiniColor(lightModeColor: .white, darkModeColor: .black)
+    
+    /**
+     Sets the corner radius of the pay button on the payment review screen
+     */
+    @objc public var payButtonCornerRadius = 6.0
     
     /**
      Sets the font used in the Return Assistant screens by default.
