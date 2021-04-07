@@ -6,8 +6,7 @@
 //
 
 import Foundation
-public final class PaymentReviewViewController: UIViewController, UIScrollViewDelegate {
-    var giniPayBusinessConfiguration = GiniPayBusinessConfiguration()
+public final class PaymentReviewViewController: UIViewController {
     @IBOutlet var pageControl: UIPageControl!
     @IBOutlet var recipientField: UITextField!
     @IBOutlet var ibanField: UITextField!
@@ -15,6 +14,59 @@ public final class PaymentReviewViewController: UIViewController, UIScrollViewDe
     @IBOutlet var usageField: UITextField!
     @IBOutlet var payButton: UIButton!
     @IBOutlet var backgroundSV: UIScrollView!
+    @IBOutlet var bottomLayoutContsraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var inputContainer: UIView!
+    @IBOutlet weak var containerCollectionView: UIView!
+    @IBOutlet weak var paymentInfoStackView: UIStackView!
+    
+    @IBOutlet weak var collectionView: UICollectionView!
+    enum TextFieldType: Int {
+        case recipientFieldTag
+        case ibanFieldTag
+        case amountFieldTag
+        case usageFieldTag
+    }
+    
+    var giniPayBusinessConfiguration = GiniPayBusinessConfiguration()
+    
+    fileprivate func configureCollectionView(){
+        collectionView.delegate = self
+        collectionView.dataSource = self
+    }
+    
+    fileprivate func configurePayButton(){
+        payButton.backgroundColor = UIColor.from(giniColor:giniPayBusinessConfiguration.payButtonBackgroundColor )
+        payButton.layer.cornerRadius = 6.0
+        
+    }
+    
+   var thisWidth: CGFloat = 0
+    
+    override public func viewDidLoad() {
+        super.viewDidLoad()
+
+        subscribeOnKeyboardNotifications()
+
+        configureCollectionView()
+        configurePayButton()
+        
+        thisWidth = CGFloat(view.frame.width)
+
+        pageControl.hidesForSinglePage = true
+   }
+    
+    override public func viewDidDisappear(_ animated: Bool) {
+        
+        unsubscribeFromKeyboardNotifications()
+    }
+    
+    override public func viewWillLayoutSubviews() {
+        super .viewWillLayoutSubviews()
+        inputContainer.roundCorners(corners: [.topLeft, .topRight], radius: 12)
+
+    }
+
 
     @objc func keyboardWillShow(notification: NSNotification) {
         guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
@@ -40,7 +92,7 @@ public final class PaymentReviewViewController: UIViewController, UIScrollViewDe
         view.frame.origin.y = 0
     }
 
-    fileprivate func subscribeOnKeyboardNotifications() {
+    func subscribeOnKeyboardNotifications() {
         /**
          Calls the 'keyboardWillShow' function when the view controller receive the notification that a keyboard is going to be shown
          */
@@ -57,15 +109,16 @@ public final class PaymentReviewViewController: UIViewController, UIScrollViewDe
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    override public func viewDidLoad() {
-        super.viewDidLoad()
-
-        subscribeOnKeyboardNotifications()
-    }
-    
-    override public func viewDidDisappear(_ animated: Bool) {
-        
-        unsubscribeFromKeyboardNotifications()
+    fileprivate func showInputFieldError(fieldIdentifier: TextFieldType) {
+        let activeTextField = view.viewWithTag(fieldIdentifier.rawValue) as! UITextField
+        switch fieldIdentifier {
+        case .ibanFieldTag:
+            activeTextField.layer.borderWidth = 1
+            activeTextField.layer.borderColor = UIColor.red.cgColor
+        default:
+            activeTextField.layer.borderWidth = 1
+            activeTextField.layer.borderColor = UIColor.red.cgColor
+        }
     }
 }
 
@@ -76,5 +129,48 @@ extension PaymentReviewViewController: UITextFieldDelegate {
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    public func textFieldDidEndEditing(_ textField: UITextField) {
+        if let fieldIdentifier = TextFieldType(rawValue: textField.tag) {
+            switch fieldIdentifier {
+            case .ibanFieldTag:
+                if let ibanText = textField.text {
+                    if (IBANValidator().isValid(iban: ibanText)) {
+                    } else { showInputFieldError(fieldIdentifier: fieldIdentifier) }
+                } else {
+                    showInputFieldError(fieldIdentifier: fieldIdentifier)
+                }
+            case .amountFieldTag, .recipientFieldTag,.usageFieldTag: break
+            }
+        }
+    }
+}
+
+extension PaymentReviewViewController: UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        1
+    }
+    public func numberOfSections(in collectionView: UICollectionView) -> Int {
+        3
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "pageCellIdentifier", for: indexPath) as! PageCollectionViewCell
+        cell.pageImageView.frame = CGRect(x: 0, y: 0, width: collectionView.frame.width, height: collectionView.frame.height)
+        let image = UIImageNamedPreferred(named: "test")
+        cell.pageImageView.image = image
+        return cell
+    }
+
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let height = collectionView.frame.height
+        let width = collectionView.frame.width
+        return CGSize(width: width, height: height)
+    }
+    
+    //MARK:- For Display the page number in page controll of collection view Cell
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        pageControl.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
     }
 }
