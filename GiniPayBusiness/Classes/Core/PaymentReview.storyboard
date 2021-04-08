@@ -28,7 +28,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="zSd-H8-kmA">
                                                 <rect key="frame" x="16" y="16" width="343" height="172"/>
                                                 <subviews>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Empfänger" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nY6-4z-tMv">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nY6-4z-tMv">
                                                         <rect key="frame" x="0.0" y="0.0" width="343" height="40"/>
                                                         <color key="backgroundColor" red="0.94869893790000004" green="0.95254844429999996" blue="0.96328574420000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
@@ -43,7 +43,7 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="VVv-3T-au1">
                                                         <rect key="frame" x="0.0" y="48" width="343" height="34"/>
                                                         <subviews>
-                                                            <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="IBAN" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QXh-1z-x7c">
+                                                            <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QXh-1z-x7c">
                                                                 <rect key="frame" x="0.0" y="0.0" width="231" height="34"/>
                                                                 <color key="backgroundColor" red="0.94869893790000004" green="0.95254844429999996" blue="0.96328574420000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -52,7 +52,7 @@
                                                                     <outlet property="delegate" destination="QI6-9C-Fdg" id="m7I-0l-hOv"/>
                                                                 </connections>
                                                             </textField>
-                                                            <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0,00 €" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="geq-YB-UG4">
+                                                            <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="geq-YB-UG4">
                                                                 <rect key="frame" x="245" y="0.0" width="98" height="34"/>
                                                                 <color key="backgroundColor" red="0.94869893790000004" green="0.95254844429999996" blue="0.96328574420000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
@@ -66,9 +66,9 @@
                                                             </textField>
                                                         </subviews>
                                                     </stackView>
-                                                    <textField opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Verwendungszweck" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Q26-IJ-H5m">
+                                                    <textField opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Q26-IJ-H5m">
                                                         <rect key="frame" x="0.0" y="90" width="343" height="34"/>
-                                                        <color key="backgroundColor" red="0.94869893790000004" green="0.95254844429999996" blue="0.96328574420000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" keyboardType="alphabet"/>
                                                         <connections>
@@ -78,7 +78,7 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="NlK-Il-yC8">
                                                         <rect key="frame" x="0.0" y="132" width="343" height="40"/>
                                                         <subviews>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j0P-vj-5g4" customClass="GiniView" customModule="GiniPayBusiness" customModuleProvider="target">
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j0P-vj-5g4">
                                                                 <rect key="frame" x="0.0" y="0.0" width="140" height="40"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bank" translatesAutoresizingMaskIntoConstraints="NO" id="ROx-mF-STW">
@@ -96,23 +96,11 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                 </subviews>
-                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstItem="ROx-mF-STW" firstAttribute="leading" secondItem="j0P-vj-5g4" secondAttribute="leading" constant="20" id="43y-qI-xRk"/>
                                                                     <constraint firstItem="ROx-mF-STW" firstAttribute="centerY" secondItem="j0P-vj-5g4" secondAttribute="centerY" id="it6-CF-ehT"/>
                                                                     <constraint firstAttribute="width" constant="140" id="z3C-IU-WjL"/>
                                                                 </constraints>
-                                                                <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                                        <real key="value" value="1"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                        <color key="value" red="0.94869893790000004" green="0.95254844429999996" blue="0.96328574420000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                        <real key="value" value="3"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                </userDefinedRuntimeAttributes>
                                                             </view>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8gp-kV-rnt">
                                                                 <rect key="frame" x="156" y="0.0" width="187" height="40"/>
@@ -205,6 +193,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO"/>
                     <connections>
                         <outlet property="amountField" destination="geq-YB-UG4" id="EiD-o0-BCl"/>
+                        <outlet property="bankProviderButtonView" destination="j0P-vj-5g4" id="BaI-j5-hFv"/>
                         <outlet property="collectionView" destination="VtW-En-y6v" id="Ax4-fE-dDV"/>
                         <outlet property="ibanField" destination="QXh-1z-x7c" id="h9e-5R-vDG"/>
                         <outlet property="inputContainer" destination="ekk-cJ-hxZ" id="u67-4P-g7n"/>
@@ -213,6 +202,10 @@
                         <outlet property="paymentInfoStackView" destination="zSd-H8-kmA" id="PRh-zO-bRo"/>
                         <outlet property="recipientField" destination="nY6-4z-tMv" id="9mh-qO-ACX"/>
                         <outlet property="usageField" destination="Q26-IJ-H5m" id="3Dp-JO-WL4"/>
+                        <outletCollection property="paymentInputFields" destination="nY6-4z-tMv" collectionClass="NSMutableArray" id="IuO-rC-sJh"/>
+                        <outletCollection property="paymentInputFields" destination="QXh-1z-x7c" collectionClass="NSMutableArray" id="n3n-KC-F0H"/>
+                        <outletCollection property="paymentInputFields" destination="geq-YB-UG4" collectionClass="NSMutableArray" id="pGo-FF-Peu"/>
+                        <outletCollection property="paymentInputFields" destination="Q26-IJ-H5m" collectionClass="NSMutableArray" id="bfj-RH-qza"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="veK-zc-MaM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -222,9 +215,6 @@
     </scenes>
     <resources>
         <image name="bank" width="20" height="20"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemIndigoColor">
             <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
