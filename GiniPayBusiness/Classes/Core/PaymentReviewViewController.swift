@@ -16,9 +16,12 @@ public final class PaymentReviewViewController: UIViewController {
     @IBOutlet var backgroundSV: UIScrollView!
     @IBOutlet var bottomLayoutContsraint: NSLayoutConstraint!
     
+    @IBOutlet var paymentInputFields: [UITextField]!
+    @IBOutlet var bankProviderButtonView: UIView!
     @IBOutlet weak var inputContainer: UIView!
     @IBOutlet weak var containerCollectionView: UIView!
     @IBOutlet weak var paymentInfoStackView: UIStackView!
+    
     
     @IBOutlet weak var collectionView: UICollectionView!
     enum TextFieldType: Int {
@@ -35,21 +38,65 @@ public final class PaymentReviewViewController: UIViewController {
         collectionView.dataSource = self
     }
     
+    fileprivate func configureBankProviderView(){
+        bankProviderButtonView.backgroundColor = .white
+        bankProviderButtonView.layer.cornerRadius = 6.0
+        bankProviderButtonView.layer.borderWidth = 1.0
+        bankProviderButtonView.layer.borderColor = UIColor.from(hex: 0xE6E7ED).cgColor
+    }
+    
+    
     fileprivate func configurePayButton(){
         payButton.backgroundColor = UIColor.from(giniColor:giniPayBusinessConfiguration.payButtonBackgroundColor )
-        payButton.layer.cornerRadius = 6.0
-        
+        payButton.layer.cornerRadius = giniPayBusinessConfiguration.payButtonCornerRadius
+    }
+    
+    fileprivate func configurepaymentInputFields(){
+        for field in paymentInputFields {
+            field.borderStyle = .roundedRect
+            field.backgroundColor = UIColor.from(giniColor:giniPayBusinessConfiguration.paymentInputFieldBackgroundColor)
+            field.font = giniPayBusinessConfiguration.paymentInputFieldFont
+            field.textColor = UIColor.from(giniColor:giniPayBusinessConfiguration.paymentInputFieldTextColor)
+            let placeholderText = inputFieldPlaceholderText(field)
+            field.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes:[NSAttributedString.Key.foregroundColor: UIColor.from(giniColor:giniPayBusinessConfiguration.paymentInputFieldPlaceholderTextColor),NSAttributedString.Key.font:giniPayBusinessConfiguration.paymentInputFieldPlaceholderFont])
+        }
+    }
+    
+    fileprivate func inputFieldPlaceholderText(_ textField: UITextField) -> String  {
+            if let fieldIdentifier = TextFieldType(rawValue: textField.tag) {
+                switch fieldIdentifier {
+                case .recipientFieldTag :
+                    return NSLocalizedStringPreferredFormat("ginipaybusiness.reviewscreen.recipient.placeholder",
+                                                            comment: "placeholder text for recipient input field")
+                case .ibanFieldTag:
+                    return NSLocalizedStringPreferredFormat("ginipaybusiness.reviewscreen.iban.placeholder",
+                                                            comment: "placeholder text for iban input field")
+                case .amountFieldTag:
+                    return NSLocalizedStringPreferredFormat("ginipaybusiness.reviewscreen.amount.placeholder",
+                                                            comment: "placeholder text for amount input field")
+                case .usageFieldTag:
+                    return NSLocalizedStringPreferredFormat("ginipaybusiness.reviewscreen.usage.placeholder",
+                                                            comment: "placeholder text for usage input field")
+                }
+            }
+        return ""
     }
     
    var thisWidth: CGFloat = 0
+    
+    fileprivate func congifureUI() {
+        configureCollectionView()
+        configurePayButton()
+        configurepaymentInputFields()
+        configureBankProviderView()
+    }
     
     override public func viewDidLoad() {
         super.viewDidLoad()
 
         subscribeOnKeyboardNotifications()
 
-        configureCollectionView()
-        configurePayButton()
+        congifureUI()
         
         thisWidth = CGFloat(view.frame.width)
 
