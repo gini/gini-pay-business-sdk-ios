@@ -8,18 +8,9 @@
 import Foundation
 
 class PageCollectionViewCell: UICollectionViewCell {
-    // var pageImageView: UIImageView!
 
-//    var data: CustomData? {
-//            didSet {
-//                guard let data = data else { return }
-//                bg.image = data.backgroundImage
-//
-//            }
-//        }
-
-    var pageImageView: UIImageView = {
-        let iv = UIImageView()
+    var pageImageView: ZoomedImageView = {
+        let iv = ZoomedImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.contentMode = .scaleAspectFill
         iv.clipsToBounds = true
