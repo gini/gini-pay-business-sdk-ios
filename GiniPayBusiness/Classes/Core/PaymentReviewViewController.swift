@@ -53,6 +53,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     // MARK: - congifureUI
 
     fileprivate func congifureUI() {
+        configureScreenBackgroundColor()
         configureCollectionView()
         configurePayButton()
         configurePaymentInputFields()
@@ -88,6 +89,13 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     
     fileprivate func configurePageControl() {
         pageControl.hidesForSinglePage = true
+    }
+    
+    fileprivate func configureScreenBackgroundColor() {
+        let screenBackgroundColor = UIColor.from(giniColor:giniPayBusinessConfiguration.paymentScreenBackgroundColor)
+        mainContainerView.backgroundColor = screenBackgroundColor
+        containerCollectionView.backgroundColor = screenBackgroundColor
+        inputContainer.backgroundColor = screenBackgroundColor
     }
     
     // MARK: - Input fields configuration

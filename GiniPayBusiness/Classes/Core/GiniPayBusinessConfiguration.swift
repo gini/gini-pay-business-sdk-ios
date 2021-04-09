@@ -21,6 +21,10 @@ public final class GiniPayBusinessConfiguration: NSObject {
      */
     public override init() {}
     
+    /**
+     Sets the backgroundColor on the payment review screen
+     */
+    @objc public var paymentScreenBackgroundColor = GiniColor(lightModeColor: UIColor.black, darkModeColor: UIColor.black)
     
     /**
      Sets the backgroundColor  on the payment review screen for pay button

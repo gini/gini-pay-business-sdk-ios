@@ -238,7 +238,6 @@
                                         </constraints>
                                     </pageControl>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="iQ0-i0-82S" secondAttribute="bottom" id="9JB-8n-skG"/>
                                     <constraint firstItem="VtW-En-y6v" firstAttribute="leading" secondItem="47Q-Qq-7ja" secondAttribute="leadingMargin" id="KX1-8Q-707"/>
