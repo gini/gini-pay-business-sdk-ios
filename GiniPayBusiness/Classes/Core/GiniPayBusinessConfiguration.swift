@@ -43,6 +43,26 @@ public final class GiniPayBusinessConfiguration: NSObject {
     @objc public var payButtonCornerRadius: CGFloat = 6.0
     
     /**
+     Sets the corner radius of the payment input fields on the payment review screen
+     */
+    @objc public var paymentInputFieldCornerRadius: CGFloat = 6.0
+    
+    /**
+     Sets the border width of the payment input fields on the payment review screen
+     */
+    @objc public var paymentInputFieldBorderWidth: CGFloat = 1.0
+    
+    /**
+     Sets the error style color and error text color for the payment input fields on the payment review screen
+     */
+    @objc public var paymentInputFieldErrorStyleColor = UIColor.red
+    
+    /**
+     Sets the selection style color for the payment input fields on the payment review screen
+     */
+    @objc public var paymentInputFieldSelectionStyleColor = UIColor.blue
+    
+    /**
      Sets the font of the payment input fields on the payment review screen
      */
     @objc public var paymentInputFieldFont = UIFont.systemFont(ofSize: 17, weight: .semibold)
