@@ -9,8 +9,8 @@ import Foundation
 
 class PageCollectionViewCell: UICollectionViewCell {
 
-    var pageImageView: ImageScrollView = {
-        let iv = ImageScrollView()
+    var pageImageView: ZoomedImageView = {
+        let iv = ZoomedImageView()
         iv.setup()
         iv.clipsToBounds = true
         return iv
