@@ -9,10 +9,9 @@ import Foundation
 
 class PageCollectionViewCell: UICollectionViewCell {
 
-    var pageImageView: ZoomedImageView = {
-        let iv = ZoomedImageView()
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.contentMode = .scaleAspectFill
+    var pageImageView: ImageScrollView = {
+        let iv = ImageScrollView()
+        iv.setup()
         iv.clipsToBounds = true
         return iv
     }()
@@ -23,9 +22,6 @@ class PageCollectionViewCell: UICollectionViewCell {
         pageImageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         pageImageView.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
         pageImageView.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
-        pageImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-        pageImageView.heightAnchor.constraint(equalTo: contentView.heightAnchor).isActive = true
-        pageImageView.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
     }
     
     override init(frame: CGRect) {
