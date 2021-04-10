@@ -130,7 +130,22 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
             textField.layer.masksToBounds = true
         }
     }
+    
+    @objc fileprivate func doneWithAmountInputButtonTapped() {
+        view.endEditing(true)
+    }
 
+    fileprivate func addDoneButtonForNumPad(_ textField: UITextField) {
+        let toolbarDone = UIToolbar(frame:CGRect(x:0, y:0, width:view.frame.width, height:40))
+        
+        toolbarDone.sizeToFit()
+        let barBtnDone = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonItem.SystemItem.done,
+                                              target: self, action: #selector(doneWithAmountInputButtonTapped))
+        
+        toolbarDone.items = [barBtnDone]
+        textField.inputAccessoryView = toolbarDone
+    }
+    
     fileprivate func inputFieldPlaceholderText(_ textField: UITextField) -> String {
         if let fieldIdentifier = TextFieldType(rawValue: textField.tag) {
             switch fieldIdentifier {
@@ -141,6 +156,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
                 return NSLocalizedStringPreferredFormat("ginipaybusiness.reviewscreen.iban.placeholder",
                                                         comment: "placeholder text for iban input field")
             case .amountFieldTag:
+                addDoneButtonForNumPad(textField)
                 return NSLocalizedStringPreferredFormat("ginipaybusiness.reviewscreen.amount.placeholder",
                                                         comment: "placeholder text for amount input field")
             case .usageFieldTag:
