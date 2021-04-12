@@ -324,6 +324,9 @@ extension PaymentReviewViewController: UITextFieldDelegate {
 
     public func textFieldDidBeginEditing(_ textField: UITextField) {
         applySelectionStyle(textField)
+        if let fieldIdentifier = TextFieldType(rawValue: textField.tag) {
+            hideErrorLabel(textFieldTag: fieldIdentifier)
+        }
     }
 }
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
