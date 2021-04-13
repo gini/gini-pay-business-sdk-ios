@@ -205,9 +205,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     
     fileprivate func hideErrorLabels() {
         for errorLabel in paymentInputFieldsErrorLabels {
-            UIView.animate(withDuration: 0.3) {
                 errorLabel.isHidden = true
-            }
         }
     }
 
@@ -229,11 +227,9 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
             errorMessage = "usage field required"
         }
         if errorLabel.isHidden {
-            UIView.animate(withDuration: 0.3) {
-                errorLabel.isHidden = false
-                errorLabel.textColor = .red
-                errorLabel.text = errorMessage
-            }
+            errorLabel.isHidden = false
+            errorLabel.textColor = .red
+            errorLabel.text = errorMessage
         }
     }
 
@@ -250,9 +246,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
             errorLabel = usageErrorLabel
         }
         if !errorLabel.isHidden {
-            UIView.animate(withDuration: 0.3) {
-                errorLabel.isHidden = true
-            }
+            errorLabel.isHidden = true
         }
     }
     
