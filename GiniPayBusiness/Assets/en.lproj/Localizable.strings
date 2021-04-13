@@ -1,0 +1,11 @@
+/* 
+  File.strings
+  Pods
+
+  Created by Nadya Karaban on 08.04.21.
+  
+*/
+"ginipaybusiness.reviewscreen.recipient.placeholder"= "Recipient";
+"ginipaybusiness.reviewscreen.iban.placeholder"= "IBAN";
+"ginipaybusiness.reviewscreen.amount.placeholder"= "0,00 €";
+"ginipaybusiness.reviewscreen.usage.placeholder"= "Purpose";
