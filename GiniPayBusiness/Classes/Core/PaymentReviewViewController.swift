@@ -179,7 +179,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
                         hideErrorLabel(textFieldTag: fieldIdentifier)
                     } else {
                         applyErrorStyle(textField)
-                        showErrorLabel(textFieldTag: fieldIdentifier)
+                        showValidationErrorLabel(textFieldTag: fieldIdentifier)
                     }
                 } else {
                     applyErrorStyle(textField)
@@ -225,6 +225,27 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
         case .usageFieldTag:
             errorLabel = usageErrorLabel
             errorMessage = "usage field required"
+        }
+        if errorLabel.isHidden {
+            errorLabel.isHidden = false
+            errorLabel.textColor = .red
+            errorLabel.text = errorMessage
+        }
+    }
+    
+    fileprivate func showValidationErrorLabel(textFieldTag: TextFieldType) {
+        var errorLabel = UILabel()
+        var errorMessage = "field is not valid"
+        switch textFieldTag {
+        case .recipientFieldTag:
+            errorLabel = recipientErrorLabel
+        case .ibanFieldTag:
+            errorLabel = ibanErrorLabel
+            errorMessage = "iban field is not valid"
+        case .amountFieldTag:
+            errorLabel = amountErrorLabel
+        case .usageFieldTag:
+            errorLabel = usageErrorLabel
         }
         if errorLabel.isHidden {
             errorLabel.isHidden = false
