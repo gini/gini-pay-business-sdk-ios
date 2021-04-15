@@ -16,15 +16,15 @@ The Gini Pay Business SDK for iOS provides functionality to upload the multipage
   s.source           = { :git => 'https://github.com/gini/gini-pay-business-sdk-ios.git', :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/gini'
   s.swift_version    = '5.0'
-  s.ios.deployment_target = '10.0'
+  s.ios.deployment_target = '10.2'
   
   s.default_subspec = 'Core'
 
   s.subspec 'Core' do |core|
     core.source_files = 'GiniPayBusiness/Classes/**/*'
     core.resources = 'GiniPayBusiness/Assets/*'
-    core.dependency 'GiniPayApiLib/DocumentsAPI', '>= 1.0.2'
-    core.dependency 'GiniPayApiLib/Pinning', '>= 1.0.2'
+    core.dependency 'GiniPayApiLib/DocumentsAPI', '>= 1.0.3'
+    core.dependency 'GiniPayApiLib/Pinning', '>= 1.0.3'
   end
 
   s.test_spec 'Tests' do |test_spec|
