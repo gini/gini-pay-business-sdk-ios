@@ -26,7 +26,7 @@ public enum GiniPayBusinessError: Error {
         self.paymentService = giniApiLib.paymentService()
     }
     
-    private func getInstalledBankingApps() -> [PaymentProvider] {
+    private func getInstalledBankingApps(completion: @escaping (Result<PaymentProviders, GiniPayBusinessError>) -> Void){
         self.paymentService.paymentProviders { result in
             switch result {
             case let .success(providers):
@@ -39,11 +39,11 @@ public enum GiniPayBusinessError: Error {
                         }
                     }
                 }
+                completion(.success(self.bankProviders))
             case let .failure(error):
-                print(error.localizedDescription)
+                completion(.failure(.apiError(error)))
             }
         }
-        return bankProviders
     }
 
     /**
@@ -51,9 +51,8 @@ public enum GiniPayBusinessError: Error {
      for example to change texts and colors displayed to the user.
      
      */
-    public func checkIfAnyPaymentProviderAvailiable() -> Bool {
-        let installedApps = getInstalledBankingApps()
-        return installedApps.count > 0
+    public func checkIfAnyPaymentProviderAvailiable(completion: @escaping (Result<PaymentProviders, GiniPayBusinessError>) -> Void){
+        getInstalledBankingApps(completion: completion)
     }
     
     /**
@@ -66,5 +65,40 @@ public enum GiniPayBusinessError: Error {
         GiniPayBusinessConfiguration.shared = configuration
     }
     
+    public func getExtractions(docID: String, completion: @escaping (Result<[Extraction], GiniPayBusinessError>) -> Void){
+            documentService.fetchDocument(with: docID) { result in
+                switch result {
+                case let .success(createdDocument):
+                    self.documentService
+                            .extractions(for: createdDocument,
+                                         cancellationToken: CancellationToken()) { result in
+                                DispatchQueue.main.async {
+                                    switch result {
+                                    case let .success(extractionResult):
+                                        completion(.success(extractionResult.extractions))
+                                    case let .failure(error):
+                                        completion(.failure(.apiError(error)))
+                                    }
+                                }
+                            }
+                case let .failure(error):
+                    completion(.failure(.apiError(error)))
+                }
+            }
+        }
+        
+        
+    public func createPaymentRequest(paymentInfo: PaymentInfo, completion: @escaping (Result<String, GiniPayBusinessError>) -> Void) {
+        let selectedPaymentProvider = self.bankProviders[0]
+        paymentService.createPaymentRequest(sourceDocumentLocation: "", paymentProvider: selectedPaymentProvider.id, recipient: paymentInfo.recipient, iban: paymentInfo.iban, bic: "", amount: paymentInfo.amount, purpose: paymentInfo.purpose) { result in
+            switch result {
+            case let .success(requestID):
+                completion(.success(requestID))
+            case let .failure(error):
+                completion(.failure(.apiError(error)))
+            }
+        }
+    }
+        
 }
 
