@@ -1,6 +1,6 @@
 PODS:
-  - GiniPayApiLib/DocumentsAPI (1.0.3)
-  - GiniPayApiLib/Pinning (1.0.3):
+  - GiniPayApiLib/DocumentsAPI (1.0.4)
+  - GiniPayApiLib/Pinning (1.0.4):
     - GiniPayApiLib/DocumentsAPI
     - TrustKit (~> 1.6)
   - GiniPayBusiness (0.0.1):
@@ -26,7 +26,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  GiniPayApiLib: aeed7c3d5b8eb9b2036f04f9c8810d96824e48a9
+  GiniPayApiLib: 66cdbea102186026bfc212155dd2246b7b121fbb
   GiniPayBusiness: ca0f6d37b3a18649158461ff806cd1201f506b87
   TrustKit: 073855e3adecd317417bda4ac9e9ac54a2e3b9f2
 
