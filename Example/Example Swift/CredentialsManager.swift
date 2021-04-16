@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import GiniPayApiLib
 final class CredentialsManager {
 
     class func fetchClientFromBundle() -> Client {
