@@ -20,6 +20,8 @@
 		F463E62326289EFF003B4311 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F463E62126289EFF003B4311 /* Main.storyboard */; };
 		F463E62526289EFF003B4311 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F463E62426289EFF003B4311 /* Assets.xcassets */; };
 		F463E62826289EFF003B4311 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F463E62626289EFF003B4311 /* LaunchScreen.storyboard */; };
+		F463E6F72629D549003B4311 /* CredentialsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F463E6F62629D549003B4311 /* CredentialsManager.swift */; };
+		F463E6FE2629D580003B4311 /* Credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = F463E6FD2629D580003B4311 /* Credentials.plist */; };
 		F48D8F6F26125A72004767E5 /* GiniPayBusinessSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43B0B80260E4D1900B89DF6 /* GiniPayBusinessSDKTests.swift */; };
 		F48D8FF526132B4D004767E5 /* Example_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48D8FF426132B4D004767E5 /* Example_Tests.swift */; };
 		F4B0324E2613341F002210F2 /* testPDF.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F4B0324D2613341F002210F2 /* testPDF.pdf */; };
@@ -79,6 +81,8 @@
 		F463E62426289EFF003B4311 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F463E62726289EFF003B4311 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F463E62926289EFF003B4311 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F463E6F62629D549003B4311 /* CredentialsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsManager.swift; sourceTree = "<group>"; };
+		F463E6FD2629D580003B4311 /* Credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Credentials.plist; sourceTree = "<group>"; };
 		F48D8FF226132B4D004767E5 /* Example_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Example_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F48D8FF426132B4D004767E5 /* Example_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Example_Tests.swift; sourceTree = "<group>"; };
 		F48D8FF626132B4D004767E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -232,6 +236,8 @@
 			isa = PBXGroup;
 			children = (
 				F4EF0EF7260E5BF1003BDDC7 /* AppDelegate.swift */,
+				F463E6F62629D549003B4311 /* CredentialsManager.swift */,
+				F463E6FD2629D580003B4311 /* Credentials.plist */,
 				F4EF0EFB260E5BF1003BDDC7 /* StartViewController.swift */,
 				F463E5D126285FEC003B4311 /* CameraViewController.swift */,
 				F4EF0EFD260E5BF1003BDDC7 /* Main.storyboard */,
@@ -437,6 +443,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4EF0F04260E5BF1003BDDC7 /* LaunchScreen.storyboard in Resources */,
+				F463E6FE2629D580003B4311 /* Credentials.plist in Resources */,
 				F463E5FF262896B3003B4311 /* Assets.xcassets in Resources */,
 				F4EF0EFF260E5BF1003BDDC7 /* Main.storyboard in Resources */,
 			);
@@ -568,6 +575,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F463E6F72629D549003B4311 /* CredentialsManager.swift in Sources */,
 				F4EF0EFC260E5BF1003BDDC7 /* StartViewController.swift in Sources */,
 				F463E5E8262864E6003B4311 /* ImagePicker.swift in Sources */,
 				F4EF0EF8260E5BF1003BDDC7 /* AppDelegate.swift in Sources */,
