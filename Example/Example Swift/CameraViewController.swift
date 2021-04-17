@@ -86,14 +86,29 @@ class CameraViewController: UIViewController {
 }
 
 extension CameraViewController: ImagePickerDelegate {
+    fileprivate func getExtractions(_ documentId: (String)) {
+        //self.docId = documentId
+        self.businessSDK.getExtractions(docId: documentId) { result in
+            switch result {
+            case .success(let extractions):
+                let vc = (UIStoryboard(name: "PaymentReview", bundle: giniPayBusinessBundle())
+                                            .instantiateViewController(withIdentifier: "paymentReviewViewController") as? PaymentReviewViewController)!
+                self.navigationController?.pushViewController(vc, animated: true)
+                print(extractions)
+            case .failure(let error):
+                self.showError(message: error.localizedDescription)
+            }
+        }
+    }
+    
     func didSelect(image: UIImage?) {
         imageView.image = image
         guard let data = image?.jpegData(compressionQuality: 0.2) else { return }
         self.uploadDocument(documentData: data) { result in
             switch result {
             case .success(let documentId):
-                self.docId = documentId
-                print(String(documentId) + "upload")
+                self.getExtractions(documentId)
+                print(String(documentId) + " uploaded")
             case .failure(let error):
                 self.showError(message: error.localizedDescription)
             }
