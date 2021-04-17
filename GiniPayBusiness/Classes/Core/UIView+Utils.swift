@@ -6,40 +6,10 @@
 //
 
 import Foundation
-@IBDesignable class GiniView: UIView {
 
-    @IBInspectable var borderWidth: CGFloat {
-        set {
-            layer.borderWidth = newValue
-        }
-        get {
-            return layer.borderWidth
-        }
-    }
+// MARK: - Adds round corners to any UIView, configurable with UIRectCorner, radius
 
-    @IBInspectable var cornerRadius: CGFloat {
-        set {
-            layer.cornerRadius = newValue
-        }
-        get {
-            return layer.cornerRadius
-        }
-    }
-
-    @IBInspectable var borderColor: UIColor? {
-        set {
-            guard let uiColor = newValue else { return }
-            layer.borderColor = uiColor.cgColor
-        }
-        get {
-            guard let color = layer.borderColor else { return nil }
-            return UIColor(cgColor: color)
-        }
-    }
-}
-
-extension UIView {
-    
+public extension UIView {
     func roundCorners(corners: UIRectCorner, radius: CGFloat) {
         if #available(iOS 11, *) {
             self.clipsToBounds = true
@@ -55,6 +25,55 @@ extension UIView {
             let mask = CAShapeLayer()
             mask.path = path.cgPath
             layer.mask = mask
+        }
+    }
+}
+
+// MARK: - Adds loading indicator to any UIView, configurable with UIActivityIndicatorView.Style, color and scale
+
+public extension UIView {
+    static let loadingViewTag = 1938123987
+    func showLoading(style: UIActivityIndicatorView.Style = .whiteLarge, color: UIColor? = .orange, scale: CGFloat? = 1.0) {
+        var loading = viewWithTag(UIView.loadingViewTag) as? UIActivityIndicatorView
+        if loading == nil {
+            loading = UIActivityIndicatorView(style: style)
+        }
+        if let color = color {
+            loading?.color = color
+        }
+        loading?.contentScaleFactor = scale ?? 1.0
+        loading?.translatesAutoresizingMaskIntoConstraints = false
+        loading!.startAnimating()
+        loading!.hidesWhenStopped = true
+        loading?.tag = UIView.loadingViewTag
+        addSubview(loading!)
+        loading?.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        loading?.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+    }
+
+    func stopLoading() {
+        let loading = viewWithTag(UIView.loadingViewTag) as? UIActivityIndicatorView
+
+        loading?.stopAnimating()
+        loading?.removeFromSuperview()
+    }
+}
+
+// MARK: - Adds Blur effect to any UIView, configurable with UIBlurEffect.Style
+
+public extension UIView {
+    func applyBlurEffect(style: UIBlurEffect.Style? = .regular) {
+        let blurEffect = UIBlurEffect(style: style ?? .regular)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        addSubview(blurEffectView)
+    }
+
+    func removeBlurEffect() {
+        let blurredEffectViews = subviews.filter { $0 is UIVisualEffectView }
+        blurredEffectViews.forEach { blurView in
+            blurView.removeFromSuperview()
         }
     }
 }
