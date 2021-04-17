@@ -47,8 +47,9 @@ public enum GiniPayBusinessError: Error {
     }
 
     /**
-     Checks if there are any banking app which support Gini Pay fuctionaly installed
-     for example to change texts and colors displayed to the user.
+     Checks if there are any banking app which support Gini Pay functionaly installed.
+     
+     - parameter completion: An action for processing asynchronous data received from the service with Result type as a paramater. Result is a value that represents either a success or a failure, including an associated value in each case. In success case it includes array of payment providers, in case of failure error that there are no supported banking apps installed.
      
      */
     public func checkIfAnyPaymentProviderAvailiable(completion: @escaping (Result<PaymentProviders, GiniPayBusinessError>) -> Void){
@@ -60,13 +61,21 @@ public enum GiniPayBusinessError: Error {
      for example to change texts and colors displayed to the user.
      
      - parameter configuration: The configuration to set.
+     
      */
     public func setConfiguration(_ configuration: GiniPayBusinessConfiguration) {
         GiniPayBusinessConfiguration.shared = configuration
     }
     
-    public func getExtractions(docID: String, completion: @escaping (Result<[Extraction], GiniPayBusinessError>) -> Void){
-            documentService.fetchDocument(with: docID) { result in
+    /**
+     Get extractions for the document.
+     
+     - parameter docId: id of the uploaded document.
+     - parameter completion: An action for processing asynchronous data received from the service with Result type as a paramater. Result is a value that represents either a success or a failure, including an associated value in each case. In success case it includes array of extractions, in case of failure in case of failure error from the server side.
+     
+     */
+    public func getExtractions(docId: String, completion: @escaping (Result<[Extraction], GiniPayBusinessError>) -> Void){
+            documentService.fetchDocument(with: docId) { result in
                 switch result {
                 case let .success(createdDocument):
                     self.documentService
@@ -87,18 +96,40 @@ public enum GiniPayBusinessError: Error {
             }
         }
         
-        
+    /**
+     Creates a payment request
+     
+     - parameter docId: id of the uploaded document.
+     - parameter completion: An action for processing asynchronous data received from the service with Result type as a paramater. Result is a value that represents either a success or a failure, including an associated value in each case. In success it includes id of the payment request, in case of failure error from the server side.
+     
+     */
     public func createPaymentRequest(paymentInfo: PaymentInfo, completion: @escaping (Result<String, GiniPayBusinessError>) -> Void) {
         let selectedPaymentProvider = self.bankProviders[0]
         paymentService.createPaymentRequest(sourceDocumentLocation: "", paymentProvider: selectedPaymentProvider.id, recipient: paymentInfo.recipient, iban: paymentInfo.iban, bic: "", amount: paymentInfo.amount, purpose: paymentInfo.purpose) { result in
             switch result {
             case let .success(requestID):
-                completion(.success(requestID))
+                self.openPaymentProviderApp(requestID: requestID, appScheme: selectedPaymentProvider.appSchemeIOS)
             case let .failure(error):
                 completion(.failure(.apiError(error)))
             }
         }
     }
-        
+    
+    /**
+     Opens an app of selected payment provider
+     
+     - parameter requestID: id of the created payment request.
+     - parameter appScheme: app scheme for the selected payment provider
+     
+     */
+    //ginipay-ingdiba://payment?id=1
+    public func openPaymentProviderApp(requestID: String, appScheme: String) {
+        let queryItems = [URLQueryItem(name: "id", value: requestID)]
+        let urlString = appScheme + "://payment"
+        var urlComponents = URLComponents(string: urlString)!
+        urlComponents.queryItems = queryItems
+        let resultUrl = urlComponents.url!
+        UIApplication.shared.open(resultUrl, options: [:], completionHandler: nil)
+    }
 }
 

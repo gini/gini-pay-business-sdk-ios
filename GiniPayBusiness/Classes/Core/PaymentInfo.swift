@@ -10,4 +10,5 @@ public struct PaymentInfo {
     public var recipient,iban: String
     public var bic: String
     public var amount, purpose: String
+    public var paymentProviderScheme: String
 }
