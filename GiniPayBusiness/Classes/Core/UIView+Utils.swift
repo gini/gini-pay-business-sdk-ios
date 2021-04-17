@@ -32,30 +32,31 @@ public extension UIView {
 // MARK: - Adds loading indicator to any UIView, configurable with UIActivityIndicatorView.Style, color and scale
 
 public extension UIView {
-    static let loadingViewTag = 1938123987
     func showLoading(style: UIActivityIndicatorView.Style = .whiteLarge, color: UIColor? = .orange, scale: CGFloat? = 1.0) {
-        var loading = viewWithTag(UIView.loadingViewTag) as? UIActivityIndicatorView
-        if loading == nil {
-            loading = UIActivityIndicatorView(style: style)
-        }
+        let loading = UIActivityIndicatorView(style: style)
         if let color = color {
-            loading?.color = color
+            loading.color = color
         }
-        loading?.contentScaleFactor = scale ?? 1.0
-        loading?.translatesAutoresizingMaskIntoConstraints = false
-        loading!.startAnimating()
-        loading!.hidesWhenStopped = true
-        loading?.tag = UIView.loadingViewTag
-        addSubview(loading!)
-        loading?.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        loading?.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        loading.contentScaleFactor = scale ?? 1.0
+        loading.translatesAutoresizingMaskIntoConstraints = false
+        loading.startAnimating()
+        loading.hidesWhenStopped = true
+        addSubview(loading)
+        loading.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        loading.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
     }
 
     func stopLoading() {
-        let loading = viewWithTag(UIView.loadingViewTag) as? UIActivityIndicatorView
-
-        loading?.stopAnimating()
-        loading?.removeFromSuperview()
+        removeActivityIndicator()
+    }
+    
+    func removeActivityIndicator() {
+        let activityIndicators = subviews.filter { $0 is UIActivityIndicatorView } as? [UIActivityIndicatorView]
+        
+        activityIndicators?.forEach { activityIndicator in
+            activityIndicator.stopAnimating()
+            activityIndicator.removeFromSuperview()
+        }
     }
 }
 
