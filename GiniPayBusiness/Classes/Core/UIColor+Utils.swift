@@ -6,7 +6,7 @@
 //
 
 import Foundation
-extension UIColor {
+public extension UIColor {
     static func from(giniColor: GiniColor) -> UIColor {
         if #available(iOS 13, *) {
             return UIColor { (UITraitCollection: UITraitCollection) -> UIColor in
