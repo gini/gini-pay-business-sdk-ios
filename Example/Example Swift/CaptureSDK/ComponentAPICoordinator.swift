@@ -614,14 +614,11 @@ extension ComponentAPICoordinator {
     }
 }
 
-// MARK: Handle analysis results
+// MARK: Handle analysis results open PaymentReviewView screen
 
 extension ComponentAPICoordinator {
     
     fileprivate func handleAnalysis(with extractions: [Extraction]) {
-//        let payFive = ["paymentReference", "iban", "paymentReference", "amountToPay"]
-//        let hasPayFive = extractions.filter { $0.name != nil ? payFive.contains($0.name!) : false }.count > 0
-       print(extractions)
         let vc = PaymentReviewViewController.instantiate(with: extractions, previewImages: [])
         navigationController.pushViewController(vc , animated: true)
     }
