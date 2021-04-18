@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import GiniPayApiLib
 public final class PaymentReviewViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet var pageControl: UIPageControl!
     @IBOutlet var recipientField: UITextField!
@@ -25,11 +26,22 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     @IBOutlet var paymentInfoStackView: UIStackView!
     @IBOutlet weak var mainContainerView: UIView!
     @IBOutlet var collectionView: UICollectionView!
+    var previewImages: [Data] = []
+    var extractions: [Extraction] = []
+    
     enum TextFieldType: Int {
         case recipientFieldTag = 1
         case ibanFieldTag
         case amountFieldTag
         case usageFieldTag
+    }
+    
+    public static func instantiate(with extractions: [Extraction], previewImages: [Data]) -> PaymentReviewViewController {
+        let vc = (UIStoryboard(name: "PaymentReview", bundle: giniPayBusinessBundle())
+            .instantiateViewController(withIdentifier: "paymentReviewViewController") as? PaymentReviewViewController)!
+        vc.previewImages = previewImages
+        vc.extractions = extractions
+        return vc
     }
 
     var giniPayBusinessConfiguration = GiniPayBusinessConfiguration()
@@ -60,6 +72,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
         configureBankProviderView()
         configurePageControl()
         hideErrorLabels()
+        fillInInputFields()
     }
 
     // MARK: - TODO ConfigureBankProviderView Dynamically configured
@@ -89,6 +102,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     
     fileprivate func configurePageControl() {
         pageControl.hidesForSinglePage = true
+        pageControl.numberOfPages = previewImages.count
     }
     
     fileprivate func configureScreenBackgroundColor() {
@@ -132,15 +146,17 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     }
     
     @objc fileprivate func doneWithAmountInputButtonTapped() {
+        let price = Price.init(value: Decimal(string:amountField.text ?? "") ?? 0, currencyCode: "EUR")
+        amountField.text = price.string
         view.endEditing(true)
     }
 
-    fileprivate func addDoneButtonForNumPad(_ textField: UITextField) {
+     func addDoneButtonForNumPad(_ textField: UITextField) {
         let toolbarDone = UIToolbar(frame:CGRect(x:0, y:0, width:view.frame.width, height:40))
         
         toolbarDone.sizeToFit()
         let barBtnDone = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonItem.SystemItem.done,
-                                              target: self, action: #selector(doneWithAmountInputButtonTapped))
+                                              target: self, action: #selector(PaymentReviewViewController.doneWithAmountInputButtonTapped))
         
         toolbarDone.items = [barBtnDone]
         textField.inputAccessoryView = toolbarDone
@@ -186,7 +202,10 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
                     showErrorLabel(textFieldTag: fieldIdentifier)
                 }
             case .amountFieldTag:
-                if textField.hasText {
+                
+                let price = Price.init(value: Decimal(string:textField.text ?? "") ?? 0, currencyCode: "EUR")
+                amountField.text = price.string
+                if (Decimal(string: price.stringWithoutSymbol ?? "") ?? 0 > 0) && textField.hasText {
                     applyDefaultStyle(textField)
                     hideErrorLabel(textFieldTag: fieldIdentifier)
                 } else {
@@ -215,6 +234,16 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
         for errorLabel in paymentInputFieldsErrorLabels {
                 errorLabel.isHidden = true
         }
+    }
+    
+    fileprivate func fillInInputFields() {
+        recipientField.text = extractions.first(where: {$0.name == "paymentRecipient"})?.value
+        ibanField.text = extractions.first(where: {$0.name == "iban"})?.value
+        usageField.text = extractions.first(where: {$0.name == "paymentPurpose"})?.value
+        let amountString = extractions.first(where: {$0.name == "amountToPay"})?.value
+
+        let price = Price.init(extractionString: amountString ?? "0.00:EUR")
+        amountField.text = price?.string
     }
 
     fileprivate func showErrorLabel(textFieldTag: TextFieldType) {
