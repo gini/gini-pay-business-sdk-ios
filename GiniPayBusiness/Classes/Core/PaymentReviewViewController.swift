@@ -185,8 +185,16 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
                     applyErrorStyle(textField)
                     showErrorLabel(textFieldTag: fieldIdentifier)
                 }
-            case .amountFieldTag, .recipientFieldTag, .usageFieldTag:
+            case .amountFieldTag:
                 if textField.hasText {
+                    applyDefaultStyle(textField)
+                    hideErrorLabel(textFieldTag: fieldIdentifier)
+                } else {
+                    applyErrorStyle(textField)
+                    showErrorLabel(textFieldTag: fieldIdentifier)
+                }
+            case .recipientFieldTag, .usageFieldTag:
+                if textField.hasText && !textField.isReallyEmpty {
                     applyDefaultStyle(textField)
                     hideErrorLabel(textFieldTag: fieldIdentifier)
                 } else {
