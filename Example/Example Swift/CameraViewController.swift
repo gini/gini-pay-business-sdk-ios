@@ -10,7 +10,7 @@ import GiniPayBusiness
 import Photos
 import UIKit
 
-class CameraViewController: UIViewController {
+class DefaultCameraViewController: UIViewController {
     @IBOutlet var imageView: UIImageView!
     var apiLib: GiniApiLib!
     var imagePicker: ImagePicker!
@@ -85,8 +85,8 @@ class CameraViewController: UIViewController {
     }
 }
 
-extension CameraViewController: ImagePickerDelegate {
-    fileprivate func getExtractions(_ documentId: (String)) {
+extension DefaultCameraViewController: ImagePickerDelegate {
+    fileprivate func getExtractions(_ documentId: String) {
         //self.docId = documentId
         self.businessSDK.getExtractions(docId: documentId) { result in
             switch result {
@@ -95,6 +95,17 @@ extension CameraViewController: ImagePickerDelegate {
                                             .instantiateViewController(withIdentifier: "paymentReviewViewController") as? PaymentReviewViewController)!
                 self.navigationController?.pushViewController(vc, animated: true)
                 print(extractions)
+            case .failure(let error):
+                self.showError(message: error.localizedDescription)
+            }
+        }
+    }
+    
+    func getPreviewImages(document: Document) {
+        self.businessSDK.documentService.pages(in: document) { result in
+            switch result{
+            case .success(let pages):
+            print(pages)
             case .failure(let error):
                 self.showError(message: error.localizedDescription)
             }
@@ -113,5 +124,6 @@ extension CameraViewController: ImagePickerDelegate {
                 self.showError(message: error.localizedDescription)
             }
         }
+//        businessSDK.openPaymentProviderApp(requestID: "testID", appScheme: "ginipay-ingdiba")
     }
 }
