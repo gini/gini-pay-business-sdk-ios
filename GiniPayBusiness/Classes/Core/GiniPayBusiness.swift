@@ -6,57 +6,65 @@
 //
 
 import Foundation
+import GiniPayApiLib
+
+public enum GiniPayBusinessError: Error {
+    case noInstalledApps
+    case apiError(GiniError)
+}
 
 @objc public final class GiniPayBusiness: NSObject {
-}
-
-public func giniPayBusinessBundle() -> Bundle {
-    Bundle(for: GiniPayBusiness.self)
-}
-
-/**
- Returns an optional `UIImage` instance with the given `name` preferably from the client's bundle.
- 
- - parameter name: The name of the image file without file extension.
- 
- - returns: Image if found with name.
- */
-func UIImageNamedPreferred(named name: String) -> UIImage? {
-    if let clientImage = UIImage(named: name) {
-        return clientImage
-    }
-    return UIImage(named: name, in: giniPayBusinessBundle(), compatibleWith: nil)
-}
-
-/**
- Returns a localized string resource preferably from the client's bundle.
- 
- - parameter key:     The key to search for in the strings file.
- - parameter comment: The corresponding comment.
- 
- - returns: String resource for the given key.
- */
-func NSLocalizedStringPreferredFormat(_ key: String,
-                                      fallbackKey: String = "",
-                                      comment: String,
-                                      isCustomizable: Bool = true) -> String {
-    let clientString = NSLocalizedString(key, comment: comment)
-    let fallbackClientString = NSLocalizedString(fallbackKey, comment: comment)
-    let format: String
-    if (clientString.lowercased() != key.lowercased() || fallbackClientString.lowercased() != fallbackKey.lowercased())
-        && isCustomizable {
-        format = clientString
-    } else {
-        let bundle = giniPayBusinessBundle()
-
-        var defaultFormat = NSLocalizedString(key, bundle: bundle, comment: comment)
-        
-        if defaultFormat.lowercased() == key.lowercased() {
-            defaultFormat = NSLocalizedString(fallbackKey, bundle: bundle, comment: comment)
-        }
-        
-        format = defaultFormat
+    
+    public var giniApiLib: GiniApiLib
+    public var documentService: DefaultDocumentService
+    public var paymentService: PaymentService
+    private var bankProviders: [PaymentProvider] = []
+    
+    public init(with giniApiLib: GiniApiLib){
+        self.giniApiLib = giniApiLib
+        self.documentService = giniApiLib.documentService()
+        self.paymentService = giniApiLib.paymentService()
     }
     
-    return format
+    private func getInstalledBankingApps() -> [PaymentProvider] {
+        self.paymentService.paymentProviders { result in
+            switch result {
+            case let .success(providers):
+                for provider in providers {
+                    DispatchQueue.main.async {
+                        if let url = URL(string: provider.appSchemeIOS) {
+                            if UIApplication.shared.canOpenURL(url) {
+                                self.bankProviders.append(provider)
+                            }
+                        }
+                    }
+                }
+            case let .failure(error):
+                print(error.localizedDescription)
+            }
+        }
+        return bankProviders
+    }
+
+    /**
+     Checks if there are any banking app which support Gini Pay fuctionaly installed
+     for example to change texts and colors displayed to the user.
+     
+     */
+    public func checkIfAnyPaymentProviderAvailiable() -> Bool {
+        let installedApps = getInstalledBankingApps()
+        return installedApps.count > 0
+    }
+    
+    /**
+     Sets a configuration which is used to customize the look of the Gini Pay Business SDK,
+     for example to change texts and colors displayed to the user.
+     
+     - parameter configuration: The configuration to set.
+     */
+    public func setConfiguration(_ configuration: GiniPayBusinessConfiguration) {
+        GiniPayBusinessConfiguration.shared = configuration
+    }
+    
 }
+
