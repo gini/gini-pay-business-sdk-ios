@@ -153,7 +153,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
         let screenBackgroundColor = UIColor.from(giniColor:giniPayBusinessConfiguration.paymentScreenBackgroundColor)
         mainContainerView.backgroundColor = screenBackgroundColor
         containerCollectionView.backgroundColor = screenBackgroundColor
-        inputContainer.backgroundColor = screenBackgroundColor
+        inputContainer.backgroundColor = UIColor.from(giniColor:giniPayBusinessConfiguration.inputFieldsContainerBackgroundColor)
     }
     
     // MARK: - Input fields configuration

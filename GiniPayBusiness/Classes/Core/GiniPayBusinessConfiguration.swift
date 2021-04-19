@@ -29,6 +29,11 @@ public final class GiniPayBusinessConfiguration: NSObject {
     /**
      Sets the backgroundColor  on the payment review screen for pay button
      */
+    @objc public var inputFieldsContainerBackgroundColor = GiniColor(lightModeColor: UIColor.white, darkModeColor: UIColor.white)
+    
+    /**
+     Sets the backgroundColor  on the payment review screen for pay button
+     */
     @objc public var payButtonBackgroundColor = GiniColor(lightModeColor: UIColor.from(hex:0xFF6800), darkModeColor: UIColor.from(hex:0xFF6800))
     
     /**
