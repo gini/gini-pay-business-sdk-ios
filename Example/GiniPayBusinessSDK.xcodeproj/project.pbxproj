@@ -22,11 +22,19 @@
 		F463E62826289EFF003B4311 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F463E62626289EFF003B4311 /* LaunchScreen.storyboard */; };
 		F463E6F72629D549003B4311 /* CredentialsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F463E6F62629D549003B4311 /* CredentialsManager.swift */; };
 		F463E6FE2629D580003B4311 /* Credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = F463E6FD2629D580003B4311 /* Credentials.plist */; };
+		F463E7052629ED23003B4311 /* UIViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F463E7042629ED23003B4311 /* UIViewController+Utils.swift */; };
+		F463E75F262C5639003B4311 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F463E755262C5638003B4311 /* AppCoordinator.swift */; };
+		F463E761262C5639003B4311 /* ComponentAPICoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F463E757262C5638003B4311 /* ComponentAPICoordinator.swift */; };
+		F463E762262C5639003B4311 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F463E758262C5639003B4311 /* UIViewController.swift */; };
+		F463E764262C5639003B4311 /* PartialDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = F463E75A262C5639003B4311 /* PartialDocument.swift */; };
+		F463E765262C5639003B4311 /* ComponentAPIDocumentsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F463E75B262C5639003B4311 /* ComponentAPIDocumentsService.swift */; };
+		F463E766262C5639003B4311 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F463E75C262C5639003B4311 /* Coordinator.swift */; };
+		F463E767262C5639003B4311 /* SelectAPIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F463E75D262C5639003B4311 /* SelectAPIViewController.swift */; };
+		F463E768262C5639003B4311 /* ComponentAPIDocumentServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F463E75E262C5639003B4311 /* ComponentAPIDocumentServiceProtocol.swift */; };
 		F48D8F6F26125A72004767E5 /* GiniPayBusinessSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43B0B80260E4D1900B89DF6 /* GiniPayBusinessSDKTests.swift */; };
 		F48D8FF526132B4D004767E5 /* Example_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48D8FF426132B4D004767E5 /* Example_Tests.swift */; };
 		F4B0324E2613341F002210F2 /* testPDF.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F4B0324D2613341F002210F2 /* testPDF.pdf */; };
 		F4EF0EF8260E5BF1003BDDC7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EF0EF7260E5BF1003BDDC7 /* AppDelegate.swift */; };
-		F4EF0EFC260E5BF1003BDDC7 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EF0EFB260E5BF1003BDDC7 /* StartViewController.swift */; };
 		F4EF0EFF260E5BF1003BDDC7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4EF0EFD260E5BF1003BDDC7 /* Main.storyboard */; };
 		F4EF0F04260E5BF1003BDDC7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4EF0F02260E5BF1003BDDC7 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -83,13 +91,21 @@
 		F463E62926289EFF003B4311 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F463E6F62629D549003B4311 /* CredentialsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsManager.swift; sourceTree = "<group>"; };
 		F463E6FD2629D580003B4311 /* Credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Credentials.plist; sourceTree = "<group>"; };
+		F463E7042629ED23003B4311 /* UIViewController+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Utils.swift"; sourceTree = "<group>"; };
+		F463E755262C5638003B4311 /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppCoordinator.swift; path = CaptureSDK/AppCoordinator.swift; sourceTree = "<group>"; };
+		F463E757262C5638003B4311 /* ComponentAPICoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ComponentAPICoordinator.swift; path = CaptureSDK/ComponentAPICoordinator.swift; sourceTree = "<group>"; };
+		F463E758262C5639003B4311 /* UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIViewController.swift; path = CaptureSDK/UIViewController.swift; sourceTree = "<group>"; };
+		F463E75A262C5639003B4311 /* PartialDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PartialDocument.swift; path = CaptureSDK/PartialDocument.swift; sourceTree = "<group>"; };
+		F463E75B262C5639003B4311 /* ComponentAPIDocumentsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ComponentAPIDocumentsService.swift; path = CaptureSDK/ComponentAPIDocumentsService.swift; sourceTree = "<group>"; };
+		F463E75C262C5639003B4311 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Coordinator.swift; path = CaptureSDK/Coordinator.swift; sourceTree = "<group>"; };
+		F463E75D262C5639003B4311 /* SelectAPIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SelectAPIViewController.swift; path = CaptureSDK/SelectAPIViewController.swift; sourceTree = "<group>"; };
+		F463E75E262C5639003B4311 /* ComponentAPIDocumentServiceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ComponentAPIDocumentServiceProtocol.swift; path = CaptureSDK/ComponentAPIDocumentServiceProtocol.swift; sourceTree = "<group>"; };
 		F48D8FF226132B4D004767E5 /* Example_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Example_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F48D8FF426132B4D004767E5 /* Example_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Example_Tests.swift; sourceTree = "<group>"; };
 		F48D8FF626132B4D004767E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F4B0324D2613341F002210F2 /* testPDF.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = testPDF.pdf; sourceTree = "<group>"; };
 		F4EF0EF5260E5BF1003BDDC7 /* Example Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Example Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4EF0EF7260E5BF1003BDDC7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F4EF0EFB260E5BF1003BDDC7 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		F4EF0EFE260E5BF1003BDDC7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F4EF0F00260E5BF1003BDDC7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F4EF0F03260E5BF1003BDDC7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -235,11 +251,19 @@
 		F4EF0EF6260E5BF1003BDDC7 /* Example Swift */ = {
 			isa = PBXGroup;
 			children = (
+				F463E755262C5638003B4311 /* AppCoordinator.swift */,
+				F463E757262C5638003B4311 /* ComponentAPICoordinator.swift */,
+				F463E75E262C5639003B4311 /* ComponentAPIDocumentServiceProtocol.swift */,
+				F463E75B262C5639003B4311 /* ComponentAPIDocumentsService.swift */,
+				F463E75C262C5639003B4311 /* Coordinator.swift */,
+				F463E75A262C5639003B4311 /* PartialDocument.swift */,
+				F463E75D262C5639003B4311 /* SelectAPIViewController.swift */,
+				F463E758262C5639003B4311 /* UIViewController.swift */,
 				F4EF0EF7260E5BF1003BDDC7 /* AppDelegate.swift */,
 				F463E6F62629D549003B4311 /* CredentialsManager.swift */,
 				F463E6FD2629D580003B4311 /* Credentials.plist */,
-				F4EF0EFB260E5BF1003BDDC7 /* StartViewController.swift */,
 				F463E5D126285FEC003B4311 /* CameraViewController.swift */,
+				F463E7042629ED23003B4311 /* UIViewController+Utils.swift */,
 				F4EF0EFD260E5BF1003BDDC7 /* Main.storyboard */,
 				F4EF0F00260E5BF1003BDDC7 /* Assets.xcassets */,
 				F4EF0F02260E5BF1003BDDC7 /* LaunchScreen.storyboard */,
@@ -575,11 +599,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F463E765262C5639003B4311 /* ComponentAPIDocumentsService.swift in Sources */,
 				F463E6F72629D549003B4311 /* CredentialsManager.swift in Sources */,
-				F4EF0EFC260E5BF1003BDDC7 /* StartViewController.swift in Sources */,
+				F463E768262C5639003B4311 /* ComponentAPIDocumentServiceProtocol.swift in Sources */,
+				F463E761262C5639003B4311 /* ComponentAPICoordinator.swift in Sources */,
+				F463E762262C5639003B4311 /* UIViewController.swift in Sources */,
+				F463E766262C5639003B4311 /* Coordinator.swift in Sources */,
+				F463E7052629ED23003B4311 /* UIViewController+Utils.swift in Sources */,
+				F463E767262C5639003B4311 /* SelectAPIViewController.swift in Sources */,
 				F463E5E8262864E6003B4311 /* ImagePicker.swift in Sources */,
+				F463E764262C5639003B4311 /* PartialDocument.swift in Sources */,
 				F4EF0EF8260E5BF1003BDDC7 /* AppDelegate.swift in Sources */,
 				F463E5D226285FEC003B4311 /* CameraViewController.swift in Sources */,
+				F463E75F262C5639003B4311 /* AppCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

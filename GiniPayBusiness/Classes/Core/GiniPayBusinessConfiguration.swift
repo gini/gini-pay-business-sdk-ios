@@ -104,4 +104,8 @@ public final class GiniPayBusinessConfiguration: NSObject {
                                                                       thin: UIFont.systemFont(ofSize: 14,
                                                                                               weight: .thin),
                                                                       isEnabled: false)
+    /**
+     Sets the color of the loading indicator on the review  screen to the specified color.
+     */
+    @objc public var loadingIndicatorColor = UIColor.orange
 }

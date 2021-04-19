@@ -24,7 +24,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>net.gini.ginipay_ingdiba</string>
+			<string>net.gini.ginipay-ingdiba</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>ginipay-ingdiba</string>
