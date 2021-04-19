@@ -11,4 +11,6 @@ public struct PaymentInfo {
     public var bic: String
     public var amount, purpose: String
     public var paymentProviderScheme: String
+    public var paymentProviderId: String
+
 }
