@@ -27,19 +27,19 @@ public enum GiniPayBusinessError: Error {
     }
     
     private func getInstalledBankingApps(completion: @escaping (Result<PaymentProviders, GiniPayBusinessError>) -> Void){
-        self.paymentService.paymentProviders { result in
+        paymentService.paymentProviders { result in
             switch result {
             case let .success(providers):
                 for provider in providers {
                     DispatchQueue.main.async {
-                        if let url = URL(string: provider.appSchemeIOS) {
+                        if let url = URL(string:provider.appSchemeIOS) {
                             if UIApplication.shared.canOpenURL(url) {
                                 self.bankProviders.append(provider)
                             }
                         }
+                        completion(.success(self.bankProviders))
                     }
                 }
-                completion(.success(self.bankProviders))
             case let .failure(error):
                 completion(.failure(.apiError(error)))
             }
@@ -53,7 +53,7 @@ public enum GiniPayBusinessError: Error {
      
      */
     public func checkIfAnyPaymentProviderAvailiable(completion: @escaping (Result<PaymentProviders, GiniPayBusinessError>) -> Void){
-        getInstalledBankingApps(completion: completion)
+        self.getInstalledBankingApps(completion: completion)
     }
     
     /**
@@ -104,11 +104,10 @@ public enum GiniPayBusinessError: Error {
      
      */
     public func createPaymentRequest(paymentInfo: PaymentInfo, completion: @escaping (Result<String, GiniPayBusinessError>) -> Void) {
-        let selectedPaymentProvider = self.bankProviders[0]
-        paymentService.createPaymentRequest(sourceDocumentLocation: "", paymentProvider: selectedPaymentProvider.id, recipient: paymentInfo.recipient, iban: paymentInfo.iban, bic: "", amount: paymentInfo.amount, purpose: paymentInfo.purpose) { result in
+        paymentService.createPaymentRequest(sourceDocumentLocation: "", paymentProvider: paymentInfo.paymentProviderId, recipient: paymentInfo.recipient, iban: paymentInfo.iban, bic: "", amount: paymentInfo.amount, purpose: paymentInfo.purpose) { result in
             switch result {
             case let .success(requestID):
-                self.openPaymentProviderApp(requestID: requestID, appScheme: selectedPaymentProvider.appSchemeIOS)
+                self.openPaymentProviderApp(requestID: requestID, appScheme: paymentInfo.paymentProviderScheme)
             case let .failure(error):
                 completion(.failure(.apiError(error)))
             }
@@ -122,14 +121,40 @@ public enum GiniPayBusinessError: Error {
      - parameter appScheme: app scheme for the selected payment provider
      
      */
-    //ginipay-ingdiba://payment?id=1
+    //ginipay-providername://payment?id=1
     public func openPaymentProviderApp(requestID: String, appScheme: String) {
         let queryItems = [URLQueryItem(name: "id", value: requestID)]
         let urlString = appScheme + "://payment"
         var urlComponents = URLComponents(string: urlString)!
         urlComponents.queryItems = queryItems
         let resultUrl = urlComponents.url!
-        UIApplication.shared.open(resultUrl, options: [:], completionHandler: nil)
+        DispatchQueue.main.async {
+            UIApplication.shared.open(resultUrl, options: [:], completionHandler: nil)
+        }
+    }
+    
+    /**
+     Sets a data for review screen
+     
+     - parameter document: Uploaded document.
+     - parameter completion: An action for processing asynchronous data received from the service with Result type as a paramater. Result is a value that represents either a success or a failure, including an associated value in each case. In success it includes array of extractions,, in case of failure error from the server side.
+     
+     */
+    public func setDocumentForReview(document: Document, completion: @escaping (Result<[Extraction], GiniPayBusinessError>) -> Void) {
+        documentService.fetchDocument(with: document.id) { result in
+            switch result {
+            case .success(let document):
+                self.getExtractions(docId: document.id) { result in
+                    switch result{
+                    case .success(let extractions):
+                        completion(.success(extractions))
+                    case .failure(let error):
+                        completion(.failure(error))
+                    }
+                }
+            case .failure(let error):
+                completion(.failure(.apiError(error)))
+            }
+        }
     }
 }
-
