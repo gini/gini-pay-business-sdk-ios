@@ -7,6 +7,7 @@
 
 import Foundation
 import GiniPayApiLib
+
 public final class PaymentReviewViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet var pageControl: UIPageControl!
     @IBOutlet var recipientField: UITextField!
@@ -26,8 +27,12 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     @IBOutlet var paymentInfoStackView: UIStackView!
     @IBOutlet weak var mainContainerView: UIView!
     @IBOutlet var collectionView: UICollectionView!
+    
+    var model: PaymentReviewModel?
     var previewImages: [Data] = []
-    var extractions: [Extraction] = []
+   // var extractions: [Extraction] = []
+   // var document: Document?
+    var paymentProviders: [PaymentProvider] = []
     
     enum TextFieldType: Int {
         case recipientFieldTag = 1
@@ -36,11 +41,11 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
         case usageFieldTag
     }
     
-    public static func instantiate(with extractions: [Extraction], previewImages: [Data]) -> PaymentReviewViewController {
+    public static func instantiate(with apiLib: GiniApiLib, document: Document, extractions: [Extraction]) -> PaymentReviewViewController {
         let vc = (UIStoryboard(name: "PaymentReview", bundle: giniPayBusinessBundle())
             .instantiateViewController(withIdentifier: "paymentReviewViewController") as? PaymentReviewViewController)!
-        vc.previewImages = previewImages
-        vc.extractions = extractions
+        vc.model = PaymentReviewModel(with: apiLib, docId: document.id, extractions: extractions )
+        
         return vc
     }
 
@@ -48,9 +53,48 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     
     override public func viewDidLoad() {
         super.viewDidLoad()
-
         subscribeOnKeyboardNotifications()
         congifureUI()
+
+        model?.checkIfAnyPaymentProviderAvailiable { result in
+            switch result {
+            case let .success(providers):
+                DispatchQueue.main.async {
+                    self.paymentProviders.append(contentsOf: providers)
+                }
+            case let .failure(error):
+                DispatchQueue.main.async {
+                    self.showError(message: error.localizedDescription)
+                }
+            }
+        }
+        model?.onExtractionFetched = { [weak self] () in
+            DispatchQueue.main.async {
+                self?.fillInInputFields()
+            }
+        }
+        
+            self.model?.fetchImages(completion: { result in
+                switch result {
+                case  let .success(images):
+                    DispatchQueue.main.async {
+                        self.previewImages.append(contentsOf: images)
+                        self.collectionView.reloadData()
+                    }
+                case let .failure(error):
+                    DispatchQueue.main.async {
+                        self.showError(message: error.localizedDescription)
+                    }
+                }
+            })
+        
+        
+        
+//        model?.onPreviewImagesFetched = { [weak self] () in
+//            DispatchQueue.main.async {
+//                self?.collectionView.reloadData()
+//            }
+//        }
     }
 
     override public func viewDidDisappear(_ animated: Bool) {
@@ -102,7 +146,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     
     fileprivate func configurePageControl() {
         pageControl.hidesForSinglePage = true
-        pageControl.numberOfPages = previewImages.count
+        pageControl.numberOfPages = model?.document?.pageCount ?? 1
     }
     
     fileprivate func configureScreenBackgroundColor() {
@@ -237,10 +281,10 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     }
     
     fileprivate func fillInInputFields() {
-        recipientField.text = extractions.first(where: {$0.name == "paymentRecipient"})?.value
-        ibanField.text = extractions.first(where: {$0.name == "iban"})?.value
-        usageField.text = extractions.first(where: {$0.name == "paymentPurpose"})?.value
-        let amountString = extractions.first(where: {$0.name == "amountToPay"})?.value
+        recipientField.text = model?.extractions.first(where: {$0.name == "paymentRecipient"})?.value
+        ibanField.text = model?.extractions.first(where: {$0.name == "iban"})?.value
+        usageField.text = model?.extractions.first(where: {$0.name == "paymentPurpose"})?.value
+        let amountString = model?.extractions.first(where: {$0.name == "amountToPay"})?.value
 
         let price = Price.init(extractionString: amountString ?? "0.00:EUR")
         amountField.text = price?.string
@@ -310,8 +354,42 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     
     // MARK: - IBAction
 
+    fileprivate func addLoadingIndicatorWithBlurView() {
+        view.applyBlurEffect()
+        view.showLoading()
+    }
+    
+    fileprivate func removeLoadingIndicatorAndBlurView() {
+        view.stopLoading()
+        view.removeBlurEffect()
+    }
+    
     @IBAction func payButtonClicked(_ sender: Any) {
         validateAllInputFields()
+        
+        //check if no errors labels are shown
+        if (paymentInputFieldsErrorLabels.allSatisfy { $0.isHidden }) {
+            let amountText = amountField.text ?? ""
+            if let selectedPaymentProvider = paymentProviders.first {
+                let paymentInfo = PaymentInfo(recipient: recipientField.text ?? "", iban: ibanField.text ?? "", bic: "", amount: amountText, purpose: usageField.text ?? "", paymentProviderScheme: selectedPaymentProvider.appSchemeIOS, paymentProviderId: selectedPaymentProvider.id)
+                
+                addLoadingIndicatorWithBlurView()
+                
+                model?.createPaymentRequest(paymentInfo: paymentInfo) { result in
+                    switch result {
+                    case let .success(requestId):
+                        DispatchQueue.main.async {
+                            self.model?.openPaymentProviderApp(requestId: requestId, appScheme: paymentInfo.paymentProviderScheme)
+                        }
+                    case let .failure(error):
+                        DispatchQueue.main.async {
+                            self.showError(message: error.localizedDescription)
+                        }
+                    }
+                }
+                removeLoadingIndicatorAndBlurView()
+            }
+        }
     }
     
     // MARK: - Keyboard handling
@@ -389,13 +467,13 @@ extension PaymentReviewViewController: UICollectionViewDelegate, UICollectionVie
     }
 
     public func numberOfSections(in collectionView: UICollectionView) -> Int {
-        3
+        model?.document?.pageCount ?? 1
     }
 
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "pageCellIdentifier", for: indexPath) as! PageCollectionViewCell
         cell.pageImageView.frame = CGRect(x: 0, y: 0, width: collectionView.frame.width, height: collectionView.frame.height)
-        let image = UIImageNamedPreferred(named: "test")
+        let image = UIImage()
         cell.pageImageView.display(image: image ?? UIImage())
         return cell
     }
@@ -411,5 +489,17 @@ extension PaymentReviewViewController: UICollectionViewDelegate, UICollectionVie
 
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         pageControl.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
+    }
+    
+}
+
+extension PaymentReviewViewController {
+    func showError(_ title: String? = nil, message: String) {
+        let alertController = UIAlertController(title: title,
+                                                message: message,
+                                                preferredStyle: .alert)
+        let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(OKAction)
+        present(alertController, animated: true, completion: nil)
     }
 }

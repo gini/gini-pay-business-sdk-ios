@@ -15,7 +15,7 @@ public class PaymentReviewModel: NSObject {
 
     public var onExtractionFetched: () -> () = {}
     public var onExtractionUpdated: () -> () = {}
-    public var onPreviewImagesFetched: () -> () = {}
+    //public var onPreviewImagesFetched: () -> () = {}
 
 
     public var document: Document? {
@@ -24,27 +24,22 @@ public class PaymentReviewModel: NSObject {
         }
     }
     
-    public var providers: PaymentProviders? {
-        didSet {
-            self.onDocumentUpdated()
-        }
-    }
+    public var providers: PaymentProviders = []
     
-    public var extractions: [Extraction] {
-        didSet {
-            self.onExtractionFetched()
-        }
-    }
 //    public var previewImages: [Data] {
 //        didSet {
 //            self.onPreviewImagesFetched()
 //        }
 //    }
     
+    public var extractions: [Extraction] {
+        didSet {
+            self.onExtractionFetched()
+        }
+    }
+    
     public var documentId: String
     private var businessSDK: GiniPayBusiness
-   // private var providers: PaymentProviders?
-   // private(set) var dataSource = GenericDataSource<ReviewCellModel>()
 
     
     public init(with giniApiLib: GiniApiLib, docId: String, extractions: [Extraction] ){
@@ -58,6 +53,7 @@ public class PaymentReviewModel: NSObject {
         businessSDK.documentService.fetchDocument(with: self.documentId) { result in
             switch result{
             case .success(let document):
+                self.document = document
                 self.fetchExtractions(docId: document.id) { result in
                     switch result{
                     case .success(let extractions):
@@ -87,7 +83,7 @@ public class PaymentReviewModel: NSObject {
         businessSDK.checkIfAnyPaymentProviderAvailiable { result in
             switch result {
             case .success(let providers):
-                self.providers?.append(contentsOf: providers)
+                self.providers.append(contentsOf: providers)
                 completion(.success(providers))
             case .failure(let error):
                 completion(.failure(error))
@@ -118,4 +114,23 @@ public class PaymentReviewModel: NSObject {
     public func openPaymentProviderApp(requestId: String, appScheme: String){
         businessSDK.openPaymentProviderApp(requestID: requestId, appScheme:appScheme)
     }
+    
+    public func fetchImages(completion: @escaping (Result< [Data], GiniPayBusinessError>) -> Void){
+//        businessSDK.documentService.fetchDocument(with: self.documentId) { result in
+//            switch result{
+//            case .success(let document):
+//                self.businessSDK.documentService.pagePreview(for: document, pageNumber: 1, size: Document.Page.Size.big) { result in
+//                    switch result {
+//                    case let .success(dataImage):
+//                        completion(.success([dataImage]))
+//                    case let .failure(error):
+//                        completion(.failure(.apiError(error)))
+//                    }
+//                }
+//            case .failure(let error):
+//                completion(.failure(.apiError(error)))
+//            }
+//        }
+        }
+
 }
