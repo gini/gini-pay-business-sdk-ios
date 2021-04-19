@@ -23,9 +23,9 @@ final class ComponentAPICoordinator: NSObject, Coordinator {
     var rootViewController: UIViewController {
         return self.componentAPITabBarController
     }
-    
     fileprivate var documentService: ComponentAPIDocumentServiceProtocol?
     fileprivate var pages: [GiniCapturePage]
+    fileprivate var apiLib: GiniApiLib
     // When there was an error uploading a document or analyzing it and the analysis screen
     // had not been initialized yet, both the error message and action has to be saved to show in the analysis screen.
     fileprivate var analysisErrorAndAction: (message: String, action: () -> Void)?
@@ -76,10 +76,12 @@ final class ComponentAPICoordinator: NSObject, Coordinator {
     
     init(pages: [GiniCapturePage],
          configuration: GiniConfiguration,
-         documentService: ComponentAPIDocumentServiceProtocol) {
+         documentService: ComponentAPIDocumentServiceProtocol,
+         giniApiLib: GiniApiLib) {
         self.pages = pages
         self.giniConfiguration = configuration
         self.documentService = documentService
+        self.apiLib = giniApiLib
         super.init()
         
         GiniCapture.setConfiguration(configuration)
@@ -279,13 +281,14 @@ extension ComponentAPICoordinator {
     }
     
     fileprivate func startAnalysis() {
-        documentService?.startAnalysis(completion: { result in
+        let giniApiLib = self.apiLib
+        documentService?.startAnalysis(completion: { doc, result   in
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 switch result {
                 case .success(let extractions):
-                    self.handleAnalysis(with: extractions)
-                case .failure(let error):
+                    self.handleAnalysis(document: doc!, apiLib: giniApiLib, extractions: extractions)
+                case .failure( _):
                     self.showErrorInAnalysisScreen(with: AnalysisError.unknown.message) {
                         self.startAnalysis()
                     }
@@ -614,12 +617,12 @@ extension ComponentAPICoordinator {
     }
 }
 
-// MARK: Handle analysis results open PaymentReviewView screen
+// MARK: GiniPayBusiness SDK Handle analysis results open PaymentReviewView screen
 
 extension ComponentAPICoordinator {
     
-    fileprivate func handleAnalysis(with extractions: [Extraction]) {
-        let vc = PaymentReviewViewController.instantiate(with: extractions, previewImages: [])
+    fileprivate func handleAnalysis(document: Document, apiLib: GiniApiLib, extractions: [Extraction]?) {
+        let vc = PaymentReviewViewController.instantiate(with: apiLib, document: document, extractions: extractions ?? [])
         navigationController.pushViewController(vc , animated: true)
     }
 }

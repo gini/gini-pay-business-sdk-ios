@@ -16,7 +16,6 @@ final class AppCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     fileprivate let window: UIWindow
     fileprivate var screenAPIViewController: UIViewController?
-    
     var rootViewController: UIViewController {
         return selectAPIViewController
     }
@@ -50,6 +49,8 @@ final class AppCoordinator: Coordinator {
     }()
     
     private lazy var client: Client = CredentialsManager.fetchClientFromBundle()
+    lazy var apiLib = GiniApiLib.Builder(client: client).build()
+
     private var documentMetadata: Document.Metadata?
     private let documentMetadataBranchId = "GiniPayBusinessExampleIOS"
     private let documentMetadataAppFlowKey = "AppFlow"
@@ -103,7 +104,7 @@ final class AppCoordinator: Coordinator {
     fileprivate func showComponentAPI(with pages: [GiniCapturePage]? = nil) {
         let componentAPICoordinator = ComponentAPICoordinator(pages: pages ?? [],
                                                               configuration: giniConfiguration,
-                                                              documentService: componentAPIDocumentService())
+                                                              documentService: componentAPIDocumentService(), giniApiLib: self.apiLib)
         componentAPICoordinator.delegate = self
         componentAPICoordinator.start()
         add(childCoordinator: componentAPICoordinator)
@@ -112,11 +113,10 @@ final class AppCoordinator: Coordinator {
     }
     
     fileprivate func componentAPIDocumentService() -> ComponentAPIDocumentServiceProtocol {
-        let lib = GiniApiLib.Builder(client: client).build()
         
         documentMetadata = Document.Metadata(branchId: documentMetadataBranchId,
                                              additionalHeaders: [documentMetadataAppFlowKey: "ComponentAPI"])
-        return ComponentAPIDocumentsService(lib: lib, documentMetadata: documentMetadata)
+        return ComponentAPIDocumentsService(lib: apiLib, documentMetadata: documentMetadata)
     }
     
     

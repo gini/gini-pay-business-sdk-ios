@@ -22,7 +22,7 @@ enum CustomAnalysisError: GiniCaptureError {
 
 typealias ComponentAPIUploadDocumentCompletion = (Result<Document, GiniError>) -> Void
 typealias ComponentAPIAnalysisCompletion = (Result<[Extraction], GiniError>) -> Void
-typealias ComponentAPIAnalysisBusinessSDKCompletion = (Result<[Extraction], GiniPayBusinessError>) -> Void
+typealias ComponentAPIAnalysisBusinessSDKCompletion = (_ document: Document?, Result<[Extraction], GiniPayBusinessError>) -> Void
 
 protocol ComponentAPIDocumentServiceProtocol: class {
     

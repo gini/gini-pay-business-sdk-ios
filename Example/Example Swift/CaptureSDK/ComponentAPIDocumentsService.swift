@@ -17,12 +17,12 @@ final class ComponentAPIDocumentsService: ComponentAPIDocumentServiceProtocol {
     var analysisCancellationToken: CancellationToken?
     var metadata: Document.Metadata?
     var documentService: DefaultDocumentService
-    
+    var apiLib: GiniApiLib
     var businessSDK: GiniPayBusiness!
-
     
     init(lib: GiniApiLib, documentMetadata: Document.Metadata?) {
         self.metadata = documentMetadata
+        self.apiLib = lib
         self.businessSDK = GiniPayBusiness(with: lib)
         self.documentService = businessSDK.documentService
     }
@@ -160,12 +160,13 @@ extension ComponentAPIDocumentsService {
                                 switch result {
                                 case .success(let createdDocument):
                                     print("🔎 Starting analysis for composite document with id \(createdDocument.id)")
-   
+// MARK: GiniPayBusiness SDK
+
 // Call from Business SDK getExtractions for document ID
-                                    self.getExtractions(for: createdDocument.id, completion:completion)
+                                    self.getDataForReviewScreen(for: createdDocument, completion:completion)
                                 case .failure(let error):
                                     print("❌ Composite document creation failed: \(error)")
-                                    completion(.failure(.apiError(error)))
+                                    completion(nil, .failure(.apiError(error)))
                                 }
         }
 
@@ -173,36 +174,15 @@ extension ComponentAPIDocumentsService {
 
     
     
-    fileprivate func getExtractions(for documentId: String, completion: @escaping ComponentAPIAnalysisBusinessSDKCompletion){
-        self.businessSDK.getExtractions(docId: documentId) { result in
+    fileprivate func getDataForReviewScreen(for document: Document, completion: @escaping ComponentAPIAnalysisBusinessSDKCompletion){
+        self.businessSDK.setDocumentForReview(document: document) { result in
             switch result {
             case .success(let extractions):
                 print("✅ Finished analysis process with no errors")
-                completion(.success(extractions))
+                completion(document, .success(extractions))
             case .failure(let error):
-                completion(.failure(error))
+                completion(document, .failure(error))
             }
         }
     }
-    
-//    func handleResults(completion: @escaping ComponentAPIAnalysisBusinessSDKCompletion){ result in
-//            switch result {
-//            case .success(let extractions):
-//                print("✅ Finished analysis process with no errors")
-//                completion(.success(extractions))
-//            case .failure(let error):
-//                switch error {
-//                case .requestCancelled:
-//                    print("❌ Cancelled analysis process")
-//                default:
-//                    print("❌ Finished analysis process with error: \(error)")
-//                }
-//            }
-//        }
-//
-//    }
-    
-//    func handleExtraction(completion: @ComponentAPIAnalysisBusinessSDKCompletion) -> <#return type#> {
-//        <#function body#>
-//    }
 }

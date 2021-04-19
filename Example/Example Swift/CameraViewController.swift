@@ -124,6 +124,5 @@ extension DefaultCameraViewController: ImagePickerDelegate {
                 self.showError(message: error.localizedDescription)
             }
         }
-//        businessSDK.openPaymentProviderApp(requestID: "testID", appScheme: "ginipay-ingdiba")
     }
 }
