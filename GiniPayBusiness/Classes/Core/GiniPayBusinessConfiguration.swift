@@ -113,4 +113,16 @@ public final class GiniPayBusinessConfiguration: NSObject {
      Sets the color of the loading indicator on the review  screen to the specified color.
      */
     @objc public var loadingIndicatorColor = UIColor.orange
+    
+    /**
+     Sets the style of the loading indicator on the review screen.
+     */
+    @objc public var loadingIndicatorStyle: UIActivityIndicatorView.Style = .whiteLarge
+    
+    /**
+     Sets the scale of the loading indicator on the review screen.
+     */
+    @objc public var loadingIndicatorScale: CGFloat = 1.0
+    
+
 }

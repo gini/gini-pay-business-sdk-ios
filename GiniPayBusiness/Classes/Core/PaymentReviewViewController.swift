@@ -75,10 +75,10 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
         }
         
         model?.updateLoadingStatus = { [weak self] () in
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
                 let isLoading = self?.model?.isLoading ?? false
                 if isLoading {
-                    self?.collectionView.showLoading()
+                    self?.collectionView.showLoading(style: self?.giniPayBusinessConfiguration.loadingIndicatorStyle, color: self?.giniPayBusinessConfiguration.loadingIndicatorColor, scale: self?.giniPayBusinessConfiguration.loadingIndicatorScale)
                 } else {
                     self?.collectionView.stopLoading()
                 }
