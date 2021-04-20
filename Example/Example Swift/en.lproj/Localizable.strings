@@ -5,7 +5,5 @@
   Created by Nadya Karaban on 20.04.21.
   
 */
-"ginipaybusiness.reviewscreen.recipient.placeholder"= "1";
-"ginipaybusiness.reviewscreen.iban.placeholder"= "2";
-"ginipaybusiness.reviewscreen.amount.placeholder"= "0,00 €";
-"ginipaybusiness.reviewscreen.usage.placeholder"= "3";
+//"ginipaybusiness.reviewscreen.recipient.placeholder"= "";
+
