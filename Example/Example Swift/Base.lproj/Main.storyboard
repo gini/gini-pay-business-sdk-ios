@@ -63,6 +63,7 @@
         <!--Navigation Controller-->
         <scene sceneID="IX7-l6-jVW">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1kN-Wt-IGZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ABg-VY-jIt" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="R3b-VM-WGi">
@@ -74,7 +75,6 @@
                         <segue destination="ke8-GC-OOz" kind="relationship" relationship="rootViewController" id="u6C-qP-H3t"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1kN-Wt-IGZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-368.11594202898556" y="-585.26785714285711"/>
         </scene>
@@ -91,22 +91,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gij-CQ-qxk">
-                                <rect key="frame" x="99.5" y="389.5" width="121" height="40"/>
+                                <rect key="frame" x="140" y="389.5" width="40" height="40"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="pXg-UT-9n3"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                                <state key="normal" title="Component API">
+                                <state key="normal" title="Start">
                                     <color key="titleColor" red="0.0" green="0.61960784310000006" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                        <integer key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
-                                        <color key="value" red="0.0" green="0.61960784310000006" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
@@ -115,9 +109,9 @@
                                     <action selector="launchComponentAPI:" destination="xwN-oG-9wR" eventType="touchUpInside" id="Mwc-19-HRr"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Example" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uvF-Po-65Z">
-                                <rect key="frame" x="119.5" y="259.5" width="81" height="24"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GiniPayBusiness SDK Example" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uvF-Po-65Z">
+                                <rect key="frame" x="62" y="259.5" width="196" height="16"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dg1-Xb-4HA">
@@ -133,7 +127,7 @@
                                     <action selector="launchSettings:" destination="xwN-oG-9wR" eventType="touchUpInside" id="UuH-PE-V5C"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="capture_logo" translatesAutoresizingMaskIntoConstraints="NO" id="32R-Rd-rp4">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="business_logo" translatesAutoresizingMaskIntoConstraints="NO" id="32R-Rd-rp4">
                                 <rect key="frame" x="48" y="100" width="224" height="143.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="32R-Rd-rp4" secondAttribute="height" multiplier="25:16" id="Ujb-OZ-DAN"/>
@@ -201,7 +195,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="capture_logo" width="1168" height="392"/>
+        <image name="business_logo" width="392" height="130.66667175292969"/>
         <image name="emptyDoc" width="95" height="90"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
