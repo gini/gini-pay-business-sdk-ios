@@ -29,9 +29,6 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     @IBOutlet var collectionView: UICollectionView!
     
     var model: PaymentReviewModel?
-    var previewImages: [Data] = []
-   // var extractions: [Extraction] = []
-   // var document: Document?
     var paymentProviders: [PaymentProvider] = []
     
     enum TextFieldType: Int {
@@ -44,7 +41,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     public static func instantiate(with apiLib: GiniApiLib, document: Document, extractions: [Extraction]) -> PaymentReviewViewController {
         let vc = (UIStoryboard(name: "PaymentReview", bundle: giniPayBusinessBundle())
             .instantiateViewController(withIdentifier: "paymentReviewViewController") as? PaymentReviewViewController)!
-        vc.model = PaymentReviewModel(with: apiLib, docId: document.id, extractions: extractions )
+        vc.model = PaymentReviewModel(with: apiLib, document: document, extractions: extractions )
         
         return vc
     }
@@ -55,16 +52,19 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
         super.viewDidLoad()
         subscribeOnKeyboardNotifications()
         congifureUI()
-
-        model?.checkIfAnyPaymentProviderAvailiable { result in
+        setupViewModel()
+    }
+    
+    fileprivate func setupViewModel() {
+        model?.checkIfAnyPaymentProviderAvailiable {[weak self] result in
             switch result {
             case let .success(providers):
                 DispatchQueue.main.async {
-                    self.paymentProviders.append(contentsOf: providers)
+                    self?.paymentProviders.append(contentsOf: providers)
                 }
             case let .failure(error):
                 DispatchQueue.main.async {
-                    self.showError(message: error.localizedDescription)
+                    self?.showError(message: error.localizedDescription)
                 }
             }
         }
@@ -74,27 +74,38 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
             }
         }
         
-            self.model?.fetchImages(completion: { result in
-                switch result {
-                case  let .success(images):
-                    DispatchQueue.main.async {
-                        self.previewImages.append(contentsOf: images)
-                        self.collectionView.reloadData()
-                    }
-                case let .failure(error):
-                    DispatchQueue.main.async {
-                        self.showError(message: error.localizedDescription)
-                    }
+        model?.updateLoadingStatus = { [weak self] () in
+            DispatchQueue.main.async {
+                let isLoading = self?.model?.isLoading ?? false
+                if isLoading {
+                    self?.collectionView.showLoading()
+                    self?.collectionView.alpha = 0.0
+                } else {
+                    self?.collectionView.stopLoading()
+                    self?.collectionView.alpha = 1.0
                 }
-            })
+            }
+        }
+            
+       model?.reloadCollectionViewClosure = { [weak self] () in
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }
+        }
         
+        model?.onPreviewImagesFetched = { [weak self] () in
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }
+        }
         
+        model?.onErrorHandling = {[weak self] error in
+            DispatchQueue.main.async {
+                self?.showError(message: error.localizedDescription)
+            }
+        }
         
-//        model?.onPreviewImagesFetched = { [weak self] () in
-//            DispatchQueue.main.async {
-//                self?.collectionView.reloadData()
-//            }
-//        }
+        model?.fetchImages()
     }
 
     override public func viewDidDisappear(_ animated: Bool) {
@@ -146,7 +157,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     
     fileprivate func configurePageControl() {
         pageControl.hidesForSinglePage = true
-        pageControl.numberOfPages = model?.document?.pageCount ?? 1
+        pageControl.numberOfPages = model?.document.pageCount ?? 1
     }
     
     fileprivate func configureScreenBackgroundColor() {
@@ -462,19 +473,18 @@ extension PaymentReviewViewController: UITextFieldDelegate {
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
 
 extension PaymentReviewViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        1
-    }
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int { 1 }
 
     public func numberOfSections(in collectionView: UICollectionView) -> Int {
-        model?.document?.pageCount ?? 1
+        model?.numberOfCells ?? 1
     }
 
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "pageCellIdentifier", for: indexPath) as! PageCollectionViewCell
         cell.pageImageView.frame = CGRect(x: 0, y: 0, width: collectionView.frame.width, height: collectionView.frame.height)
-        let image = UIImage()
-        cell.pageImageView.display(image: image ?? UIImage())
+        
+        let cellModel = model?.getCellViewModel(at: indexPath)
+        cell.pageImageView.display(image: cellModel?.preview ?? UIImage())
         return cell
     }
     // MARK: - UICollectionViewDelegateFlowLayout
