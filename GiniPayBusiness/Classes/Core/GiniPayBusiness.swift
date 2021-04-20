@@ -136,12 +136,12 @@ public enum GiniPayBusinessError: Error {
     /**
      Sets a data for review screen
      
-     - parameter document: Uploaded document.
+     - parameter documentId: Id of uploaded document.
      - parameter completion: An action for processing asynchronous data received from the service with Result type as a paramater. Result is a value that represents either a success or a failure, including an associated value in each case. In success it includes array of extractions,, in case of failure error from the server side.
      
      */
-    public func setDocumentForReview(document: Document, completion: @escaping (Result<[Extraction], GiniPayBusinessError>) -> Void) {
-        documentService.fetchDocument(with: document.id) { result in
+    public func setDocumentForReview(documentId: String, completion: @escaping (Result<[Extraction], GiniPayBusinessError>) -> Void) {
+        documentService.fetchDocument(with: documentId) { result in
             switch result {
             case .success(let document):
                 self.getExtractions(docId: document.id) { result in

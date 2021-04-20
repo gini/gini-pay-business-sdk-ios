@@ -175,7 +175,7 @@ extension ComponentAPIDocumentsService {
     
     
     fileprivate func getDataForReviewScreen(for document: Document, completion: @escaping ComponentAPIAnalysisBusinessSDKCompletion){
-        self.businessSDK.setDocumentForReview(document: document) { result in
+        self.businessSDK.setDocumentForReview(documentId: document.id) { result in
             switch result {
             case .success(let extractions):
                 print("✅ Finished analysis process with no errors")
