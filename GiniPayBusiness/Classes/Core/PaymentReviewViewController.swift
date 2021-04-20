@@ -46,7 +46,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
         return vc
     }
 
-    var giniPayBusinessConfiguration = GiniPayBusinessConfiguration()
+    var giniPayBusinessConfiguration = GiniPayBusinessConfiguration.shared
     
     override public func viewDidLoad() {
         super.viewDidLoad()
