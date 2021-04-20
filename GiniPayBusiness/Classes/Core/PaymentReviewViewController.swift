@@ -79,10 +79,8 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
                 let isLoading = self?.model?.isLoading ?? false
                 if isLoading {
                     self?.collectionView.showLoading()
-                    self?.collectionView.alpha = 0.0
                 } else {
                     self?.collectionView.stopLoading()
-                    self?.collectionView.alpha = 1.0
                 }
             }
         }
