@@ -2,8 +2,8 @@ PODS:
   - GiniCapture (1.0.1):
     - GiniCapture/Core (= 1.0.1)
   - GiniCapture/Core (1.0.1)
-  - GiniPayApiLib/DocumentsAPI (1.0.4)
-  - GiniPayApiLib/Pinning (1.0.4):
+  - GiniPayApiLib/DocumentsAPI (1.0.5)
+  - GiniPayApiLib/Pinning (1.0.5):
     - GiniPayApiLib/DocumentsAPI
     - TrustKit (~> 1.6)
   - GiniPayBusiness (0.0.1):
@@ -32,7 +32,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   GiniCapture: 2585e8110cb6135416b3f375f50bef8bb28715d4
-  GiniPayApiLib: 66cdbea102186026bfc212155dd2246b7b121fbb
+  GiniPayApiLib: 8b98db27a196d6b91a90f18c24d592763f8cf6c5
   GiniPayBusiness: ca0f6d37b3a18649158461ff806cd1201f506b87
   TrustKit: 073855e3adecd317417bda4ac9e9ac54a2e3b9f2
 
