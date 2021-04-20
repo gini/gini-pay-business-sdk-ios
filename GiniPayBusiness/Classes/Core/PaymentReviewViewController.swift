@@ -301,20 +301,24 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
 
     fileprivate func showErrorLabel(textFieldTag: TextFieldType) {
         var errorLabel = UILabel()
-        var errorMessage = "required field"
+        var errorMessage = ""
         switch textFieldTag {
         case .recipientFieldTag:
             errorLabel = recipientErrorLabel
-            errorMessage = "recipient field required"
+            errorMessage = NSLocalizedStringPreferredFormat("ginipaybusiness.errors.failed.recipient.non.empty.check",
+                                                            comment: " recipient failed non empty check")
         case .ibanFieldTag:
             errorLabel = ibanErrorLabel
-            errorMessage = "iban field required"
+            errorMessage = NSLocalizedStringPreferredFormat("ginipaybusiness.errors.failed.iban.non.empty.check",
+                                                            comment: "iban failed non empty check")
         case .amountFieldTag:
             errorLabel = amountErrorLabel
-            errorMessage = "amount field required"
+            errorMessage = NSLocalizedStringPreferredFormat("ginipaybusiness.errors.failed.amount.non.empty.check",
+                                                            comment: "amount failed non empty check")
         case .usageFieldTag:
             errorLabel = usageErrorLabel
-            errorMessage = "usage field required"
+            errorMessage = NSLocalizedStringPreferredFormat("ginipaybusiness.errors.failed.purpose.non.empty.check",
+                                                            comment: "purpose failed non empty check")
         }
         if errorLabel.isHidden {
             errorLabel.isHidden = false
@@ -325,13 +329,15 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     
     fileprivate func showValidationErrorLabel(textFieldTag: TextFieldType) {
         var errorLabel = UILabel()
-        var errorMessage = "field is not valid"
+        var errorMessage = NSLocalizedStringPreferredFormat("ginipaybusiness.errors.failed.default.textfield.validation.check",
+                                                            comment: "the field failed non empty check")
         switch textFieldTag {
         case .recipientFieldTag:
             errorLabel = recipientErrorLabel
         case .ibanFieldTag:
             errorLabel = ibanErrorLabel
-            errorMessage = "iban field is not valid"
+            errorMessage = NSLocalizedStringPreferredFormat("ginipaybusiness.errors.failed.iban.validation.check",
+                                                            comment: "iban failed validation check")
         case .amountFieldTag:
             errorLabel = amountErrorLabel
         case .usageFieldTag:
@@ -381,9 +387,10 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
                             self?.model?.openPaymentProviderApp(requestId: requestId, appScheme: paymentInfo.paymentProviderScheme)
                             self?.view.stopLoading()
                         }
-                    case let .failure(error):
+                    case .failure(_):
                         DispatchQueue.main.async {
-                            self?.showError(message: error.localizedDescription)
+                            self?.showError(message: NSLocalizedStringPreferredFormat("ginipaybusiness.errors.failed.payment.request.creation",
+                                                                                      comment: "error for creating payment request"))
                             self?.view.stopLoading()
                         }
                     }
@@ -497,7 +504,8 @@ extension PaymentReviewViewController {
         let alertController = UIAlertController(title: title,
                                                 message: message,
                                                 preferredStyle: .alert)
-        let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        let OKAction = UIAlertAction(title: NSLocalizedStringPreferredFormat("ginipaybusiness.alert.ok.title",
+                                                                             comment: "ok title for action"), style: .default, handler: nil)
         alertController.addAction(OKAction)
         present(alertController, animated: true, completion: nil)
     }
