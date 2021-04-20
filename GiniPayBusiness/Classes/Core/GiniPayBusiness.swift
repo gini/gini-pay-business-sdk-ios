@@ -37,11 +37,22 @@ public enum GiniPayBusinessError: Error {
                                 self.bankProviders.append(provider)
                             }
                         }
-                        completion(.success(self.bankProviders))
+                        if self.bankProviders.count > 0 {
+                            DispatchQueue.main.async {
+                                completion(.success(self.bankProviders))
+                            }
+                        } else {
+                            DispatchQueue.main.async {
+                                completion(.failure(.noInstalledApps))
+                            }
+                        }
                     }
                 }
             case let .failure(error):
-                completion(.failure(.apiError(error)))
+                DispatchQueue.main.async {
+                    completion(.failure(.apiError(error)))
+                    
+                }
             }
         }
     }

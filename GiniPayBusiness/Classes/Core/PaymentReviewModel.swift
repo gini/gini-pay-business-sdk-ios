@@ -21,6 +21,8 @@ public class PaymentReviewModel: NSObject {
     
     public var onErrorHandling: (_ error: GiniPayBusinessError) -> Void = { _ in }
 
+    public var onNoAppsErrorHandling: (_ error: GiniPayBusinessError) -> Void = { _ in }
+
     public var document: Document {
         didSet {
             self.onDocumentUpdated()
@@ -107,7 +109,7 @@ public class PaymentReviewModel: NSObject {
                 self?.providers.append(contentsOf: providers)
                 completion(.success(providers))
             case let .failure(error):
-                self?.onErrorHandling(error)
+                self?.onNoAppsErrorHandling(error)
             }
         }
     }

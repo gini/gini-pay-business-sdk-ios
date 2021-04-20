@@ -62,9 +62,10 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
                 DispatchQueue.main.async {
                     self?.paymentProviders.append(contentsOf: providers)
                 }
-            case let .failure(error):
+            case .failure(_):
                 DispatchQueue.main.async {
-                    self?.showError(message: error.localizedDescription)
+                    self?.showError(message: NSLocalizedStringPreferredFormat("ginipaybusiness.errors.no.banking.app.installed",
+                                                                              comment: "no supported banking apps installed"))
                 }
             }
         }
@@ -99,7 +100,15 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
         
         model?.onErrorHandling = {[weak self] error in
             DispatchQueue.main.async {
-                self?.showError(message: error.localizedDescription)
+                self?.showError(message: NSLocalizedStringPreferredFormat("ginipaybusiness.errors.default",
+                                                                         comment: "default error message") )
+            }
+        }
+        
+        model?.onNoAppsErrorHandling = {[weak self] error in
+            DispatchQueue.main.async {
+                self?.showError(message: NSLocalizedStringPreferredFormat("ginipaybusiness.errors.no.banking.app.installed",
+                                                                         comment: "no bank apps installed") )
             }
         }
         
@@ -384,14 +393,14 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
                     switch result {
                     case let .success(requestId):
                         DispatchQueue.main.async {
-                            self?.model?.openPaymentProviderApp(requestId: requestId, appScheme: paymentInfo.paymentProviderScheme)
                             self?.view.stopLoading()
+                            self?.model?.openPaymentProviderApp(requestId: requestId, appScheme: paymentInfo.paymentProviderScheme)
                         }
                     case .failure(_):
                         DispatchQueue.main.async {
+                            self?.view.stopLoading()
                             self?.showError(message: NSLocalizedStringPreferredFormat("ginipaybusiness.errors.failed.payment.request.creation",
                                                                                       comment: "error for creating payment request"))
-                            self?.view.stopLoading()
                         }
                     }
                 }
