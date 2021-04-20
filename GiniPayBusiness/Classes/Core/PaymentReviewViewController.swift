@@ -362,16 +362,6 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     }
     
     // MARK: - IBAction
-
-    fileprivate func addLoadingIndicatorWithBlurView() {
-        view.applyBlurEffect()
-        view.showLoading()
-    }
-    
-    fileprivate func removeLoadingIndicatorAndBlurView() {
-        view.stopLoading()
-        view.removeBlurEffect()
-    }
     
     @IBAction func payButtonClicked(_ sender: Any) {
         validateAllInputFields()
