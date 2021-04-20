@@ -200,7 +200,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     fileprivate func applySelectionStyle(_ textField: UITextField) {
         UIView.animate(withDuration: 0.3) {
             textField.layer.cornerRadius = self.giniPayBusinessConfiguration.paymentInputFieldCornerRadius
-            textField.backgroundColor = .white
+            textField.backgroundColor = self.giniPayBusinessConfiguration.paymentInputFieldSelectionBackgroundColor
             textField.layer.borderWidth = self.giniPayBusinessConfiguration.paymentInputFieldBorderWidth
             textField.layer.borderColor = self.giniPayBusinessConfiguration.paymentInputFieldSelectionStyleColor.cgColor
             textField.layer.masksToBounds = true
@@ -331,7 +331,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
         }
         if errorLabel.isHidden {
             errorLabel.isHidden = false
-            errorLabel.textColor = .red
+            errorLabel.textColor = giniPayBusinessConfiguration.paymentInputFieldErrorStyleColor
             errorLabel.text = errorMessage
         }
     }
@@ -354,7 +354,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
         }
         if errorLabel.isHidden {
             errorLabel.isHidden = false
-            errorLabel.textColor = .red
+            errorLabel.textColor = giniPayBusinessConfiguration.paymentInputFieldErrorStyleColor
             errorLabel.text = errorMessage
         }
     }
