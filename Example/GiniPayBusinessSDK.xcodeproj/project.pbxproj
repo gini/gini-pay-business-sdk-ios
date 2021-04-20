@@ -11,8 +11,6 @@
 		16E5098FCD108106C5E9570E /* Pods_Example_Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F95546CA3238471FA3E92C0C /* Pods_Example_Swift.framework */; };
 		6ACD5F21A248260AB597E4C9 /* Pods_Example_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CE92CD4EEF6E5A639BEC344 /* Pods_Example_Tests.framework */; };
 		F43B0B7C260E4D1900B89DF6 /* GiniPayBusinessSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F43B0B72260E4D1900B89DF6 /* GiniPayBusinessSDK.framework */; };
-		F463E5D226285FEC003B4311 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F463E5D126285FEC003B4311 /* CameraViewController.swift */; };
-		F463E5E8262864E6003B4311 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F463E5E7262864E6003B4311 /* ImagePicker.swift */; };
 		F463E5FF262896B3003B4311 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4EF0F00260E5BF1003BDDC7 /* Assets.xcassets */; };
 		F463E61C26289EFF003B4311 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F463E61B26289EFF003B4311 /* AppDelegate.swift */; };
 		F463E61E26289EFF003B4311 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F463E61D26289EFF003B4311 /* SceneDelegate.swift */; };
@@ -80,8 +78,6 @@
 		F43B0B80260E4D1900B89DF6 /* GiniPayBusinessSDKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiniPayBusinessSDKTests.swift; sourceTree = "<group>"; };
 		F43B0B82260E4D1900B89DF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F460BFD6260E5390000C760B /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		F463E5D126285FEC003B4311 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
-		F463E5E7262864E6003B4311 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		F463E61926289EFF003B4311 /* BankExampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BankExampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F463E61B26289EFF003B4311 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F463E61D26289EFF003B4311 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -265,14 +261,12 @@
 				F4EF0EF7260E5BF1003BDDC7 /* AppDelegate.swift */,
 				F463E6F62629D549003B4311 /* CredentialsManager.swift */,
 				F463E6FD2629D580003B4311 /* Credentials.plist */,
-				F463E5D126285FEC003B4311 /* CameraViewController.swift */,
 				F47C2D3F262F3A14004AF0BE /* Localizable.strings */,
 				F463E7042629ED23003B4311 /* UIViewController+Utils.swift */,
 				F4EF0EFD260E5BF1003BDDC7 /* Main.storyboard */,
 				F4EF0F00260E5BF1003BDDC7 /* Assets.xcassets */,
 				F4EF0F02260E5BF1003BDDC7 /* LaunchScreen.storyboard */,
 				F4EF0F05260E5BF1003BDDC7 /* Info.plist */,
-				F463E5E7262864E6003B4311 /* ImagePicker.swift */,
 			);
 			path = "Example Swift";
 			sourceTree = "<group>";
@@ -613,10 +607,8 @@
 				F463E766262C5639003B4311 /* Coordinator.swift in Sources */,
 				F463E7052629ED23003B4311 /* UIViewController+Utils.swift in Sources */,
 				F463E767262C5639003B4311 /* SelectAPIViewController.swift in Sources */,
-				F463E5E8262864E6003B4311 /* ImagePicker.swift in Sources */,
 				F463E764262C5639003B4311 /* PartialDocument.swift in Sources */,
 				F4EF0EF8260E5BF1003BDDC7 /* AppDelegate.swift in Sources */,
-				F463E5D226285FEC003B4311 /* CameraViewController.swift in Sources */,
 				F463E75F262C5639003B4311 /* AppCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
