@@ -382,21 +382,22 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
             if let selectedPaymentProvider = paymentProviders.first {
                 let paymentInfo = PaymentInfo(recipient: recipientField.text ?? "", iban: ibanField.text ?? "", bic: "", amount: amountText, purpose: usageField.text ?? "", paymentProviderScheme: selectedPaymentProvider.appSchemeIOS, paymentProviderId: selectedPaymentProvider.id)
                 
-                addLoadingIndicatorWithBlurView()
+                view.showLoading()
                 
-                model?.createPaymentRequest(paymentInfo: paymentInfo) { result in
+                model?.createPaymentRequest(paymentInfo: paymentInfo) {[weak self] result in
                     switch result {
                     case let .success(requestId):
                         DispatchQueue.main.async {
-                            self.model?.openPaymentProviderApp(requestId: requestId, appScheme: paymentInfo.paymentProviderScheme)
+                            self?.model?.openPaymentProviderApp(requestId: requestId, appScheme: paymentInfo.paymentProviderScheme)
+                            self?.view.stopLoading()
                         }
                     case let .failure(error):
                         DispatchQueue.main.async {
-                            self.showError(message: error.localizedDescription)
+                            self?.showError(message: error.localizedDescription)
+                            self?.view.stopLoading()
                         }
                     }
                 }
-                removeLoadingIndicatorAndBlurView()
             }
         }
     }
