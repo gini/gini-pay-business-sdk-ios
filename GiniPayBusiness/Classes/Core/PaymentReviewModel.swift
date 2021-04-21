@@ -18,10 +18,14 @@ public class PaymentReviewModel: NSObject {
     public var onPreviewImagesFetched: () -> Void = {}
     public var reloadCollectionViewClosure: () -> Void = {}
     public var updateLoadingStatus: () -> Void = {}
+    public var updateImagesLoadingStatus: () -> Void = {}
+
     
     public var onErrorHandling: (_ error: GiniPayBusinessError) -> Void = { _ in }
 
     public var onNoAppsErrorHandling: (_ error: GiniPayBusinessError) -> Void = { _ in }
+    
+    public var onCreatePaymentRequestErrorHandling: () -> Void = {}
 
     public var document: Document {
         didSet {
@@ -53,6 +57,12 @@ public class PaymentReviewModel: NSObject {
     var isLoading: Bool = false {
         didSet {
             self.updateLoadingStatus()
+        }
+    }
+    
+    var isImagesLoading: Bool = false {
+        didSet {
+            self.updateImagesLoadingStatus()
         }
     }
 
@@ -133,13 +143,31 @@ public class PaymentReviewModel: NSObject {
             }
         }
     }
+    
+    public func createPaymentRequest(paymentInfo: PaymentInfo){
+        isLoading = true
+        businessSDK.createPaymentRequest(paymentInfo: paymentInfo) {[weak self] result in
+            switch result {
+            case let .success(requestId):
+                DispatchQueue.main.async {
+                    self?.isLoading = false
+                    self?.openPaymentProviderApp(requestId: requestId, appScheme: paymentInfo.paymentProviderScheme)
+                }
+            case .failure(_ ):
+                DispatchQueue.main.async {
+                    self?.isLoading = false
+                    self?.onCreatePaymentRequestErrorHandling()
+                }
+            }
+        }
+    }
 
     public func openPaymentProviderApp(requestId: String, appScheme: String) {
         businessSDK.openPaymentProviderApp(requestID: requestId, appScheme: appScheme)
     }
     
     public func fetchImages() {
-        self.isLoading = true
+        self.isImagesLoading = true
         let dispatchGroup = DispatchGroup()
         let dispatchQueue = DispatchQueue(label: "imagesQueue")
         let dispatchSemaphore = DispatchSemaphore(value: 0)
@@ -165,7 +193,7 @@ public class PaymentReviewModel: NSObject {
 
             dispatchGroup.notify(queue: dispatchQueue) {
                 DispatchQueue.main.async {
-                    self.isLoading = false
+                    self.isImagesLoading = false
                     self.cellViewModels.append(contentsOf: vms)
                     self.onPreviewImagesFetched()
                 }

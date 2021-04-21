@@ -75,13 +75,24 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
             }
         }
         
-        model?.updateLoadingStatus = { [weak self] () in
+        model?.updateImagesLoadingStatus = { [weak self] () in
             DispatchQueue.main.async { [weak self] in
-                let isLoading = self?.model?.isLoading ?? false
+                let isLoading = self?.model?.isImagesLoading ?? false
                 if isLoading {
                     self?.collectionView.showLoading(style: self?.giniPayBusinessConfiguration.loadingIndicatorStyle, color: self?.giniPayBusinessConfiguration.loadingIndicatorColor, scale: self?.giniPayBusinessConfiguration.loadingIndicatorScale)
                 } else {
                     self?.collectionView.stopLoading()
+                }
+            }
+        }
+       
+        model?.updateLoadingStatus = { [weak self] () in
+            DispatchQueue.main.async { [weak self] in
+                let isLoading = self?.model?.isLoading ?? false
+                if isLoading {
+                    self?.view.showLoading(style: self?.giniPayBusinessConfiguration.loadingIndicatorStyle, color: self?.giniPayBusinessConfiguration.loadingIndicatorColor, scale: self?.giniPayBusinessConfiguration.loadingIndicatorScale)
+                } else {
+                    self?.view.stopLoading()
                 }
             }
         }
@@ -109,6 +120,13 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
             DispatchQueue.main.async {
                 self?.showError(message: NSLocalizedStringPreferredFormat("ginipaybusiness.errors.no.banking.app.installed",
                                                                          comment: "no bank apps installed") )
+            }
+        }
+        
+        model?.onCreatePaymentRequestErrorHandling = {[weak self] () in
+            DispatchQueue.main.async {
+                self?.showError(message: NSLocalizedStringPreferredFormat("ginipaybusiness.errors.failed.payment.request.creation",
+                                                                      comment: "error for creating payment request"))
             }
         }
         
@@ -389,21 +407,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
                 
                 view.showLoading()
                 
-                model?.createPaymentRequest(paymentInfo: paymentInfo) {[weak self] result in
-                    switch result {
-                    case let .success(requestId):
-                        DispatchQueue.main.async {
-                            self?.view.stopLoading()
-                            self?.model?.openPaymentProviderApp(requestId: requestId, appScheme: paymentInfo.paymentProviderScheme)
-                        }
-                    case .failure(_):
-                        DispatchQueue.main.async {
-                            self?.view.stopLoading()
-                            self?.showError(message: NSLocalizedStringPreferredFormat("ginipaybusiness.errors.failed.payment.request.creation",
-                                                                                      comment: "error for creating payment request"))
-                        }
-                    }
-                }
+                model?.createPaymentRequest(paymentInfo: paymentInfo)
             }
         }
     }
