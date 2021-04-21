@@ -36,18 +36,6 @@ pipeline {
         sh 'xcodebuild test -workspace Example/GiniPayBusinessSDK.xcworkspace -scheme "GiniPayBusiness-Unit-Tests" -destination \'platform=iOS Simulator,name=iPhone 11\''
       }
     }
-    stage('Documentation') {
-      when {
-        anyOf { branch 'master'; branch 'hotfix' }
-        expression {
-            def tag = sh(returnStdout: true, script: 'git tag --contains $(git rev-parse HEAD)').trim()
-            return !tag.isEmpty()
-        }
-      }
-      steps {
-        sh 'Documentation/deploy-documentation.sh $GIT_USR $GIT_PSW'
-      }
-    }
     stage('Pod Lint') {
       when {
         branch 'develop'
