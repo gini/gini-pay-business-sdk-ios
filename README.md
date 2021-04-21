@@ -1,4 +1,4 @@
-![Gini Pay Business SDK for iOS](./GiniPayBank_Logo.png?raw=true)
+![Gini Pay Business SDK for iOS](./GiniPayBusiness_Logo.png?raw=true)
 
 # Gini Pay Business SDK for iOS
 
@@ -17,20 +17,21 @@ Further documentation with installation, integration or customization guides can
 
 ## Example
 
-We are providing example app for Swift. This app demonstrates how to integrate the Gini Pay Business SDK with the Screen API and Component API. To run the example project, clone the repo and run `pod install` from the Example directory first.
+We are providing example app for Swift. This app demonstrates how to integrate the Gini Pay Business SDK with the Component API of Gini Capture library. To run the example project, clone the repo and run `pod install` from the Example directory first.
+To check the redirection to Banking app please run Bank example before Example Swift.
 To inject your API credentials into the Example app, just add to the Example directory the `Credentials.plist` file with the following format:
 
 <img border=1 src=credentials_plist_format.png/>
 
 ## Requirements
 
-- iOS 10.0+
+- iOS 10.2+
 - Xcode 10.2+
 
 **Note:**
 In order to have better analysis results it is highly recommended to enable only devices with 8MP camera and flash. These devices would be:
 
-* iPhones with iOS 10.0 or higher.
+* iPhones with iOS 10.2 or higher.
 * iPad Pro devices (iPad Air 2 and iPad Mini 4 have 8MP camera but no flash).
 
 ## Author

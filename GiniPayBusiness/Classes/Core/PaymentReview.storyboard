@@ -31,13 +31,14 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="5XG-ol-bs7">
                                                         <rect key="frame" x="0.0" y="0.0" width="396" height="52"/>
                                                         <subviews>
-                                                            <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" allowsEditingTextAttributes="YES" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nY6-4z-tMv">
+                                                            <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" allowsEditingTextAttributes="YES" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nY6-4z-tMv">
                                                                 <rect key="frame" x="0.0" y="0.0" width="396" height="40"/>
                                                                 <color key="backgroundColor" red="0.94869893790000004" green="0.95254844429999996" blue="0.96328574420000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="40" id="Y8l-fS-Utn"/>
                                                                 </constraints>
-                                                                <attributedString key="attributedText"/>
+                                                                <nil key="textColor"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="alphabet"/>
                                                                 <connections>
                                                                     <outlet property="delegate" destination="QI6-9C-Fdg" id="0iu-pw-xsY"/>
@@ -60,26 +61,28 @@
                                                             <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="VVv-3T-au1">
                                                                 <rect key="frame" x="0.0" y="0.0" width="396" height="40"/>
                                                                 <subviews>
-                                                                    <textField opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" allowsEditingTextAttributes="YES" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QXh-1z-x7c">
+                                                                    <textField opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" allowsEditingTextAttributes="YES" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QXh-1z-x7c">
                                                                         <rect key="frame" x="0.0" y="0.0" width="290" height="40"/>
                                                                         <color key="backgroundColor" red="0.94869893790000004" green="0.95254844429999996" blue="0.96328574420000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="40" id="s8g-RQ-L0J"/>
                                                                         </constraints>
-                                                                        <attributedString key="attributedText"/>
+                                                                        <nil key="textColor"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                         <textInputTraits key="textInputTraits"/>
                                                                         <connections>
                                                                             <outlet property="delegate" destination="QI6-9C-Fdg" id="m7I-0l-hOv"/>
                                                                         </connections>
                                                                     </textField>
-                                                                    <textField opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" allowsEditingTextAttributes="YES" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="geq-YB-UG4">
+                                                                    <textField opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" allowsEditingTextAttributes="YES" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="geq-YB-UG4">
                                                                         <rect key="frame" x="298" y="0.0" width="98" height="40"/>
                                                                         <color key="backgroundColor" red="0.94869893790000004" green="0.95254844429999996" blue="0.96328574420000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="98" id="tdO-fQ-wea"/>
                                                                             <constraint firstAttribute="height" constant="40" id="vsb-by-xk7"/>
                                                                         </constraints>
-                                                                        <attributedString key="attributedText"/>
+                                                                        <nil key="textColor"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                         <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                                         <connections>
                                                                             <outlet property="delegate" destination="QI6-9C-Fdg" id="WY5-0t-Qu7"/>
@@ -126,13 +129,14 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="g4d-M4-bf3">
                                                         <rect key="frame" x="0.0" y="120" width="396" height="52"/>
                                                         <subviews>
-                                                            <textField opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" allowsEditingTextAttributes="YES" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Q26-IJ-H5m">
+                                                            <textField opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" allowsEditingTextAttributes="YES" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Q26-IJ-H5m">
                                                                 <rect key="frame" x="0.0" y="0.0" width="396" height="40"/>
                                                                 <color key="backgroundColor" red="0.94869893790000004" green="0.95254844429999996" blue="0.96328574420000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="40" id="qPe-e1-GG0"/>
                                                                 </constraints>
-                                                                <attributedString key="attributedText"/>
+                                                                <nil key="textColor"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="alphabet"/>
                                                                 <connections>
                                                                     <outlet property="delegate" destination="QI6-9C-Fdg" id="Ycx-5r-Ckx"/>
@@ -160,15 +164,14 @@
                                                                         <rect key="frame" x="0.0" y="0.0" width="140" height="40"/>
                                                                         <subviews>
                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bank" translatesAutoresizingMaskIntoConstraints="NO" id="ROx-mF-STW">
-                                                                                <rect key="frame" x="20" y="10" width="20" height="20"/>
+                                                                                <rect key="frame" x="8" y="10" width="20" height="20"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="width" constant="20" id="IVB-KM-Fwl"/>
                                                                                     <constraint firstAttribute="height" constant="20" id="dnT-5r-giw"/>
                                                                                 </constraints>
                                                                             </imageView>
-                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Ing-DiBa" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gKK-IC-PHC">
-                                                                                <rect key="frame" x="49" y="9" width="60" height="18"/>
-                                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ing-DiBa" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gKK-IC-PHC">
+                                                                                <rect key="frame" x="43" y="11" width="60" height="18"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <nil key="highlightedColor"/>
@@ -176,7 +179,9 @@
                                                                         </subviews>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <constraints>
-                                                                            <constraint firstItem="ROx-mF-STW" firstAttribute="leading" secondItem="j0P-vj-5g4" secondAttribute="leading" constant="20" id="43y-qI-xRk"/>
+                                                                            <constraint firstItem="ROx-mF-STW" firstAttribute="leading" secondItem="j0P-vj-5g4" secondAttribute="leading" constant="8" id="43y-qI-xRk"/>
+                                                                            <constraint firstItem="gKK-IC-PHC" firstAttribute="leading" secondItem="ROx-mF-STW" secondAttribute="trailing" constant="15" id="Flm-lZ-qh1"/>
+                                                                            <constraint firstItem="gKK-IC-PHC" firstAttribute="centerY" secondItem="j0P-vj-5g4" secondAttribute="centerY" id="VgP-Pz-P0k"/>
                                                                             <constraint firstItem="ROx-mF-STW" firstAttribute="centerY" secondItem="j0P-vj-5g4" secondAttribute="centerY" id="it6-CF-ehT"/>
                                                                             <constraint firstAttribute="width" constant="140" id="z3C-IU-WjL"/>
                                                                         </constraints>

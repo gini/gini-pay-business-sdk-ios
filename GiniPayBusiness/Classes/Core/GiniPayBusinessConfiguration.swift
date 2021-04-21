@@ -72,6 +72,11 @@ public final class GiniPayBusinessConfiguration: NSObject {
     @objc public var paymentInputFieldSelectionStyleColor = UIColor.blue
     
     /**
+     Sets the selection background color for the payment input fields on the payment review screen
+     */
+    @objc public var paymentInputFieldSelectionBackgroundColor = UIColor.white
+    
+    /**
      Sets the font of the payment input fields on the payment review screen
      */
     @objc public var paymentInputFieldFont = UIFont.systemFont(ofSize: 17, weight: .semibold)

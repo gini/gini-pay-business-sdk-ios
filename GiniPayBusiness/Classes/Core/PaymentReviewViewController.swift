@@ -46,7 +46,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
         return vc
     }
 
-    var giniPayBusinessConfiguration = GiniPayBusinessConfiguration()
+    var giniPayBusinessConfiguration = GiniPayBusinessConfiguration.shared
     
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -62,9 +62,10 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
                 DispatchQueue.main.async {
                     self?.paymentProviders.append(contentsOf: providers)
                 }
-            case let .failure(error):
+            case .failure(_):
                 DispatchQueue.main.async {
-                    self?.showError(message: error.localizedDescription)
+                    self?.showError(message: NSLocalizedStringPreferredFormat("ginipaybusiness.errors.no.banking.app.installed",
+                                                                              comment: "no supported banking apps installed"))
                 }
             }
         }
@@ -74,13 +75,24 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
             }
         }
         
-        model?.updateLoadingStatus = { [weak self] () in
+        model?.updateImagesLoadingStatus = { [weak self] () in
             DispatchQueue.main.async { [weak self] in
-                let isLoading = self?.model?.isLoading ?? false
+                let isLoading = self?.model?.isImagesLoading ?? false
                 if isLoading {
                     self?.collectionView.showLoading(style: self?.giniPayBusinessConfiguration.loadingIndicatorStyle, color: self?.giniPayBusinessConfiguration.loadingIndicatorColor, scale: self?.giniPayBusinessConfiguration.loadingIndicatorScale)
                 } else {
                     self?.collectionView.stopLoading()
+                }
+            }
+        }
+       
+        model?.updateLoadingStatus = { [weak self] () in
+            DispatchQueue.main.async { [weak self] in
+                let isLoading = self?.model?.isLoading ?? false
+                if isLoading {
+                    self?.view.showLoading(style: self?.giniPayBusinessConfiguration.loadingIndicatorStyle, color: self?.giniPayBusinessConfiguration.loadingIndicatorColor, scale: self?.giniPayBusinessConfiguration.loadingIndicatorScale)
+                } else {
+                    self?.view.stopLoading()
                 }
             }
         }
@@ -99,7 +111,22 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
         
         model?.onErrorHandling = {[weak self] error in
             DispatchQueue.main.async {
-                self?.showError(message: error.localizedDescription)
+                self?.showError(message: NSLocalizedStringPreferredFormat("ginipaybusiness.errors.default",
+                                                                         comment: "default error message") )
+            }
+        }
+        
+        model?.onNoAppsErrorHandling = {[weak self] error in
+            DispatchQueue.main.async {
+                self?.showError(message: NSLocalizedStringPreferredFormat("ginipaybusiness.errors.no.banking.app.installed",
+                                                                         comment: "no bank apps installed") )
+            }
+        }
+        
+        model?.onCreatePaymentRequestErrorHandling = {[weak self] () in
+            DispatchQueue.main.async {
+                self?.showError(message: NSLocalizedStringPreferredFormat("ginipaybusiness.errors.failed.payment.request.creation",
+                                                                      comment: "error for creating payment request"))
             }
         }
         
@@ -191,7 +218,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     fileprivate func applySelectionStyle(_ textField: UITextField) {
         UIView.animate(withDuration: 0.3) {
             textField.layer.cornerRadius = self.giniPayBusinessConfiguration.paymentInputFieldCornerRadius
-            textField.backgroundColor = .white
+            textField.backgroundColor = self.giniPayBusinessConfiguration.paymentInputFieldSelectionBackgroundColor
             textField.layer.borderWidth = self.giniPayBusinessConfiguration.paymentInputFieldBorderWidth
             textField.layer.borderColor = self.giniPayBusinessConfiguration.paymentInputFieldSelectionStyleColor.cgColor
             textField.layer.masksToBounds = true
@@ -301,37 +328,43 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
 
     fileprivate func showErrorLabel(textFieldTag: TextFieldType) {
         var errorLabel = UILabel()
-        var errorMessage = "required field"
+        var errorMessage = ""
         switch textFieldTag {
         case .recipientFieldTag:
             errorLabel = recipientErrorLabel
-            errorMessage = "recipient field required"
+            errorMessage = NSLocalizedStringPreferredFormat("ginipaybusiness.errors.failed.recipient.non.empty.check",
+                                                            comment: " recipient failed non empty check")
         case .ibanFieldTag:
             errorLabel = ibanErrorLabel
-            errorMessage = "iban field required"
+            errorMessage = NSLocalizedStringPreferredFormat("ginipaybusiness.errors.failed.iban.non.empty.check",
+                                                            comment: "iban failed non empty check")
         case .amountFieldTag:
             errorLabel = amountErrorLabel
-            errorMessage = "amount field required"
+            errorMessage = NSLocalizedStringPreferredFormat("ginipaybusiness.errors.failed.amount.non.empty.check",
+                                                            comment: "amount failed non empty check")
         case .usageFieldTag:
             errorLabel = usageErrorLabel
-            errorMessage = "usage field required"
+            errorMessage = NSLocalizedStringPreferredFormat("ginipaybusiness.errors.failed.purpose.non.empty.check",
+                                                            comment: "purpose failed non empty check")
         }
         if errorLabel.isHidden {
             errorLabel.isHidden = false
-            errorLabel.textColor = .red
+            errorLabel.textColor = giniPayBusinessConfiguration.paymentInputFieldErrorStyleColor
             errorLabel.text = errorMessage
         }
     }
     
     fileprivate func showValidationErrorLabel(textFieldTag: TextFieldType) {
         var errorLabel = UILabel()
-        var errorMessage = "field is not valid"
+        var errorMessage = NSLocalizedStringPreferredFormat("ginipaybusiness.errors.failed.default.textfield.validation.check",
+                                                            comment: "the field failed non empty check")
         switch textFieldTag {
         case .recipientFieldTag:
             errorLabel = recipientErrorLabel
         case .ibanFieldTag:
             errorLabel = ibanErrorLabel
-            errorMessage = "iban field is not valid"
+            errorMessage = NSLocalizedStringPreferredFormat("ginipaybusiness.errors.failed.iban.validation.check",
+                                                            comment: "iban failed validation check")
         case .amountFieldTag:
             errorLabel = amountErrorLabel
         case .usageFieldTag:
@@ -339,7 +372,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
         }
         if errorLabel.isHidden {
             errorLabel.isHidden = false
-            errorLabel.textColor = .red
+            errorLabel.textColor = giniPayBusinessConfiguration.paymentInputFieldErrorStyleColor
             errorLabel.text = errorMessage
         }
     }
@@ -374,20 +407,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
                 
                 view.showLoading()
                 
-                model?.createPaymentRequest(paymentInfo: paymentInfo) {[weak self] result in
-                    switch result {
-                    case let .success(requestId):
-                        DispatchQueue.main.async {
-                            self?.model?.openPaymentProviderApp(requestId: requestId, appScheme: paymentInfo.paymentProviderScheme)
-                            self?.view.stopLoading()
-                        }
-                    case let .failure(error):
-                        DispatchQueue.main.async {
-                            self?.showError(message: error.localizedDescription)
-                            self?.view.stopLoading()
-                        }
-                    }
-                }
+                model?.createPaymentRequest(paymentInfo: paymentInfo)
             }
         }
     }
@@ -497,7 +517,8 @@ extension PaymentReviewViewController {
         let alertController = UIAlertController(title: title,
                                                 message: message,
                                                 preferredStyle: .alert)
-        let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        let OKAction = UIAlertAction(title: NSLocalizedStringPreferredFormat("ginipaybusiness.alert.ok.title",
+                                                                             comment: "ok title for action"), style: .default, handler: nil)
         alertController.addAction(OKAction)
         present(alertController, animated: true, completion: nil)
     }
