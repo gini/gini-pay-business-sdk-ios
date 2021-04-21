@@ -79,6 +79,37 @@ public enum GiniPayBusinessError: Error {
     }
     
     /**
+     Checks if the document is payable which looks for iban extraction.
+     
+     - parameter documentId: Id of uploaded document.
+
+     */
+    public func checkIfDocumentIsPayable(docId: String) -> Bool {
+        var isIbanNotEmpty = false
+        documentService.fetchDocument(with: docId) { result in
+            switch result {
+            case let .success(createdDocument):
+                self.documentService.extractions(for: createdDocument,
+                                                 cancellationToken: CancellationToken()) { result in
+                    DispatchQueue.main.async {
+                        switch result {
+                        case let .success(extractionResult):
+                            if let iban = extractionResult.extractions.first(where: { $0.name == "iban" })?.value, !iban.isEmpty {
+                                isIbanNotEmpty = true
+                            }
+                        case .failure:
+                            break
+                        }
+                    }
+                }
+            case .failure:
+                break
+            }
+        }
+        return isIbanNotEmpty
+    }
+    
+    /**
      Get extractions for the document.
      
      - parameter docId: id of the uploaded document.
