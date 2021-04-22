@@ -8,15 +8,22 @@
 import Foundation
 import GiniPayApiLib
 
+/**
+ Errors thrown with GiniPayBusiness SDK.
+ */
 public enum GiniPayBusinessError: Error {
+     /// Error thrown when there are no apps which supports Gini Pay installed.
     case noInstalledApps
+     /// Error thrown when api return failure.
     case apiError(GiniError)
 }
 
 @objc public final class GiniPayBusiness: NSObject {
-    
+    /// reponsible for interaction with Gini Pay backend .
     public var giniApiLib: GiniApiLib
+    /// reponsible for the whole document processing.
     public var documentService: DefaultDocumentService
+    /// reponsible for the payment processing.
     public var paymentService: PaymentService
     private var bankProviders: [PaymentProvider] = []
     

@@ -7,25 +7,28 @@
 
 import Foundation
 import GiniPayApiLib
+
+/**
+ View model class for review screen
+  */
 public class PaymentReviewModel: NSObject {
     private var apiLib: GiniApiLib
 
-    public var onDocumentUpdated: () -> Void = {}
-    public var onPaymentProvidersFetched: (_ provider: PaymentProviders) -> Void = { _ in }
+    var onDocumentUpdated: () -> Void = {}
+    var onPaymentProvidersFetched: (_ provider: PaymentProviders) -> Void = { _ in }
 
-    public var onExtractionFetched: () -> Void = {}
-    public var onExtractionUpdated: () -> Void = {}
-    public var onPreviewImagesFetched: () -> Void = {}
-    public var reloadCollectionViewClosure: () -> Void = {}
-    public var updateLoadingStatus: () -> Void = {}
-    public var updateImagesLoadingStatus: () -> Void = {}
-
+    var onExtractionFetched: () -> Void = {}
+    var onExtractionUpdated: () -> Void = {}
+    var onPreviewImagesFetched: () -> Void = {}
+    var reloadCollectionViewClosure: () -> Void = {}
+    var updateLoadingStatus: () -> Void = {}
+    var updateImagesLoadingStatus: () -> Void = {}
     
-    public var onErrorHandling: (_ error: GiniPayBusinessError) -> Void = { _ in }
+    var onErrorHandling: (_ error: GiniPayBusinessError) -> Void = { _ in }
 
-    public var onNoAppsErrorHandling: (_ error: GiniPayBusinessError) -> Void = { _ in }
+    var onNoAppsErrorHandling: (_ error: GiniPayBusinessError) -> Void = { _ in }
     
-    public var onCreatePaymentRequestErrorHandling: () -> Void = {}
+    var onCreatePaymentRequestErrorHandling: () -> Void = {}
 
     public var document: Document {
         didSet {
@@ -33,7 +36,7 @@ public class PaymentReviewModel: NSObject {
         }
     }
 
-    public var providers: PaymentProviders = []
+    private var providers: PaymentProviders = []
 
     public var extractions: [Extraction] {
         didSet {
@@ -82,7 +85,7 @@ public class PaymentReviewModel: NSObject {
         return PageCollectionCellViewModel(preview: previewImage)
     }
 
-    public func checkIfAnyPaymentProviderAvailiable() {
+    func checkIfAnyPaymentProviderAvailiable() {
         businessSDK.checkIfAnyPaymentProviderAvailiable {[weak self] result in
             switch result {
             case let .success(providers):
@@ -93,7 +96,7 @@ public class PaymentReviewModel: NSObject {
         }
     }
 
-    public func sendFeedback(updatedExtractions: [Extraction]) {
+    func sendFeedback(updatedExtractions: [Extraction]) {
         businessSDK.documentService.submitFeedback(for: document, with: updatedExtractions) { result in
             switch result {
             case .success: break
@@ -101,19 +104,8 @@ public class PaymentReviewModel: NSObject {
             }
         }
     }
-
-    public func createPaymentRequest(paymentInfo: PaymentInfo, completion: @escaping (Result<String, GiniPayBusinessError>) -> Void) {
-        businessSDK.createPaymentRequest(paymentInfo: paymentInfo) {[weak self] result in
-            switch result {
-            case let .success(requestId):
-                self?.businessSDK.openPaymentProviderApp(requestID: requestId, appScheme: paymentInfo.paymentProviderScheme)
-            case let .failure(error):
-                self?.onErrorHandling(error)
-            }
-        }
-    }
     
-    public func createPaymentRequest(paymentInfo: PaymentInfo){
+    func createPaymentRequest(paymentInfo: PaymentInfo){
         isLoading = true
         businessSDK.createPaymentRequest(paymentInfo: paymentInfo) {[weak self] result in
             switch result {
@@ -127,11 +119,11 @@ public class PaymentReviewModel: NSObject {
         }
     }
 
-    public func openPaymentProviderApp(requestId: String, appScheme: String) {
+    func openPaymentProviderApp(requestId: String, appScheme: String) {
         businessSDK.openPaymentProviderApp(requestID: requestId, appScheme: appScheme)
     }
     
-    public func fetchImages() {
+    func fetchImages() {
         self.isImagesLoading = true
         let dispatchGroup = DispatchGroup()
         let dispatchQueue = DispatchQueue(label: "imagesQueue")
@@ -167,6 +159,10 @@ public class PaymentReviewModel: NSObject {
     }
 }
 
+/**
+ View model class for collection view cell
+ 
+  */
 public struct PageCollectionCellViewModel {
     let preview: UIImage
 }
