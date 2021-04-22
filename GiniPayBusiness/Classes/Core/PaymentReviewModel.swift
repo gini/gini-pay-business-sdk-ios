@@ -82,42 +82,11 @@ public class PaymentReviewModel: NSObject {
         return PageCollectionCellViewModel(preview: previewImage)
     }
 
-    public func setDocumentForReview(completion: @escaping (Result<[Extraction], GiniPayBusinessError>) -> Void) {
-        businessSDK.documentService.fetchDocument(with: self.documentId) {[weak self] result in
-            switch result {
-            case let .success(document):
-                self?.document = document
-                self?.fetchExtractions(docId: document.id) {[weak self] result in
-                    switch result {
-                    case let .success(extractions):
-                        completion(.success(extractions))
-                    case let .failure(error):
-                        self?.onErrorHandling(error)
-                    }
-                }
-            case let .failure(error):
-                self?.onErrorHandling(.apiError(error))
-            }
-        }
-    }
-
-    public func fetchExtractions(docId: String, completion: @escaping (Result<[Extraction], GiniPayBusinessError>) -> Void) {
-        businessSDK.getExtractions(docId: docId) {[weak self] result in
-            switch result {
-            case let .success(extractions):
-                completion(.success(extractions))
-            case let .failure(error):
-                self?.onErrorHandling(error)
-            }
-        }
-    }
-
-    public func checkIfAnyPaymentProviderAvailiable(completion: @escaping (Result<PaymentProviders, GiniPayBusinessError>) -> Void) {
+    public func checkIfAnyPaymentProviderAvailiable() {
         businessSDK.checkIfAnyPaymentProviderAvailiable {[weak self] result in
             switch result {
             case let .success(providers):
-                self?.providers.append(contentsOf: providers)
-                completion(.success(providers))
+                self?.onPaymentProvidersFetched(providers)
             case let .failure(error):
                 self?.onNoAppsErrorHandling(error)
             }
@@ -149,15 +118,11 @@ public class PaymentReviewModel: NSObject {
         businessSDK.createPaymentRequest(paymentInfo: paymentInfo) {[weak self] result in
             switch result {
             case let .success(requestId):
-                DispatchQueue.main.async {
                     self?.isLoading = false
                     self?.openPaymentProviderApp(requestId: requestId, appScheme: paymentInfo.paymentProviderScheme)
-                }
             case .failure(_ ):
-                DispatchQueue.main.async {
                     self?.isLoading = false
                     self?.onCreatePaymentRequestErrorHandling()
-                }
             }
         }
     }

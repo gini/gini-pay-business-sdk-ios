@@ -56,24 +56,26 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     }
     
     fileprivate func setupViewModel() {
-        model?.checkIfAnyPaymentProviderAvailiable {[weak self] result in
-            switch result {
-            case let .success(providers):
-                DispatchQueue.main.async {
-                    self?.paymentProviders.append(contentsOf: providers)
-                }
-            case .failure(_):
-                DispatchQueue.main.async {
-                    self?.showError(message: NSLocalizedStringPreferredFormat("ginipaybusiness.errors.no.banking.app.installed",
-                                                                              comment: "no supported banking apps installed"))
-                }
+        
+        model?.onNoAppsErrorHandling = {[weak self] error in
+            DispatchQueue.main.async {
+                self?.showError(message: NSLocalizedStringPreferredFormat("ginipaybusiness.errors.no.banking.app.installed",
+                                                                         comment: "no bank apps installed") )
             }
         }
+        
         model?.onExtractionFetched = { [weak self] () in
             DispatchQueue.main.async {
                 self?.fillInInputFields()
             }
         }
+        
+        model?.onPaymentProvidersFetched = {[weak self] providers in
+            self?.paymentProviders.append(contentsOf: providers)
+        }
+        
+        model?.checkIfAnyPaymentProviderAvailiable()
+
         
         model?.updateImagesLoadingStatus = { [weak self] () in
             DispatchQueue.main.async { [weak self] in
@@ -113,13 +115,6 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
             DispatchQueue.main.async {
                 self?.showError(message: NSLocalizedStringPreferredFormat("ginipaybusiness.errors.default",
                                                                          comment: "default error message") )
-            }
-        }
-        
-        model?.onNoAppsErrorHandling = {[weak self] error in
-            DispatchQueue.main.async {
-                self?.showError(message: NSLocalizedStringPreferredFormat("ginipaybusiness.errors.no.banking.app.installed",
-                                                                         comment: "no bank apps installed") )
             }
         }
         
