@@ -6,6 +6,10 @@
 //
 
 import Foundation
+/**
+  Returns the GiniPayBusiness bundle.
+ 
+ */
 public func giniPayBusinessBundle() -> Bundle {
     Bundle(for: GiniPayBusiness.self)
 }

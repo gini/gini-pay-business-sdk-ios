@@ -6,6 +6,10 @@
 //
 
 import Foundation
+/**
+  Helper class for IBAN validation.
+ 
+ */
 final class IBANValidator {
     private var countryIbanDictionary: [String: Int] {
         return [
