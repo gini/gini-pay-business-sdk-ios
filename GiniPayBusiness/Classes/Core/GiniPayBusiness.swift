@@ -20,12 +20,25 @@ public enum GiniPayBusinessError: Error {
     public var paymentService: PaymentService
     private var bankProviders: [PaymentProvider] = []
     
+    /**
+     Returns a GiniPayBusiness instance
+     
+     - parameter giniApiLib: GiniApiLib initialized with client's credentials
+     */
     public init(with giniApiLib: GiniApiLib){
         self.giniApiLib = giniApiLib
         self.documentService = giniApiLib.documentService()
         self.paymentService = giniApiLib.paymentService()
     }
-    
+    /**
+     Getting a list of the installed banking apps which support Gini Pay functionaly.
+     
+     - parameter completion: An action for processing asynchronous data received from the service with Result type as a paramater. Result is a value that represents either a success or a failure, including an associated value in each case.
+     Completion block called on main thread.
+     In success case it includes array of payment providers, which are represebt the installed on the phone apps.
+     In case of failure error that there are no supported banking apps installed.
+     
+     */
     private func getInstalledBankingApps(completion: @escaping (Result<PaymentProviders, GiniPayBusinessError>) -> Void){
         paymentService.paymentProviders { result in
             switch result {
@@ -38,13 +51,9 @@ public enum GiniPayBusinessError: Error {
                             }
                         }
                         if self.bankProviders.count > 0 {
-                            DispatchQueue.main.async {
-                                completion(.success(self.bankProviders))
-                            }
+                            completion(.success(self.bankProviders))
                         } else {
-                            DispatchQueue.main.async {
-                                completion(.failure(.noInstalledApps))
-                            }
+                            completion(.failure(.noInstalledApps))
                         }
                     }
                 }
@@ -60,7 +69,10 @@ public enum GiniPayBusinessError: Error {
     /**
      Checks if there are any banking app which support Gini Pay functionaly installed.
      
-     - parameter completion: An action for processing asynchronous data received from the service with Result type as a paramater. Result is a value that represents either a success or a failure, including an associated value in each case. In success case it includes array of payment providers, in case of failure error that there are no supported banking apps installed.
+     - parameter completion: An action for processing asynchronous data received from the service with Result type as a paramater. Result is a value that represents either a success or a failure, including an associated value in each case.
+     Completion block called on main thread.
+     In success case it includes array of payment providers.
+     In case of failure error that there are no supported banking apps installed.
      
      */
     public func checkIfAnyPaymentProviderAvailiable(completion: @escaping (Result<PaymentProviders, GiniPayBusinessError>) -> Void){
@@ -113,7 +125,10 @@ public enum GiniPayBusinessError: Error {
      Get extractions for the document.
      
      - parameter docId: id of the uploaded document.
-     - parameter completion: An action for processing asynchronous data received from the service with Result type as a paramater. Result is a value that represents either a success or a failure, including an associated value in each case. In success case it includes array of extractions, in case of failure in case of failure error from the server side.
+     - parameter completion: An action for processing asynchronous data received from the service with Result type as a paramater. Result is a value that represents either a success or a failure, including an associated value in each case.
+     Completion block called on main thread.
+     In success case it includes array of extractions.
+     In case of failure in case of failure error from the server side.
      
      */
     public func getExtractions(docId: String, completion: @escaping (Result<[Extraction], GiniPayBusinessError>) -> Void){
@@ -133,7 +148,9 @@ public enum GiniPayBusinessError: Error {
                                 }
                             }
                 case let .failure(error):
-                    completion(.failure(.apiError(error)))
+                    DispatchQueue.main.async {
+                        completion(.failure(.apiError(error)))
+                    }
                 }
             }
         }
@@ -142,7 +159,10 @@ public enum GiniPayBusinessError: Error {
      Creates a payment request
      
      - parameter docId: id of the uploaded document.
-     - parameter completion: An action for processing asynchronous data received from the service with Result type as a paramater. Result is a value that represents either a success or a failure, including an associated value in each case. In success it includes id of the payment request, in case of failure error from the server side.
+     - parameter completion: An action for processing asynchronous data received from the service with Result type as a paramater. Result is a value that represents either a success or a failure, including an associated value in each case.
+     Completion block called on main thread.
+     In success return the id of created payment request and opens the banking provider's app
+     In case of failure error from the server side.
      
      */
     public func createPaymentRequest(paymentInfo: PaymentInfo, completion: @escaping (Result<String, GiniPayBusinessError>) -> Void) {
@@ -151,19 +171,21 @@ public enum GiniPayBusinessError: Error {
             case let .success(requestID):
                 self.openPaymentProviderApp(requestID: requestID, appScheme: paymentInfo.paymentProviderScheme)
             case let .failure(error):
-                completion(.failure(.apiError(error)))
+                DispatchQueue.main.async {
+                    completion(.failure(.apiError(error)))
+                }
             }
         }
     }
     
     /**
-     Opens an app of selected payment provider
+     Opens an app of selected payment provider.
+        openUrl called on main thread.
      
      - parameter requestID: id of the created payment request.
      - parameter appScheme: app scheme for the selected payment provider
      
      */
-    //ginipay-providername://payment?id=1
     public func openPaymentProviderApp(requestID: String, appScheme: String) {
         let queryItems = [URLQueryItem(name: "id", value: requestID)]
         let urlString = appScheme + "://payment"
@@ -179,7 +201,11 @@ public enum GiniPayBusinessError: Error {
      Sets a data for review screen
      
      - parameter documentId: Id of uploaded document.
-     - parameter completion: An action for processing asynchronous data received from the service with Result type as a paramater. Result is a value that represents either a success or a failure, including an associated value in each case. In success it includes array of extractions,, in case of failure error from the server side.
+     - parameter completion: An action for processing asynchronous data received from the service with Result type as a paramater.
+     Result is a value that represents either a success or a failure, including an associated value in each case.
+     Completion block called on main thread.
+     In success it includes array of extractions.
+     In case of failure error from the server side.
      
      */
     public func setDocumentForReview(documentId: String, completion: @escaping (Result<[Extraction], GiniPayBusinessError>) -> Void) {
@@ -195,7 +221,9 @@ public enum GiniPayBusinessError: Error {
                     }
                 }
             case .failure(let error):
-                completion(.failure(.apiError(error)))
+                DispatchQueue.main.async {
+                    completion(.failure(.apiError(error)))
+                }
             }
         }
     }
