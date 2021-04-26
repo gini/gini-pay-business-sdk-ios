@@ -17,7 +17,20 @@ public enum GiniPayBusinessError: Error {
      /// Error thrown when api return failure.
     case apiError(GiniError)
 }
-
+/**
+ Data structure for Payment Review Screen initialization.
+ */
+public struct DataForReview {
+    public let document: Document
+    public let extractions: [Extraction]
+    public init(document: Document, extractions: [Extraction]) {
+        self.document = document
+        self.extractions = extractions
+    }
+}
+/**
+ Core class for GiniPayBusiness SDK.
+ */
 @objc public final class GiniPayBusiness: NSObject {
     /// reponsible for interaction with Gini Pay backend .
     public var giniApiLib: GiniApiLib
@@ -129,6 +142,29 @@ public enum GiniPayBusinessError: Error {
     }
     
     /**
+     Polls the document via document id.
+     
+     - parameter documentId: Id of uploaded document.
+     - parameter completion: An action for processing asynchronous data received from the service with Result type as a paramater. Result is a value that represents either a success or a failure, including an associated value in each case.
+     Completion block called on main thread.
+     In success returns the polled document.
+     In case of failure error from the server side.
+
+     */
+    public func pollDocument(docId: String, completion: @escaping (Result<Document, GiniPayBusinessError>) -> Void){
+        documentService.fetchDocument(with: docId) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case let .success(document):
+                    completion(.success(document))
+                case let .failure(error):
+                    completion(.failure(.apiError(error)))
+                }
+            }
+        }
+    }
+    
+    /**
      Get extractions for the document.
      
      - parameter docId: id of the uploaded document.
@@ -205,7 +241,7 @@ public enum GiniPayBusinessError: Error {
     }
     
     /**
-     Sets a data for review screen
+     Sets a data for payment review screen
      
      - parameter documentId: Id of uploaded document.
      - parameter completion: An action for processing asynchronous data received from the service with Result type as a paramater.
@@ -228,6 +264,42 @@ public enum GiniPayBusinessError: Error {
                     }
                 }
             case .failure(let error):
+                DispatchQueue.main.async {
+                    completion(.failure(.apiError(error)))
+                }
+            }
+        }
+    }
+    
+    /**
+     Fetches document and extractions for payment review screen
+
+     - parameter documentId: Id of uploaded document.
+     - parameter completion: An action for processing asynchronous data received from the service with Result type as a paramater.
+     Result is a value that represents either a success or a failure, including an associated value in each case.
+     Completion block called on main thread.
+     In success returns DataForReview structure. It includes document and array of extractions.
+     In case of failure error from the server side and nil instead of document .
+
+     */
+    public func fetchDataForReview(documentId: String, completion: @escaping (Result<DataForReview, GiniPayBusinessError>) -> Void) {
+        documentService.fetchDocument(with: documentId) { result in
+            switch result {
+            case let .success(document):
+                self.documentService
+                    .extractions(for: document,
+                                 cancellationToken: CancellationToken()) { result in
+                        DispatchQueue.main.async {
+                            switch result {
+                            case let .success(extractionResult):
+                                let fetchedData = DataForReview(document: document, extractions: extractionResult.extractions)
+                                completion(.success(fetchedData))
+                            case let .failure(error):
+                                completion(.failure(.apiError(error)))
+                            }
+                        }
+                    }
+            case let .failure(error):
                 DispatchQueue.main.async {
                     completion(.failure(.apiError(error)))
                 }

@@ -45,6 +45,14 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
         
         return vc
     }
+    
+    public static func instantiate(with apiLib: GiniApiLib, data: DataForReview) -> PaymentReviewViewController {
+        let vc = (UIStoryboard(name: "PaymentReview", bundle: giniPayBusinessBundle())
+            .instantiateViewController(withIdentifier: "paymentReviewViewController") as? PaymentReviewViewController)!
+        vc.model = PaymentReviewModel(with: apiLib, document: data.document, extractions: data.extractions)
+        
+        return vc
+    }
 
     var giniPayBusinessConfiguration = GiniPayBusinessConfiguration.shared
     
