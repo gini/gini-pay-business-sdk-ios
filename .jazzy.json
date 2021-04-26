@@ -23,13 +23,8 @@
          "children":[
            "Installation",
            "Integration",
+           "Customization guide",
            "License"
-         ]
-      },
-      {
-         "name":"Guides",
-         "children":[
-           "Customization guide"
          ]
       },
       {

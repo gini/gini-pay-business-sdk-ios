@@ -1,94 +1,101 @@
 Integration
 =============================
 
-The Gini Capture SDK provides two integration options. A [Screen API](#screen-api) that is easy to implement and a more complex, but also more flexible [Component API](#component-api). Both APIs can access the complete functionality of the SDK.
+Gini Pay provides an information extraction system for analyzing business invoices and transfers them to the iOS banking app, where the payment process will be completed.
 
-**Note**: Irrespective of the option you choose if you want to support **iOS 10** you need to specify the `NSCameraUsageDescription` key in your `Info.plist` file. This key is mandatory for all apps since iOS 10 when using the `Camera` framework. Also if you're using the [Gini iOS SDK](https://github.com/gini/gini-sdk-ios) you need to add support for "Keychain Sharing" in your entitlements by adding a `keychain-access-groups` value to your entitlements file. For more information see the [Integration Guide](http://developer.gini.net/gini-sdk-ios/docs/guides/getting-started.html#integrating-the-gini-sdk) of the Gini iOS SDK.
+The Gini Pay Business SDK for iOS provides functionality to upload the multipage documents with mobile phones, accurate line item extraction enables the user to to pay the invoice with prefferable payment provider. 
 
-## Screen API
+**Note** For supporting each payment provider you need to specify `LSApplicationQueriesSchemes` in your `Info.plist` file. App schemes for specification will be provided by Gini.
 
-The Screen API provides a custom `UIViewController` object, which can be presented modally. It handles the complete process from showing the onboarding until providing a UI for the analysis.
-The Screen API, in turn, offers two different ways of implementation:
 
-#### UI with Networking (Recommended)
-Using this method you don't need to care about handling the analysis process with the [Gini API SDK](https://github.com/gini/gini-sdk-ios), you only need to provide your API credentials and a delegate to get the analysis results.
+## Upload the document
 
-```swift
-let viewController = GiniCapture.viewController(withClient: client,
-                                               configuration: giniConfiguration,
-                                               resultsDelegate: resultsDelegate)
+Document upload can be done in two ways:
 
-present(viewController, animated: true, completion:nil)
-```
+using `GiniApiLib`
+using `GiniCapture`
 
-Optionally if you want to use _Certificate pinning_, provide metadata for the upload process or use the [Accounting API](https://accounting-api.gini.net/documentation/), you can pass both your public key pinning configuration (see [TrustKit repo](https://github.com/datatheorem/TrustKit) for more information), the metadata information and the _API type_ (the [Gini API](http://developer.gini.net/gini-api/html/index.html) is used by default) as follows:
+
+#### GiniApiLib initialization
+
+If you want to use a transparent proxy with your own authentication you can specify your own domain and add `AlternativeTokenSource` protocol implementation:
 
 ```swift
-import TrustKit
-
-let yourPublicPinningConfig = [
-    kTSKPinnedDomains: [
-    "api.gini.net": [
-        kTSKPublicKeyHashes: [
-        // old *.gini.net public key
-        "cNzbGowA+LNeQ681yMm8ulHxXiGojHE8qAjI+M7bIxU=",
-        // new *.gini.net public key, active from around June 2020
-        "zEVdOCzXU8euGVuMJYPr3DUU/d1CaKevtr0dW0XzZNo="
-    ]],
-    "user.gini.net": [
-        kTSKPublicKeyHashes: [
-        // old *.gini.net public key
-        "cNzbGowA+LNeQ681yMm8ulHxXiGojHE8qAjI+M7bIxU=",
-        // new *.gini.net public key, active from around June 2020
-        "zEVdOCzXU8euGVuMJYPr3DUU/d1CaKevtr0dW0XzZNo="
-    ]],
-]] as [String: Any]
-
-let viewController = GiniCapture.viewController(withClient: client,
-                                               configuration: giniConfiguration,
-                                               resultsDelegate: resultsDelegate,
-                                               publicKeyPinningConfig: yourPublicPinningConfig,
-                                               documentMetadata: documentMetadata,
-                                               api: .accounting)
-
-present(viewController, animated: true, completion:nil)
+ let apiLib =  GiniApiLib.Builder(customApiDomain: "api.custom.net",
+                                 alternativeTokenSource: MyAlternativeTokenSource)
+                                 .build()
 ```
+The token your provide will be added as a bearer token to all api.custom.net requests.
 
-
+Optionally if you want to use _Certificate pinning_, provide metadata for the upload process, you can pass both your public key pinning configuration (see [TrustKit repo](https://github.com/datatheorem/TrustKit) for more information)
+```swift
+    let giniApiLib = GiniApiLib
+        .Builder(client: Client(id: "your-id",
+                                secret: "your-secret",
+                                domain: "your-domain"),
+                 api: .default,
+                 pinningConfig: yourPublicPinningConfig)
+        .build()
+```
 > ⚠️  **Important**
 > - The document metadata for the upload process is intended to be used for reporting.
-> - The multipage is supported only by the `.default` api, not the `.accounting` api. The `GiniConfiguration.multipageEnabled` property must not be `true` if you use the `.accounting` api.
 
-
-#### Only UI
-
-In case that you decide to use only the UI and to handle all the analysis process (either using the [Gini API SDK](https://github.com/gini/gini-sdk-ios) or with your own implementation of the API), just get the `UIViewController` as follows:
+## GiniPayBusiness initialization
+Now that the `GiniApiLib` has been initialized, you can initialize `GiniPayBusiness`
 
 ```swift
-let viewController = GiniCapture.viewController(withDelegate: self,
-                                               withConfiguration: giniConfiguration)
-
-present(viewController, animated: true, completion: nil)
+ let businessSDK = GiniPayBusiness(with: giniApiLib)
 ```
-
-## Component API
-
-The Component API provides a custom `UIViewController` for each screen. This allows a maximum of flexibility, as the screens can be presented modally, used in a container view or pushed to a navigation view controller. Make sure to add your own navigational elements around the provided views.
-
-To also use the `GiniConfiguration` with the Component API just use the `GiniCapture.setConfiguration(_:)` as follows:
+and upload your document if you plan to do it with `GiniPayBusiness`. First you need get document service and create partial document.
 
 ```swift
-let giniConfiguration = GiniConfiguration()
-.
-.
-.
-GiniCapture.setConfiguration(giniConfiguration)
+let documentService: DefaultDocumentService = businessSDK.documentService()
+documentService.createDocument(fileName:"ginipay-partial",
+                               docType: nil,
+                               type: .partial(documentData),
+                               metadata: nil)
+```
+The method above returns the completion block with partial `Document` in success case.
+
+After receiving the partial document in completion you can get actual composite document:
+
+```swift
+let partialDocs = [PartialDocumentInfo(document: createdDocument.links.document)]
+ self.businessSDK.documentService
+            .createDocument(fileName: "ginipay-composite",
+                            docType: nil,
+                            type: .composite(CompositeDocumentInfo(partialDocuments: partialDocs)),
+                            metadata: nil)
+
 ```
 
-The components that can be found in the SDK are:
-* **Camera**: The actual camera screen to capture the image of the document, to import a PDF or an image or to scan a QR Code (`CameraViewController`).
-* **Review**: Offers the opportunity to the user to check the sharpness of the image and eventually to rotate it into reading direction (`ReviewViewController`).
-* **Multipage Review**: Allows to check the quality of one or several images and the possibility to rotate and reorder them (`MultipageReviewViewController`).
-* **Analysis**: Provides a UI for the analysis process of the document by showing the user capture tips when an image is analyzed or the document information when it is a PDF. In both cases an image preview of the document analyzed will be shown (`AnalysisViewController`).
-* **Help**: Helpful tutorials indicating how to use the open with feature, which are the supported file types and how to capture better photos for a good analysis (`HelpMenuViewController`).
-* **No results**: Shows some suggestions to capture better photos when there are no results after an analysis (`ImageAnalysisNoResultsViewController`).
+##  Check preconditions
+There are two methods in GiniPayBusiness `businessSDK.checkIfAnyPaymentProviderAvailiable` and `businessSDK.checkIfDocumentIsPayable(docId: String)` returns true if Iban was extracted.
+
+## Fetching data for payment review screen
+If the preconditions checks are succeeded you can fetch the document and extractions for Payment Review screen:
+
+```swift
+businessSDK.fetchDataForReview(documentId: documentId,
+                              completion: @escaping (Result<DataForReview, GiniPayBusinessError>) -> Void)
+```
+The method above returns the completion block with the struct `DataForReview`, which includes document and extractions.
+
+
+## Payment review screen initialization 
+```swift
+let vc = PaymentReviewViewController.instantiate(with apiLib: giniApiLib,
+                                                 data: dataForReview)
+```
+The screen can be presented modally, used in a container view or pushed to a navigation view controller. Make sure to add your own navigational elements around the provided views.
+
+To also use the `GiniPayBusinessConfiguration`:
+
+```swift
+let giniConfiguration = GiniPayBusinessConfiguration()
+config.loadingIndicatorColor = .black
+.
+.
+.
+businessSDK.setConfiguration(config)
+```

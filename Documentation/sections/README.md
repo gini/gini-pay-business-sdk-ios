@@ -1,6 +1,4 @@
-<p align="center">
-<img src="img/repo-logo.png" width="250" height="150">
-</p>
+![Gini Pay Business SDK for iOS](img/logo.png)
 
 # Gini Pay Business SDK for iOS
 
@@ -8,7 +6,7 @@
 [![Swift version](https://img.shields.io/badge/swift-5.0-orange.svg)]()
 
 
-The Gini Pay Business SDK provides ways to interact with the Gini Pay API and therefore, adds the possibility to scan documents and extract information from them.
+The Gini Pay Business SDK for iOS provides functionality to upload the multipage documents with mobile phones, accurate line item extraction enables the user to to pay the invoice with prefferable payment provider. 
 
 ## Contents
 
