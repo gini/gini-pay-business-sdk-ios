@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ABg-VY-jIt">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -9,79 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Default Camera View Controller-->
-        <scene sceneID="nbU-Nc-Xx6">
-            <objects>
-                <viewController id="ke8-GC-OOz" customClass="DefaultCameraViewController" customModule="Example_Swift" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="W0B-tD-f0L">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="meZ-dC-47k">
-                                <rect key="frame" x="100.5" y="484" width="119" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="4rU-1c-Vax"/>
-                                </constraints>
-                                <state key="normal" title="Create document"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="5"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="showImagePicker:" destination="ke8-GC-OOz" eventType="touchUpInside" id="6U2-EB-Xni"/>
-                                </connections>
-                            </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="emptyDoc" translatesAutoresizingMaskIntoConstraints="NO" id="hJ9-BV-1BC">
-                                <rect key="frame" x="32" y="44" width="256" height="380"/>
-                            </imageView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="mFR-xR-hCu"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="meZ-dC-47k" firstAttribute="top" secondItem="hJ9-BV-1BC" secondAttribute="bottom" constant="60" id="BSh-4c-6bf"/>
-                            <constraint firstItem="mFR-xR-hCu" firstAttribute="bottom" secondItem="meZ-dC-47k" secondAttribute="bottom" constant="40" id="SfJ-sF-XIT"/>
-                            <constraint firstItem="meZ-dC-47k" firstAttribute="centerX" secondItem="hJ9-BV-1BC" secondAttribute="centerX" id="WB3-j2-ZBJ"/>
-                            <constraint firstItem="mFR-xR-hCu" firstAttribute="trailing" secondItem="hJ9-BV-1BC" secondAttribute="trailing" constant="32" id="bVF-CQ-QFm"/>
-                            <constraint firstItem="hJ9-BV-1BC" firstAttribute="top" secondItem="mFR-xR-hCu" secondAttribute="top" id="wf5-S4-gF3"/>
-                            <constraint firstItem="hJ9-BV-1BC" firstAttribute="centerX" secondItem="W0B-tD-f0L" secondAttribute="centerX" id="xjj-r4-dPf"/>
-                            <constraint firstItem="hJ9-BV-1BC" firstAttribute="leading" secondItem="mFR-xR-hCu" secondAttribute="leading" constant="32" id="z3C-Kc-oZr"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="6dB-Dd-xdr"/>
-                    <connections>
-                        <outlet property="imageView" destination="hJ9-BV-1BC" id="aZL-1q-esD"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hnp-lw-x3T" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="540.57971014492762" y="-585.26785714285711"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="IX7-l6-jVW">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1kN-Wt-IGZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ABg-VY-jIt" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="R3b-VM-WGi">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="ke8-GC-OOz" kind="relationship" relationship="rootViewController" id="u6C-qP-H3t"/>
-                    </connections>
-                </navigationController>
-            </objects>
-            <point key="canvasLocation" x="-368.11594202898556" y="-585.26785714285711"/>
-        </scene>
         <!--API Selection-->
         <scene sceneID="kwp-Yv-UYS">
             <objects>
-                <viewController storyboardIdentifier="selectAPIViewController" id="xwN-oG-9wR" userLabel="API Selection" customClass="SelectAPIViewController" customModule="Example_Swift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="selectAPIViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xwN-oG-9wR" userLabel="API Selection" customClass="SelectAPIViewController" customModule="Example_Swift" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="tje-pu-dg2"/>
                         <viewControllerLayoutGuide type="bottom" id="1mk-Ot-yVv"/>
@@ -94,7 +25,7 @@
                                 <rect key="frame" x="110" y="389.5" width="100" height="40"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="LpW-5m-Wb9"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="LpW-5m-Wb9"/>
                                     <constraint firstAttribute="height" constant="40" id="pXg-UT-9n3"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
@@ -197,7 +128,6 @@
     </scenes>
     <resources>
         <image name="business_logo" width="392" height="130.66667175292969"/>
-        <image name="emptyDoc" width="95" height="90"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

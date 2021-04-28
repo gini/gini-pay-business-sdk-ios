@@ -622,8 +622,9 @@ extension ComponentAPICoordinator {
 
 extension ComponentAPICoordinator {
     
-    fileprivate func handleAnalysis(document: Document, apiLib: GiniApiLib, extractions: [Extraction]?) {
-        let vc = PaymentReviewViewController.instantiate(with: apiLib, document: document, extractions: extractions ?? [])
+    fileprivate func handleAnalysis(document: Document, apiLib: GiniApiLib, extractions: [Extraction]) {
+        let fetchedData = DataForReview(document: document, extractions: extractions)
+        let vc = PaymentReviewViewController.instantiate(with: apiLib, data: fetchedData)
         navigationController.pushViewController(vc , animated: true)
     }
 }

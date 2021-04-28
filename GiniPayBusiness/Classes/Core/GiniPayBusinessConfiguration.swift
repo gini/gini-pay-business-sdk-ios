@@ -6,6 +6,17 @@
 //
 
 import Foundation
+/**
+ The `GiniPayBusinessConfiguration` class allows customizations to the look of the Gini Pay Business SDK.
+ If there are limitations regarding which API can be used, this is clearly stated for the specific attribute.
+ 
+ - note: Text can also be set by using the appropriate keys in a `Localizable.strings` file in the projects bundle.
+         The library will prefer whatever value is set in the following order: attribute in configuration,
+         key in strings file in project bundle, key in strings file in `GiniPayBusiness` bundle.
+ - note: Images can only be set by providing images with the same filename in an assets file or as individual files
+         in the projects bundle. The library will prefer whatever value is set in the following order: asset file
+         in project bundle, asset file in `GiniPayBusiness` bundle. See the avalible images for overriding in `GiniImages.xcassets`.
+ */
 public final class GiniPayBusinessConfiguration: NSObject {
     
     /**
@@ -27,7 +38,7 @@ public final class GiniPayBusinessConfiguration: NSObject {
     @objc public var paymentScreenBackgroundColor = GiniColor(lightModeColor: UIColor.black, darkModeColor: UIColor.black)
     
     /**
-     Sets the backgroundColor  on the payment review screen for pay button
+     Sets the backgroundColor on the payment review screen for input fields container
      */
     @objc public var inputFieldsContainerBackgroundColor = GiniColor(lightModeColor: UIColor.white, darkModeColor: UIColor.white)
     
