@@ -19,7 +19,6 @@ touch .nojekyll
 
 git add .
 git commit -a -m 'Updated Gini Pay Business SDK documentation'
-git status
 git push
 
 cd ..
