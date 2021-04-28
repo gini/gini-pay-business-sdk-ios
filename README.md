@@ -1,4 +1,4 @@
-![Gini Pay Business SDK for iOS](img/logo.png)
+![Gini Pay Business SDK for iOS](./GiniPayBusiness_Logo.png?raw=true)
 
 # Gini Pay Business SDK for iOS
 
@@ -13,7 +13,7 @@ By integrating this SDK into your application you can allow your users to easily
 
 ## Documentation
 
-Further documentation with installation, integration or customization guides can be found in our [website](http://developer.gini.net/gini-pay-business-ios/docs/).
+Further documentation with installation, integration or customization guides can be found in our [website](http://developer.gini.net/gini-pay-business-sdk-ios/docs/).
 
 ## Example
 
@@ -21,7 +21,7 @@ We are providing example app for Swift. This app demonstrates how to integrate t
 To check the redirection to Banking app please run Bank example before Example Swift.
 To inject your API credentials into the Example app, just add to the Example directory the `Credentials.plist` file with the following format:
 
-![credentials for iOS](img/credentials.png)
+<img border=1 src=credentials_plist_format.png/>
 
 ## Requirements
 
@@ -40,6 +40,6 @@ Gini GmbH, hello@gini.net
 
 ## License
 
-The Gini Pay Business SDK for iOS is licensed under a Private License. See [the license](http://developer.gini.net/gini-pay-business-ios/docs/license.html) for more info.
+The Gini Pay Business SDK for iOS is licensed under a Private License. See [the license](http://developer.gini.net/gini-pay-business-sdk-ios/docs/license.html) for more info.
 
 **Important:** Always make sure to ship all license notices and permissions with your application.
