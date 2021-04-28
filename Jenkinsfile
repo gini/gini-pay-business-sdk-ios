@@ -45,7 +45,7 @@ pipeline {
         }
       }
       steps {
-        sh 'Documentation/deploy-documentation.sh $GIT_USR $GIT_PSW'
+        sh 'Documentation/scripts/deploy-documentation.sh $GIT_USR $GIT_PSW'
       }
     }
     stage('Pod Lint') {
