@@ -18,7 +18,8 @@ cd gh-pages
 touch .nojekyll
 
 git add .
-git commit -a -m 'Updated documentation'
+git commit -a -m 'Updated Gini Pay Business SDK documentation'
+git status
 git push
 
 cd ..
