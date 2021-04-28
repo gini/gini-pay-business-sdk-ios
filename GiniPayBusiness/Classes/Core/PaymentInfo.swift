@@ -6,6 +6,10 @@
 //
 
 import Foundation
+/**
+ Model object for payment information
+  */
+
 public struct PaymentInfo {
     public var recipient,iban: String
     public var bic: String

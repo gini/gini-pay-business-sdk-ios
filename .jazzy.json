@@ -7,7 +7,7 @@
    ],
    "author":"Gini GmbH",
    "author_url":"https://gini.net",
-   "module":"GiniPayBusinessSDK",
+   "module":"GiniPayBusiness",
    "readme":"Documentation/Sections/Documentation.md",
    "theme": "Documentation/jazzy-theme/",
    "output":"Documentation/Api",
@@ -23,14 +23,8 @@
          "children":[
            "Installation",
            "Integration",
-           "Changelog",
+           "Customization guide",
            "License"
-         ]
-      },
-      {
-         "name":"Guides",
-         "children":[
-           "Customization guide"
          ]
       },
       {

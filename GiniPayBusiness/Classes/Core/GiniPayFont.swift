@@ -7,7 +7,7 @@
 
 import Foundation
 /**
- Provides a way to set all possible font weights used in the GiniCapture SDK.
+ Provides a way to set all possible font weights used in the GiniPayBusiness SDK.
  
  **Possible weights:**
  
