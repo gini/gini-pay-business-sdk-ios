@@ -1,4 +1,4 @@
-![Gini Pay Business SDK for iOS](./GiniPayBusiness_Logo.png?raw=true)
+![Gini Pay Business SDK for iOS](img/GiniPayBusiness_Logo.png?raw=true)
 
 # Gini Pay Business SDK for iOS
 
