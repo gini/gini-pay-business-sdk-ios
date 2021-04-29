@@ -21,7 +21,9 @@ We are providing example app for Swift. This app demonstrates how to integrate t
 To check the redirection to Banking app please run Bank example before Example Swift.
 To inject your API credentials into the Example app, just add to the Example directory the `Credentials.plist` file with the following format:
 
-<img border=1 src=credentials_plist_format.png/>
+<br>
+<center><img src="img/credentials_plist_format.png"/></center>
+</br>
 
 ## Requirements
 
