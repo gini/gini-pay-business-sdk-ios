@@ -95,6 +95,11 @@ final class AppCoordinator: Coordinator {
         }
     }
     
+    func processBankUrl() {
+            self.popToRootViewControllerIfNeeded()
+            showReturnMessage()
+        }
+    
     fileprivate func showSelectAPIScreen() {
         self.window.rootViewController = rootViewController
         self.window.makeKeyAndVisible()
@@ -136,6 +141,18 @@ final class AppCoordinator: Coordinator {
     fileprivate func showExternalDocumentNotValidDialog() {
         let alertViewController = UIAlertController(title: "Ungültiges Dokument",
                                                     message: "Dies ist kein gültiges Dokument",
+                                                    preferredStyle: .alert)
+        
+        alertViewController.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+            alertViewController.dismiss(animated: true, completion: nil)
+        })
+        
+        rootViewController.present(alertViewController, animated: true, completion: nil)
+    }
+    
+    fileprivate func showReturnMessage() {
+        let alertViewController = UIAlertController(title: "Congratulations",
+                                                    message: "Payment was successful 🎉",
                                                     preferredStyle: .alert)
         
         alertViewController.addAction(UIAlertAction(title: "OK", style: .default) { _ in
