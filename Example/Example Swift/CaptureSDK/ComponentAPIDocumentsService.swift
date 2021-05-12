@@ -20,6 +20,13 @@ final class ComponentAPIDocumentsService: ComponentAPIDocumentServiceProtocol {
     var apiLib: GiniApiLib
     var businessSDK: GiniPayBusiness!
     
+    lazy var businessConfiguration: GiniPayBusinessConfiguration = {
+        let configuration = GiniPayBusinessConfiguration()
+        configuration.payButtonTextFont = UIFont.systemFont(ofSize: 16.0)
+        configuration.payButtonTextColor = GiniColor(lightModeColor: .white, darkModeColor: .white)
+        return configuration
+    }()
+    
     init(lib: GiniApiLib, documentMetadata: Document.Metadata?) {
         self.metadata = documentMetadata
         self.apiLib = lib
@@ -175,6 +182,7 @@ extension ComponentAPIDocumentsService {
     
     
     fileprivate func getDataForReviewScreen(for document: Document, completion: @escaping ComponentAPIAnalysisBusinessSDKCompletion){
+        self.businessSDK.setConfiguration(businessConfiguration)
         self.businessSDK.setDocumentForReview(documentId: document.id) { result in
             switch result {
             case .success(let extractions):
