@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -37,7 +37,6 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="40" id="Y8l-fS-Utn"/>
                                                                 </constraints>
-                                                                <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="alphabet"/>
                                                                 <connections>
@@ -67,7 +66,6 @@
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="40" id="s8g-RQ-L0J"/>
                                                                         </constraints>
-                                                                        <nil key="textColor"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                         <textInputTraits key="textInputTraits"/>
                                                                         <connections>
@@ -81,7 +79,6 @@
                                                                             <constraint firstAttribute="width" constant="98" id="tdO-fQ-wea"/>
                                                                             <constraint firstAttribute="height" constant="40" id="vsb-by-xk7"/>
                                                                         </constraints>
-                                                                        <nil key="textColor"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                         <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                                         <connections>
@@ -135,7 +132,6 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="40" id="qPe-e1-GG0"/>
                                                                 </constraints>
-                                                                <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="alphabet"/>
                                                                 <connections>
@@ -186,13 +182,10 @@
                                                                             <constraint firstAttribute="width" constant="140" id="z3C-IU-WjL"/>
                                                                         </constraints>
                                                                     </view>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8gp-kV-rnt">
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8gp-kV-rnt">
                                                                         <rect key="frame" x="156" y="0.0" width="240" height="40"/>
                                                                         <color key="backgroundColor" red="1" green="0.40863117580000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                                        <state key="normal" title="Zur Überweisung">
-                                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                        </state>
+                                                                        <state key="normal" title="Zur Überweisung"/>
                                                                         <connections>
                                                                             <action selector="payButtonClicked:" destination="QI6-9C-Fdg" eventType="touchUpInside" id="Yxh-V6-oc5"/>
                                                                         </connections>
@@ -246,7 +239,7 @@
                                         </cells>
                                     </collectionView>
                                     <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" hidesForSinglePage="YES" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="iQ0-i0-82S">
-                                        <rect key="frame" x="165.33333333333334" y="509" width="121.33333333333334" height="20"/>
+                                        <rect key="frame" x="166" y="509" width="120.33333333333331" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="rHy-jF-qFa"/>
                                         </constraints>
