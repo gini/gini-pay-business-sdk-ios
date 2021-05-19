@@ -11,7 +11,7 @@ import GiniCapture
 import GiniPayApiLib
 import GiniPayBusiness
 
-protocol ComponentAPICoordinatorDelegate: class {
+protocol ComponentAPICoordinatorDelegate: AnyObject {
     func componentAPI(coordinator: ComponentAPICoordinator, didFinish:())
 }
 
