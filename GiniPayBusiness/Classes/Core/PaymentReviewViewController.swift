@@ -229,9 +229,12 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     }
     
     @objc fileprivate func doneWithAmountInputButtonTapped() {
-        let price = Price.init(value: Decimal(string:amountField.text ?? "") ?? 0, currencyCode: "EUR")
-        amountField.text = price.string
-        view.endEditing(true)
+        
+        if let amount = Double(amountField.text!) {
+            amountField.text = formattedStringWithCurrency(value: amount)
+        }
+        amountField.endEditing(true)
+        amountField.resignFirstResponder()
     }
 
      func addDoneButtonForNumPad(_ textField: UITextField) {
@@ -285,12 +288,16 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
                     showErrorLabel(textFieldTag: fieldIdentifier)
                 }
             case .amountFieldTag:
-                
-                let price = Price.init(value: Decimal(string:textField.text ?? "") ?? 0, currencyCode: "EUR")
-                amountField.text = price.string
-                if (Decimal(string: price.stringWithoutSymbol ?? "") ?? 0 > 0) && textField.hasText {
-                    applyDefaultStyle(textField)
-                    hideErrorLabel(textFieldTag: fieldIdentifier)
+                if let amount = amountField.text, amountField.hasText {
+                    let amountText = formattedStringWithoutCurrencyWithCurrentLocale(numberString: amount)
+                    if amountText.numberValue?.doubleValue ?? 0 > 0 {
+                        applyDefaultStyle(textField)
+                        hideErrorLabel(textFieldTag: fieldIdentifier)
+                    } else {
+                        amountField.text = ""
+                        applyErrorStyle(textField)
+                        showErrorLabel(textFieldTag: fieldIdentifier)
+                    }
                 } else {
                     applyErrorStyle(textField)
                     showErrorLabel(textFieldTag: fieldIdentifier)
@@ -323,10 +330,10 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
         recipientField.text = model?.extractions.first(where: {$0.name == "paymentRecipient"})?.value
         ibanField.text = model?.extractions.first(where: {$0.name == "iban"})?.value
         usageField.text = model?.extractions.first(where: {$0.name == "paymentPurpose"})?.value
-        let amountString = model?.extractions.first(where: {$0.name == "amountToPay"})?.value
-
-        let price = Price.init(extractionString: amountString ?? "0.00:EUR")
-        amountField.text = price?.string
+        if let amountString = model?.extractions.first(where: {$0.name == "amountToPay"})?.value {
+            let amount = formattedStringFromExtraction(string: amountString)
+            amountField.text = amount
+        }
     }
 
     fileprivate func showErrorLabel(textFieldTag: TextFieldType) {
@@ -404,8 +411,10 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
         
         //check if no errors labels are shown
         if (paymentInputFieldsErrorLabels.allSatisfy { $0.isHidden }) {
-            let amountText = amountField.text ?? ""
-            if let selectedPaymentProvider = paymentProviders.first {
+            
+            if let selectedPaymentProvider = paymentProviders.first,let amount = amountField.text
+             {
+                let amountText = formattedStringWithCurrencyForPaymentRequest(numberString: amount)
                 let paymentInfo = PaymentInfo(recipient: recipientField.text ?? "", iban: ibanField.text ?? "", bic: "", amount: amountText, purpose: usageField.text ?? "", paymentProviderScheme: selectedPaymentProvider.appSchemeIOS, paymentProviderId: selectedPaymentProvider.id)
                 
                 view.showLoading()
@@ -472,13 +481,25 @@ extension PaymentReviewViewController: UITextFieldDelegate {
     }
 
     public func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        // add currency format when edit is finished
+        if TextFieldType(rawValue: textField.tag) == .amountFieldTag {
+            let amountText = formattedStringWithCurrency(value: amountField.text?.numberValue?.doubleValue ?? 0)
+                amountField.text = amountText
+        }
         validateTextField(textField)
     }
 
     public func textFieldDidBeginEditing(_ textField: UITextField) {
         applySelectionStyle(textField)
+        
+        // remove currency symbol and whitespaces for edit mode
         if let fieldIdentifier = TextFieldType(rawValue: textField.tag) {
             hideErrorLabel(textFieldTag: fieldIdentifier)
+            if fieldIdentifier == .amountFieldTag, amountField.hasText {
+                let amountText = formattedStringWithoutCurrencyWithCurrentLocale(numberString: amountField.text ?? "")
+                amountField.text = amountText
+            }
         }
     }
 }
