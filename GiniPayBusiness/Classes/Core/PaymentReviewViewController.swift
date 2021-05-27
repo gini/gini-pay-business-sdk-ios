@@ -407,6 +407,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     // MARK: - IBAction
     
     @IBAction func payButtonClicked(_ sender: Any) {
+        view.endEditing(true)
         validateAllInputFields()
         
         //check if no errors labels are shown
