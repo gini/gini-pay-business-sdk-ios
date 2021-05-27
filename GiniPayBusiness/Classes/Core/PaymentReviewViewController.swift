@@ -30,6 +30,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     
     var model: PaymentReviewModel?
     var paymentProviders: [PaymentProvider] = []
+    private var amountToPay = Price(extractionString: "")
     
     enum TextFieldType: Int {
         case recipientFieldTag = 1
@@ -156,6 +157,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
         configurePageControl()
         hideErrorLabels()
         fillInInputFields()
+        addDoneButtonForNumPad(amountField)
     }
 
     // MARK: - TODO ConfigureBankProviderView Dynamically configured
@@ -231,9 +233,12 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     }
     
     @objc fileprivate func doneWithAmountInputButtonTapped() {
-        let price = Price.init(value: Decimal(string:amountField.text ?? "") ?? 0, currencyCode: "EUR")
-        amountField.text = price.string
-        view.endEditing(true)
+        amountField.endEditing(true)
+        amountField.resignFirstResponder()
+        
+        if amountField.hasText && !amountField.isReallyEmpty {
+            updateAmoutToPayWithCurrencyFormat()
+        }
     }
 
      func addDoneButtonForNumPad(_ textField: UITextField) {
@@ -257,7 +262,6 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
                 return NSLocalizedStringPreferredFormat("ginipaybusiness.reviewscreen.iban.placeholder",
                                                         comment: "placeholder text for iban input field")
             case .amountFieldTag:
-                addDoneButtonForNumPad(textField)
                 return NSLocalizedStringPreferredFormat("ginipaybusiness.reviewscreen.amount.placeholder",
                                                         comment: "placeholder text for amount input field")
             case .usageFieldTag:
@@ -287,12 +291,15 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
                     showErrorLabel(textFieldTag: fieldIdentifier)
                 }
             case .amountFieldTag:
-                
-                let price = Price.init(value: Decimal(string:textField.text ?? "") ?? 0, currencyCode: "EUR")
-                amountField.text = price.string
-                if (Decimal(string: price.stringWithoutSymbol ?? "") ?? 0 > 0) && textField.hasText {
-                    applyDefaultStyle(textField)
-                    hideErrorLabel(textFieldTag: fieldIdentifier)
+                if amountField.hasText && !amountField.isReallyEmpty, let decimalPart = amountToPay?.value  {
+                    if decimalPart > 0 {
+                        applyDefaultStyle(textField)
+                        hideErrorLabel(textFieldTag: fieldIdentifier)
+                    } else {
+                        amountField.text = ""
+                        applyErrorStyle(textField)
+                        showErrorLabel(textFieldTag: fieldIdentifier)
+                    }
                 } else {
                     applyErrorStyle(textField)
                     showErrorLabel(textFieldTag: fieldIdentifier)
@@ -325,10 +332,10 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
         recipientField.text = model?.extractions.first(where: {$0.name == "paymentRecipient"})?.value
         ibanField.text = model?.extractions.first(where: {$0.name == "iban"})?.value
         usageField.text = model?.extractions.first(where: {$0.name == "paymentPurpose"})?.value
-        let amountString = model?.extractions.first(where: {$0.name == "amountToPay"})?.value
-
-        let price = Price.init(extractionString: amountString ?? "0.00:EUR")
-        amountField.text = price?.string
+        if let amountString = model?.extractions.first(where: {$0.name == "amountToPay"})?.value {
+            amountToPay = Price(extractionString: amountString)
+            amountField.text = amountToPay?.string
+        }
     }
 
     fileprivate func showErrorLabel(textFieldTag: TextFieldType) {
@@ -402,16 +409,15 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     // MARK: - IBAction
     
     @IBAction func payButtonClicked(_ sender: Any) {
+        view.endEditing(true)
         validateAllInputFields()
         
         //check if no errors labels are shown
         if (paymentInputFieldsErrorLabels.allSatisfy { $0.isHidden }) {
-            let amountText = amountField.text ?? ""
-            if let selectedPaymentProvider = paymentProviders.first {
+            
+            if let selectedPaymentProvider = paymentProviders.first, !amountField.isReallyEmpty, let amountText = amountToPay?.extractionString
+             {
                 let paymentInfo = PaymentInfo(recipient: recipientField.text ?? "", iban: ibanField.text ?? "", bic: "", amount: amountText, purpose: usageField.text ?? "", paymentProviderScheme: selectedPaymentProvider.appSchemeIOS, paymentProviderId: selectedPaymentProvider.id)
-                
-                view.showLoading()
-                
                 model?.createPaymentRequest(paymentInfo: paymentInfo)
             }
         }
@@ -473,14 +479,35 @@ extension PaymentReviewViewController: UITextFieldDelegate {
         return true
     }
 
+    fileprivate func updateAmoutToPayWithCurrencyFormat() {
+        if amountField.hasText, let amountFieldText = amountField.text {
+            if let priceValue = decimal(from: amountFieldText ) {
+                amountToPay?.value = priceValue
+            }
+            amountField.text = amountToPay?.string
+        }
+    }
+    
     public func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        // add currency format when edit is finished
+        if TextFieldType(rawValue: textField.tag) == .amountFieldTag {
+            updateAmoutToPayWithCurrencyFormat()
+        }
         validateTextField(textField)
     }
 
     public func textFieldDidBeginEditing(_ textField: UITextField) {
         applySelectionStyle(textField)
+        
+        // remove currency symbol and whitespaces for edit mode
         if let fieldIdentifier = TextFieldType(rawValue: textField.tag) {
             hideErrorLabel(textFieldTag: fieldIdentifier)
+            
+            if fieldIdentifier == .amountFieldTag, amountField.hasText && !amountField.isReallyEmpty {
+                let amountToPayText = amountToPay?.stringWithoutSymbol
+                amountField.text = amountToPayText
+            }
         }
     }
 }

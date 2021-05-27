@@ -60,3 +60,95 @@ func NSLocalizedStringPreferredFormat(_ key: String,
     
     return format
 }
+
+/**
+ Returns a decimal value
+ 
+ - parameter inputFieldString: String from input field.
+ 
+ - returns: decimal value in current locale.
+ */
+
+func decimal(from inputFieldString: String) -> Decimal? {
+    let formatter = NumberFormatter()
+    formatter.numberStyle = .currency
+    formatter.currencySymbol = ""
+    return formatter.number(from: inputFieldString)?.decimalValue
+}
+
+/**
+   A help price structure with decimal value and currency code, used in amout inpur field.
+ */
+
+struct Price {
+    // Decimal value
+    var value: Decimal
+    // Currency code
+    let currencyCode: String
+    
+    /**
+     Returns a price structure with decimal value and  currency code from extraction string
+     
+     - parameter extractionString: extracted string
+     */
+    
+    init(value: Decimal, currencyCode: String) {
+        self.value = value
+        self.currencyCode = currencyCode
+    }
+  
+    /**
+     Returns a price structure with decimal value and  currency code from extraction string
+     
+     - parameter extractionString: extracted string
+     */
+    
+    init?(extractionString: String) {
+       
+        let components = extractionString.components(separatedBy: ":")
+        
+        guard components.count == 2 else { return nil }
+        
+        guard let decimal = Decimal(string: components.first ?? "", locale: Locale(identifier: "en")),
+            let currencyCode = components.last?.lowercased() else {
+                return nil
+        }
+        
+        self.value = decimal
+        self.currencyCode = currencyCode
+    }
+    
+    // Formatted string with currency code for sending to the Gini Pay Api
+    var extractionString: String {
+        return "\(value):\(currencyCode.uppercased())"
+    }
+    
+    // Currency symbol
+    var currencySymbol: String? {
+        return (Locale.current as NSLocale).displayName(forKey: NSLocale.Key.currencySymbol,
+                                                        value: currencyCode)
+    }
+    
+    // Formatted string with currency symbol
+    var string: String? {
+        
+        let result = (stringWithoutSymbol(from: value) ?? "") + " " + (currencySymbol ?? "")
+        
+        if result.isEmpty { return nil }
+        
+        return result
+    }
+    // Formatted string without currency symbol
+    var stringWithoutSymbol: String? {
+        return stringWithoutSymbol(from: value)
+    }
+    
+    private func stringWithoutSymbol(from value: Decimal) -> String? {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.currencySymbol = ""
+        let formattedString = formatter.string(from: NSDecimalNumber(decimal: value))
+        let trimmedFormattedStringWithoutCurrency = formattedString?.trimmingCharacters(in: .whitespaces)
+        return trimmedFormattedStringWithoutCurrency
+    }
+}
