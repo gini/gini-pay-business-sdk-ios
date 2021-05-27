@@ -172,6 +172,8 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     fileprivate func configurePayButton() {
         payButton.backgroundColor = UIColor.from(giniColor: giniPayBusinessConfiguration.payButtonBackgroundColor)
         payButton.layer.cornerRadius = giniPayBusinessConfiguration.payButtonCornerRadius
+        payButton.titleLabel?.font = giniPayBusinessConfiguration.payButtonTextFont
+        payButton.tintColor = UIColor.from(giniColor: giniPayBusinessConfiguration.payButtonTextColor)
     }
     
     fileprivate func configurePaymentInputFields() {
