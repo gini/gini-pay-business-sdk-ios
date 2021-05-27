@@ -9,7 +9,7 @@
 import UIKit
 import GiniCapture
 
-protocol SelectAPIViewControllerDelegate: class {
+protocol SelectAPIViewControllerDelegate: AnyObject {
     func selectAPI(viewController: SelectAPIViewController, didSelectApi api: GiniCaptureAPIType)
 }
 
