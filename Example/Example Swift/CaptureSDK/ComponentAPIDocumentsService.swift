@@ -22,8 +22,13 @@ final class ComponentAPIDocumentsService: ComponentAPIDocumentServiceProtocol {
     
     lazy var businessConfiguration: GiniPayBusinessConfiguration = {
         let configuration = GiniPayBusinessConfiguration()
+        // Pay button configuration
         configuration.payButtonTextFont = UIFont.systemFont(ofSize: 16.0)
         configuration.payButtonTextColor = GiniColor(lightModeColor: .white, darkModeColor: .white)
+        
+        // Page indicator color configuration
+        configuration.currentPageIndicatorTintColor = GiniColor(lightModeColor: .systemBlue, darkModeColor: .systemBlue)
+        configuration.pageIndicatorTintColor = GiniColor(lightModeColor: .darkGray, darkModeColor: .darkGray)
         return configuration
     }()
     
