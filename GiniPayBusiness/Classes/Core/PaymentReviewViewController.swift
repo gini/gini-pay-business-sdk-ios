@@ -195,6 +195,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     fileprivate func configureScreenBackgroundColor() {
         let screenBackgroundColor = UIColor.from(giniColor:giniPayBusinessConfiguration.paymentScreenBackgroundColor)
         containerCollectionView.backgroundColor = screenBackgroundColor
+        collectionView.backgroundColor = screenBackgroundColor
         inputContainer.backgroundColor = UIColor.from(giniColor:giniPayBusinessConfiguration.inputFieldsContainerBackgroundColor)
     }
     
