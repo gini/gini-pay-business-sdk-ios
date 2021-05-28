@@ -25,7 +25,6 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     @IBOutlet var inputContainer: UIView!
     @IBOutlet var containerCollectionView: UIView!
     @IBOutlet var paymentInfoStackView: UIStackView!
-    @IBOutlet weak var mainContainerView: UIView!
     @IBOutlet var collectionView: UICollectionView!
     
     var model: PaymentReviewModel?
@@ -194,7 +193,6 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     
     fileprivate func configureScreenBackgroundColor() {
         let screenBackgroundColor = UIColor.from(giniColor:giniPayBusinessConfiguration.paymentScreenBackgroundColor)
-        mainContainerView.backgroundColor = screenBackgroundColor
         containerCollectionView.backgroundColor = screenBackgroundColor
         inputContainer.backgroundColor = UIColor.from(giniColor:giniPayBusinessConfiguration.inputFieldsContainerBackgroundColor)
     }
