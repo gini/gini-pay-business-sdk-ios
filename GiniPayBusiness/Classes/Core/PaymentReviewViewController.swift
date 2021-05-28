@@ -59,6 +59,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     override public func viewDidLoad() {
         super.viewDidLoad()
         subscribeOnKeyboardNotifications()
+        dismissKeyboardOnTap()
         congifureUI()
         setupViewModel()
     }
@@ -462,6 +463,12 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     fileprivate func unsubscribeFromKeyboardNotifications() {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    fileprivate func dismissKeyboardOnTap() {
+        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
     }
 }
 
