@@ -140,5 +140,15 @@ public final class GiniPayBusinessConfiguration: NSObject {
      */
     @objc public var loadingIndicatorScale: CGFloat = 1.0
     
+    /**
+     Sets the current page indicator on the review screen to the specified color.
+     */
+    @objc public var currentPageIndicatorTintColor = GiniColor(lightModeColor: UIColor.white, darkModeColor: UIColor.white)
+    
+    /**
+     Sets the page indicator on the review screen to the specified color.
+     */
+    @objc public var pageIndicatorTintColor = GiniColor(lightModeColor: UIColor.lightGray, darkModeColor: UIColor.lightGray)
+    
 
 }
