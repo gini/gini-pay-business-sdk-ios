@@ -274,6 +274,7 @@
                         <outlet property="ibanField" destination="QXh-1z-x7c" id="h9e-5R-vDG"/>
                         <outlet property="inputContainer" destination="ekk-cJ-hxZ" id="u67-4P-g7n"/>
                         <outlet property="pageControl" destination="iQ0-i0-82S" id="fMQ-TQ-oje"/>
+                        <outlet property="pageControlHeightConstraint" destination="rHy-jF-qFa" id="7d0-Yl-tNo"/>
                         <outlet property="payButton" destination="8gp-kV-rnt" id="cPq-ak-UqU"/>
                         <outlet property="paymentInfoStackView" destination="zSd-H8-kmA" id="PRh-zO-bRo"/>
                         <outlet property="recipientErrorLabel" destination="kqb-0c-wKT" id="CjE-9D-Fsc"/>

@@ -10,6 +10,7 @@ import GiniPayApiLib
 
 public final class PaymentReviewViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet var pageControl: UIPageControl!
+    @IBOutlet weak var pageControlHeightConstraint: NSLayoutConstraint!
     @IBOutlet var recipientField: UITextField!
     @IBOutlet var ibanField: UITextField!
     @IBOutlet var amountField: UITextField!
@@ -195,6 +196,11 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
         pageControl.currentPageIndicatorTintColor = UIColor.from(giniColor:giniPayBusinessConfiguration.currentPageIndicatorTintColor)
         pageControl.hidesForSinglePage = true
         pageControl.numberOfPages = model?.document.pageCount ?? 1
+        if pageControl.numberOfPages == 1 {
+            pageControlHeightConstraint.constant = 0
+        } else {
+            pageControlHeightConstraint.constant = 20
+        }
     }
     
     fileprivate func configureScreenBackgroundColor() {
