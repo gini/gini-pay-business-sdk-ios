@@ -207,6 +207,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     }
     
     fileprivate func configureCloseButton() {
+        closeButton.isHidden = !giniPayBusinessConfiguration.showPaymentReviewCloseButton
         closeButton.setImage(UIImageNamedPreferred(named: "paymentReviewCloseButton"), for: .normal)
     }
     

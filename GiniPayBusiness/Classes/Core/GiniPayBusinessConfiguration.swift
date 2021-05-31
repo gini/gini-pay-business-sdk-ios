@@ -140,5 +140,8 @@ public final class GiniPayBusinessConfiguration: NSObject {
      */
     @objc public var pageIndicatorTintColor = GiniColor(lightModeColor: UIColor.lightGray, darkModeColor: UIColor.lightGray)
     
-
+    /**
+     Set to `true` to show a close button on the payment review screen.
+     */
+    @objc public var showPaymentReviewCloseButton = false
 }
