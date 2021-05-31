@@ -14,7 +14,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     @IBOutlet var ibanField: UITextField!
     @IBOutlet var amountField: UITextField!
     @IBOutlet var usageField: UITextField!
-    @IBOutlet var payButton: UIButton!
+    @IBOutlet var payButton: GiniCustomButton!
     @IBOutlet var paymentInputFieldsErrorLabels: [UILabel]!
     @IBOutlet var usageErrorLabel: UILabel!
     @IBOutlet var amountErrorLabel: UILabel!
@@ -560,5 +560,19 @@ extension PaymentReviewViewController {
                                                                              comment: "ok title for action"), style: .default, handler: nil)
         alertController.addAction(OKAction)
         present(alertController, animated: true, completion: nil)
+    }
+}
+
+class GiniCustomButton: UIButton {
+    override public var isEnabled: Bool {
+        didSet {
+            self.backgroundColor = isEnabled ? self.backgroundColor : .gray
+        }
+    }
+    
+    override var isHighlighted: Bool {
+        didSet {
+            self.alpha = isHighlighted ? 0.5 : 1
+        }
     }
 }
