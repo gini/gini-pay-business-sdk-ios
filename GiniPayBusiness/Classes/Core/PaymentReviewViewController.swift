@@ -173,7 +173,8 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     }
 
     fileprivate func configurePayButton() {
-        payButton.backgroundColor = UIColor.from(giniColor: giniPayBusinessConfiguration.payButtonBackgroundColor)
+        payButton.defaultBackgroundColor = UIColor.from(giniColor: giniPayBusinessConfiguration.payButtonBackgroundColor)
+        payButton.disabledBackgroundColor = .gray
         payButton.layer.cornerRadius = giniPayBusinessConfiguration.payButtonCornerRadius
         payButton.titleLabel?.font = giniPayBusinessConfiguration.customFont.regular
         payButton.tintColor = UIColor.from(giniColor: giniPayBusinessConfiguration.payButtonTextColor)
@@ -342,7 +343,17 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
             let amountToPayText = amountToPay?.string
             amountField.text = amountToPayText
         }
+        disablePayButtonIfNeeded()
     }
+    
+    fileprivate func disablePayButtonIfNeeded() {
+        if (paymentInputFieldsErrorLabels.allSatisfy { $0.isHidden }) {
+            payButton.isEnabled = (paymentInputFields.allSatisfy {
+                !$0.isReallyEmpty
+            })
+        }
+    }
+
 
     fileprivate func showErrorLabel(textFieldTag: TextFieldType) {
         var errorLabel = UILabel()
@@ -481,7 +492,7 @@ extension PaymentReviewViewController: UITextFieldDelegate {
      */
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        validateTextField(textField)
+        applyDefaultStyle(textField)
         return true
     }
 
@@ -501,7 +512,7 @@ extension PaymentReviewViewController: UITextFieldDelegate {
         if TextFieldType(rawValue: textField.tag) == .amountFieldTag {
             updateAmoutToPayWithCurrencyFormat()
         }
-        validateTextField(textField)
+        applyDefaultStyle(textField)
     }
 
     public func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -516,6 +527,16 @@ extension PaymentReviewViewController: UITextFieldDelegate {
                 amountField.text = amountToPayText
             }
         }
+    }
+    
+    public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if let text = textField.text,
+           let textRange = Range(range, in: text) {
+               let updatedText = text.replacingCharacters(in: textRange,
+                                                          with: string).trimmingCharacters(in: .whitespaces)
+               payButton.isEnabled = updatedText.count >= 1
+           }
+        return true
     }
 }
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
@@ -564,9 +585,15 @@ extension PaymentReviewViewController {
 }
 
 class GiniCustomButton: UIButton {
+    var disabledBackgroundColor: UIColor? = .gray
+    var defaultBackgroundColor: UIColor? {
+        didSet {
+            backgroundColor = defaultBackgroundColor
+        }
+    }
     override public var isEnabled: Bool {
         didSet {
-            self.backgroundColor = isEnabled ? self.backgroundColor : .gray
+            self.backgroundColor = isEnabled ? defaultBackgroundColor : disabledBackgroundColor
         }
     }
     
