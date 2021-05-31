@@ -26,7 +26,6 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     @IBOutlet var inputContainer: UIView!
     @IBOutlet var containerCollectionView: UIView!
     @IBOutlet var paymentInfoStackView: UIStackView!
-    @IBOutlet weak var mainContainerView: UIView!
     @IBOutlet var collectionView: UICollectionView!
     
     var model: PaymentReviewModel?
@@ -61,6 +60,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     override public func viewDidLoad() {
         super.viewDidLoad()
         subscribeOnKeyboardNotifications()
+        dismissKeyboardOnTap()
         congifureUI()
         setupViewModel()
     }
@@ -199,8 +199,8 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     
     fileprivate func configureScreenBackgroundColor() {
         let screenBackgroundColor = UIColor.from(giniColor:giniPayBusinessConfiguration.paymentScreenBackgroundColor)
-        mainContainerView.backgroundColor = screenBackgroundColor
         containerCollectionView.backgroundColor = screenBackgroundColor
+        collectionView.backgroundColor = screenBackgroundColor
         inputContainer.backgroundColor = UIColor.from(giniColor:giniPayBusinessConfiguration.inputFieldsContainerBackgroundColor)
     }
     
@@ -431,6 +431,8 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     
     // MARK: - Keyboard handling
     
+    private var keyboardWillShowCalled = false
+    
     @objc func keyboardWillShow(notification: NSNotification) {
         guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
             /**
@@ -442,17 +444,33 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
          Moves the root view up by the distance of keyboard height  taking in account safeAreaInsets.bottom
          */
         if #available(iOS 11.0, *) {
-            view.frame.origin.y = 0 - keyboardSize.height + view.safeAreaInsets.bottom
+            view.bounds.origin.y = keyboardSize.height - view.safeAreaInsets.bottom
         } else {
-            view.frame.origin.y = 0 - keyboardSize.height
+            view.bounds.origin.y = keyboardSize.height
         }
+        
+        keyboardWillShowCalled = true
     }
 
     @objc func keyboardWillHide(notification: NSNotification) {
+        let animationDuration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double ?? 0.3
+        let animationCurve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt ?? UInt(UIView.AnimationCurve.easeOut.rawValue)
+        
+        self.keyboardWillShowCalled = false
+        
         /**
-         Moves back the root view origin to zero
+        Moves back the root view origin to zero. Schedules it on the main dispatch queue to prevent
+        the view jumping if another keyboard is shown right after this one is hidden.
          */
-        view.frame.origin.y = 0
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+            guard let self = self else { return }
+            
+            if !self.keyboardWillShowCalled {
+                UIView.animate(withDuration: animationDuration, delay: 0.0, options: UIView.AnimationOptions(rawValue: animationCurve), animations: {
+                    self.view.bounds.origin.y = 0
+                }, completion: nil)
+            }
+        }
     }
 
     func subscribeOnKeyboardNotifications() {
@@ -470,6 +488,12 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     fileprivate func unsubscribeFromKeyboardNotifications() {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    fileprivate func dismissKeyboardOnTap() {
+        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
     }
 }
 
