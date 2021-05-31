@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import GiniCapture
 import GiniPayApiLib
+import GiniPayBusiness
 
 final class AppCoordinator: Coordinator {
     
@@ -113,8 +114,80 @@ final class AppCoordinator: Coordinator {
         componentAPICoordinator.delegate = self
         componentAPICoordinator.start()
         add(childCoordinator: componentAPICoordinator)
-        
+
         rootViewController.present(componentAPICoordinator.rootViewController, animated: true, completion: nil)
+    }
+    
+    private var testDocument: Document?
+    private var testDocumentExtractions: [Extraction]?
+    
+    fileprivate func showPaymentReviewWithTestDocument() {
+        let configuration = GiniPayBusinessConfiguration()
+        // Font configuration
+        let regularFont = UIFont(name: "Avenir", size: 15) ?? UIFont.systemFont(ofSize: 15)
+        configuration.customFont = GiniFont(regular: regularFont, bold: regularFont, light: regularFont, thin: regularFont)
+        // Pay button configuration
+        configuration.payButtonTextColor = GiniColor(lightModeColor: .white, darkModeColor: .white)
+        
+        // Page indicator color configuration
+        configuration.currentPageIndicatorTintColor = GiniColor(lightModeColor: .systemBlue, darkModeColor: .systemBlue)
+        configuration.pageIndicatorTintColor = GiniColor(lightModeColor: .darkGray, darkModeColor: .darkGray)
+        
+        // Show the close button to dismiss the payment review screen
+        configuration.showPaymentReviewCloseButton = true
+        
+        let business = GiniPayBusiness(with: apiLib)
+        business.setConfiguration(configuration)
+        
+        if let document = testDocument, let extractions = testDocumentExtractions {
+            // Show the payment review screen
+            let vc = PaymentReviewViewController.instantiate(with: self.apiLib, document: document, extractions: extractions)
+            self.rootViewController.present(vc, animated: true)
+        } else {
+            // Upload the test document image
+            let testDocumentImage = UIImage(named: "testDocument")!
+            let testDocumentData = testDocumentImage.jpegData(compressionQuality: 1)!
+            
+            selectAPIViewController.showActivityIndicator()
+            
+            business.documentService.createDocument(fileName: nil,
+                                                    docType: nil,
+                                                    type: .partial(testDocumentData),
+                                                    metadata: nil) { result in
+                switch result {
+                case .success(let createdDocument):
+                    let partialDocInfo = PartialDocumentInfo(document: createdDocument.links.document)
+                    business.documentService.createDocument(fileName: nil,
+                                                            docType: nil,
+                                                            type: .composite(CompositeDocumentInfo(partialDocuments: [partialDocInfo])),
+                                                            metadata: nil) { result in
+                        switch result {
+                        case .success(let compositeDocument):
+                            business.setDocumentForReview(documentId: createdDocument.id) { result in
+                                switch result {
+                                case .success(let extractions):
+                                    self.testDocument = compositeDocument
+                                    self.testDocumentExtractions = extractions
+                                    
+                                    // Show the payment review screen
+                                    let vc = PaymentReviewViewController.instantiate(with: self.apiLib, document: compositeDocument, extractions: extractions)
+                                    self.rootViewController.present(vc, animated: true)
+                                case .failure(let error):
+                                    print("❌ Setting document for review failed: \(String(describing: error))")
+                                }
+                                self.selectAPIViewController.hideActivityIndicator()
+                            }
+                        case .failure(let error):
+                            print("❌ Document creation failed: \(String(describing: error))")
+                            self.selectAPIViewController.hideActivityIndicator()
+                        }
+                    }
+                case .failure(let error):
+                    print("❌ Document creation failed: \(String(describing: error))")
+                    self.selectAPIViewController.hideActivityIndicator()
+                }
+            }
+        }
     }
     
     fileprivate func componentAPIDocumentService() -> ComponentAPIDocumentServiceProtocol {
@@ -180,6 +253,8 @@ extension AppCoordinator: SelectAPIViewControllerDelegate {
             break
         case .component:
             showComponentAPI()
+        case .paymentReview:
+            showPaymentReviewWithTestDocument()
         }
     }
     
