@@ -179,7 +179,7 @@
                                                                     <constraint firstAttribute="width" constant="140" id="z3C-IU-WjL"/>
                                                                 </constraints>
                                                             </view>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8gp-kV-rnt">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8gp-kV-rnt" customClass="GiniCustomButton" customModule="GiniPayBusiness" customModuleProvider="target">
                                                                 <rect key="frame" x="156" y="0.0" width="226" height="40"/>
                                                                 <color key="backgroundColor" red="1" green="0.40863117580000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <state key="normal" title="Zur Überweisung"/>
@@ -267,6 +267,7 @@
                         <outlet property="amountErrorLabel" destination="wY3-gK-QNl" id="nPj-i5-ZHW"/>
                         <outlet property="amountField" destination="geq-YB-UG4" id="EiD-o0-BCl"/>
                         <outlet property="bankProviderButtonView" destination="j0P-vj-5g4" id="BaI-j5-hFv"/>
+                        <outlet property="bankProviderLabel" destination="gKK-IC-PHC" id="EIG-gW-PJG"/>
                         <outlet property="collectionView" destination="VtW-En-y6v" id="Ax4-fE-dDV"/>
                         <outlet property="containerCollectionView" destination="47Q-Qq-7ja" id="wB1-BT-kZG"/>
                         <outlet property="ibanErrorLabel" destination="G08-A3-0LA" id="Hta-8O-0sR"/>

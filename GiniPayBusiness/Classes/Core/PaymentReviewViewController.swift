@@ -14,7 +14,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     @IBOutlet var ibanField: UITextField!
     @IBOutlet var amountField: UITextField!
     @IBOutlet var usageField: UITextField!
-    @IBOutlet var payButton: UIButton!
+    @IBOutlet var payButton: GiniCustomButton!
     @IBOutlet var paymentInputFieldsErrorLabels: [UILabel]!
     @IBOutlet var usageErrorLabel: UILabel!
     @IBOutlet var amountErrorLabel: UILabel!
@@ -22,6 +22,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     @IBOutlet var recipientErrorLabel: UILabel!
     @IBOutlet var paymentInputFields: [UITextField]!
     @IBOutlet var bankProviderButtonView: UIView!
+    @IBOutlet weak var bankProviderLabel: UILabel!
     @IBOutlet var inputContainer: UIView!
     @IBOutlet var containerCollectionView: UIView!
     @IBOutlet var paymentInfoStackView: UIStackView!
@@ -167,12 +168,14 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
         bankProviderButtonView.layer.cornerRadius = self.giniPayBusinessConfiguration.paymentInputFieldCornerRadius
         bankProviderButtonView.layer.borderWidth = self.giniPayBusinessConfiguration.paymentInputFieldBorderWidth
         bankProviderButtonView.layer.borderColor = UIColor.from(hex: 0xE6E7ED).cgColor
+        bankProviderLabel.textColor = UIColor.from(giniColor:giniPayBusinessConfiguration.bankButtonTextColor)
+        bankProviderLabel.font = giniPayBusinessConfiguration.customFont.regular
     }
 
     fileprivate func configurePayButton() {
         payButton.backgroundColor = UIColor.from(giniColor: giniPayBusinessConfiguration.payButtonBackgroundColor)
         payButton.layer.cornerRadius = giniPayBusinessConfiguration.payButtonCornerRadius
-        payButton.titleLabel?.font = giniPayBusinessConfiguration.payButtonTextFont
+        payButton.titleLabel?.font = giniPayBusinessConfiguration.customFont.regular
         payButton.tintColor = UIColor.from(giniColor: giniPayBusinessConfiguration.payButtonTextColor)
     }
     
@@ -188,6 +191,8 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     }
     
     fileprivate func configurePageControl() {
+        pageControl.pageIndicatorTintColor = UIColor.from(giniColor:giniPayBusinessConfiguration.pageIndicatorTintColor)
+        pageControl.currentPageIndicatorTintColor = UIColor.from(giniColor:giniPayBusinessConfiguration.currentPageIndicatorTintColor)
         pageControl.hidesForSinglePage = true
         pageControl.numberOfPages = model?.document.pageCount ?? 1
     }
@@ -205,10 +210,10 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
         field.layer.cornerRadius = self.giniPayBusinessConfiguration.paymentInputFieldCornerRadius
         field.layer.borderWidth = 0.0
         field.backgroundColor = UIColor.from(giniColor: giniPayBusinessConfiguration.paymentInputFieldBackgroundColor)
-        field.font = giniPayBusinessConfiguration.paymentInputFieldFont
+        field.font = giniPayBusinessConfiguration.customFont.regular
         field.textColor = UIColor.from(giniColor: giniPayBusinessConfiguration.paymentInputFieldTextColor)
         let placeholderText = inputFieldPlaceholderText(field)
-        field.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: [NSAttributedString.Key.foregroundColor: UIColor.from(giniColor: giniPayBusinessConfiguration.paymentInputFieldPlaceholderTextColor), NSAttributedString.Key.font: giniPayBusinessConfiguration.paymentInputFieldPlaceholderFont])
+        field.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: [NSAttributedString.Key.foregroundColor: UIColor.from(giniColor: giniPayBusinessConfiguration.paymentInputFieldPlaceholderTextColor), NSAttributedString.Key.font: giniPayBusinessConfiguration.customFont.regular])
         field.layer.masksToBounds = true
     }
 
@@ -334,7 +339,8 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
         usageField.text = model?.extractions.first(where: {$0.name == "paymentPurpose"})?.value
         if let amountString = model?.extractions.first(where: {$0.name == "amountToPay"})?.value {
             amountToPay = Price(extractionString: amountString)
-            amountField.text = amountToPay?.string
+            let amountToPayText = amountToPay?.string
+            amountField.text = amountToPayText
         }
     }
 
@@ -508,7 +514,8 @@ extension PaymentReviewViewController: UITextFieldDelegate {
             if let priceValue = decimal(from: amountFieldText ) {
                 amountToPay?.value = priceValue
             }
-            amountField.text = amountToPay?.string
+            let amountToPayText = amountToPay?.string
+            amountField.text = amountToPayText
         }
     }
     
@@ -577,5 +584,19 @@ extension PaymentReviewViewController {
                                                                              comment: "ok title for action"), style: .default, handler: nil)
         alertController.addAction(OKAction)
         present(alertController, animated: true, completion: nil)
+    }
+}
+
+class GiniCustomButton: UIButton {
+    override public var isEnabled: Bool {
+        didSet {
+            self.backgroundColor = isEnabled ? self.backgroundColor : .gray
+        }
+    }
+    
+    override var isHighlighted: Bool {
+        didSet {
+            self.alpha = isHighlighted ? 0.5 : 1
+        }
     }
 }
