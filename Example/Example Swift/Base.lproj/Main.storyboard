@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -22,14 +22,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gij-CQ-qxk">
-                                <rect key="frame" x="110" y="389.5" width="100" height="40"/>
+                                <rect key="frame" x="71.5" y="389.5" width="177" height="40"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="LpW-5m-Wb9"/>
                                     <constraint firstAttribute="height" constant="40" id="pXg-UT-9n3"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                                <state key="normal" title="Start">
+                                <state key="normal" title="Start with Gini Capture">
                                     <color key="titleColor" red="0.0" green="0.61960784310000006" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -76,6 +76,29 @@
                                     </mask>
                                 </variation>
                             </imageView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="BAj-76-Fqe">
+                                <rect key="frame" x="141.5" y="265.5" width="37" height="37"/>
+                            </activityIndicatorView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F6d-9E-NzQ">
+                                <rect key="frame" x="63" y="433.5" width="194" height="40"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="ITS-Kn-NLl"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="Onp-AR-dOu"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                <state key="normal" title="Start with test document">
+                                    <color key="titleColor" red="0.0" green="0.61960784310000006" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="launchPaymentReview:" destination="xwN-oG-9wR" eventType="touchUpInside" id="H1Q-M0-aE5"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hae-db-l79"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -85,9 +108,13 @@
                             <constraint firstItem="32R-Rd-rp4" firstAttribute="top" secondItem="tje-pu-dg2" secondAttribute="bottom" constant="20" id="AOH-Ep-lXU"/>
                             <constraint firstItem="Gij-CQ-qxk" firstAttribute="centerX" secondItem="UMu-IK-e4x" secondAttribute="centerX" id="AjK-c2-SYF"/>
                             <constraint firstItem="32R-Rd-rp4" firstAttribute="height" secondItem="UMu-IK-e4x" secondAttribute="height" id="BBg-mX-e9m"/>
+                            <constraint firstItem="BAj-76-Fqe" firstAttribute="centerX" secondItem="UMu-IK-e4x" secondAttribute="centerX" id="CA5-gf-EvS"/>
+                            <constraint firstItem="BAj-76-Fqe" firstAttribute="centerY" secondItem="UMu-IK-e4x" secondAttribute="centerY" id="DgF-xd-b09"/>
                             <constraint firstItem="1mk-Ot-yVv" firstAttribute="top" secondItem="Dg1-Xb-4HA" secondAttribute="bottom" id="HPo-Lt-OLp"/>
+                            <constraint firstItem="F6d-9E-NzQ" firstAttribute="centerX" secondItem="hae-db-l79" secondAttribute="centerX" id="Hr4-DI-bwJ"/>
                             <constraint firstItem="32R-Rd-rp4" firstAttribute="height" secondItem="UMu-IK-e4x" secondAttribute="height" multiplier="0.3" id="NU3-K5-n90"/>
                             <constraint firstItem="32R-Rd-rp4" firstAttribute="top" secondItem="UMu-IK-e4x" secondAttribute="top" constant="100" id="ZbI-Bc-ePq"/>
+                            <constraint firstItem="F6d-9E-NzQ" firstAttribute="top" secondItem="Gij-CQ-qxk" secondAttribute="bottom" constant="4" id="bGa-10-04f"/>
                             <constraint firstItem="32R-Rd-rp4" firstAttribute="width" secondItem="UMu-IK-e4x" secondAttribute="width" multiplier="0.7" id="ht2-gB-7V3"/>
                             <constraint firstItem="uvF-Po-65Z" firstAttribute="centerX" secondItem="UMu-IK-e4x" secondAttribute="centerX" id="joR-QF-D61"/>
                             <constraint firstItem="Dg1-Xb-4HA" firstAttribute="leading" secondItem="UMu-IK-e4x" secondAttribute="leadingMargin" id="okY-0N-18q"/>
@@ -118,7 +145,10 @@
                     </view>
                     <navigationItem key="navigationItem" id="sjp-wK-gO7"/>
                     <connections>
-                        <outlet property="metaInformationButton" destination="Dg1-Xb-4HA" id="Bam-PR-fQ5"/>
+                        <outlet property="activityIndicator" destination="BAj-76-Fqe" id="XrF-pz-B7L"/>
+                        <outlet property="metaInformationButton" destination="Dg1-Xb-4HA" id="MWa-B0-Ycz"/>
+                        <outlet property="startWithGiniCaptureButton" destination="Gij-CQ-qxk" id="I9L-EX-AGc"/>
+                        <outlet property="startWithTestDocumentButton" destination="F6d-9E-NzQ" id="hnA-2l-iMR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PSz-TB-4YR" userLabel="First Responder" sceneMemberID="firstResponder"/>

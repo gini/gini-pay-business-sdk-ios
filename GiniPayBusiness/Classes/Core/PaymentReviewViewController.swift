@@ -24,10 +24,12 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     @IBOutlet var paymentInputFields: [UITextField]!
     @IBOutlet var bankProviderButtonView: UIView!
     @IBOutlet weak var bankProviderLabel: UILabel!
+    @IBOutlet weak var mainView: UIView!
     @IBOutlet var inputContainer: UIView!
     @IBOutlet var containerCollectionView: UIView!
     @IBOutlet var paymentInfoStackView: UIStackView!
     @IBOutlet var collectionView: UICollectionView!
+    @IBOutlet weak var closeButton: UIButton!
     
     var model: PaymentReviewModel?
     var paymentProviders: [PaymentProvider] = []
@@ -157,6 +159,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
         configurePaymentInputFields()
         configureBankProviderView()
         configurePageControl()
+        configureCloseButton()
         hideErrorLabels()
         fillInInputFields()
         addDoneButtonForNumPad(amountField)
@@ -204,9 +207,14 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
         }
     }
     
+    fileprivate func configureCloseButton() {
+        closeButton.isHidden = !giniPayBusinessConfiguration.showPaymentReviewCloseButton
+        closeButton.setImage(UIImageNamedPreferred(named: "paymentReviewCloseButton"), for: .normal)
+    }
+    
     fileprivate func configureScreenBackgroundColor() {
         let screenBackgroundColor = UIColor.from(giniColor:giniPayBusinessConfiguration.paymentScreenBackgroundColor)
-        containerCollectionView.backgroundColor = screenBackgroundColor
+        mainView.backgroundColor = screenBackgroundColor
         collectionView.backgroundColor = screenBackgroundColor
         inputContainer.backgroundColor = UIColor.from(giniColor:giniPayBusinessConfiguration.inputFieldsContainerBackgroundColor)
     }
@@ -446,6 +454,14 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
         }
     }
     
+    @IBAction func closeButtonClicked(_ sender: UIButton) {
+        if (keyboardWillShowCalled) {
+            view.endEditing(true)
+        } else {
+            dismiss(animated: true, completion: nil)
+        }
+    }
+    
     // MARK: - Keyboard handling
     
     private var keyboardWillShowCalled = false
@@ -461,9 +477,9 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
          Moves the root view up by the distance of keyboard height  taking in account safeAreaInsets.bottom
          */
         if #available(iOS 11.0, *) {
-            view.bounds.origin.y = keyboardSize.height - view.safeAreaInsets.bottom
+            mainView.bounds.origin.y = keyboardSize.height - view.safeAreaInsets.bottom
         } else {
-            view.bounds.origin.y = keyboardSize.height
+            mainView.bounds.origin.y = keyboardSize.height
         }
         
         keyboardWillShowCalled = true
@@ -484,7 +500,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
             
             if !self.keyboardWillShowCalled {
                 UIView.animate(withDuration: animationDuration, delay: 0.0, options: UIView.AnimationOptions(rawValue: animationCurve), animations: {
-                    self.view.bounds.origin.y = 0
+                    self.mainView.bounds.origin.y = 0
                 }, completion: nil)
             }
         }
@@ -510,7 +526,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     fileprivate func dismissKeyboardOnTap() {
         let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
         tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
+        mainView.addGestureRecognizer(tap)
     }
 }
 
