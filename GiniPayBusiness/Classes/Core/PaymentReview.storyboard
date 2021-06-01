@@ -79,6 +79,7 @@
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="alphabet"/>
                                                                 <connections>
+                                                            <action selector="textFieldChanged:" destination="QI6-9C-Fdg" eventType="editingChanged" id="9Jd-yx-Mrd"/>
                                                                     <outlet property="delegate" destination="QI6-9C-Fdg" id="0iu-pw-xsY"/>
                                                                 </connections>
                                                             </textField>
@@ -108,6 +109,7 @@
                                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                         <textInputTraits key="textInputTraits"/>
                                                                         <connections>
+                                                                    <action selector="textFieldChanged:" destination="QI6-9C-Fdg" eventType="editingChanged" id="aeK-1h-LVL"/>
                                                                             <outlet property="delegate" destination="QI6-9C-Fdg" id="m7I-0l-hOv"/>
                                                                         </connections>
                                                                     </textField>
@@ -121,6 +123,7 @@
                                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                         <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                                         <connections>
+                                                                    <action selector="textFieldChanged:" destination="QI6-9C-Fdg" eventType="editingChanged" id="9nT-5u-bfz"/>
                                                                             <outlet property="delegate" destination="QI6-9C-Fdg" id="WY5-0t-Qu7"/>
                                                                         </connections>
                                                                     </textField>
@@ -174,6 +177,7 @@
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="alphabet"/>
                                                                 <connections>
+                                                            <action selector="textFieldChanged:" destination="QI6-9C-Fdg" eventType="editingChanged" id="e77-jX-ySK"/>
                                                                     <outlet property="delegate" destination="QI6-9C-Fdg" id="Ycx-5r-Ckx"/>
                                                                 </connections>
                                                             </textField>
