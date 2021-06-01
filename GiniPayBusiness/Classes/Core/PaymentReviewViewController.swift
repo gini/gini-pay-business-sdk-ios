@@ -280,6 +280,10 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     
     // MARK: - Input fields validation
     
+    @IBAction func textFieldChanged(_ sender: UITextField) {
+        disablePayButtonIfNeeded()
+    }
+    
     fileprivate func validateTextField(_ textField: UITextField) {
         if let fieldIdentifier = TextFieldType(rawValue: textField.tag) {
             switch fieldIdentifier {
@@ -347,11 +351,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     }
     
     fileprivate func disablePayButtonIfNeeded() {
-        if (paymentInputFieldsErrorLabels.allSatisfy { $0.isHidden }) {
-            payButton.isEnabled = (paymentInputFields.allSatisfy {
-                !$0.isReallyEmpty
-            })
-        }
+        payButton.isEnabled = paymentInputFields.allSatisfy { !$0.isReallyEmpty }
     }
 
 
@@ -553,15 +553,6 @@ extension PaymentReviewViewController: UITextFieldDelegate {
         }
     }
     
-    public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if let text = textField.text,
-           let textRange = Range(range, in: text) {
-               let updatedText = text.replacingCharacters(in: textRange,
-                                                          with: string).trimmingCharacters(in: .whitespaces)
-               payButton.isEnabled = updatedText.count >= 1
-           }
-        return true
-    }
 }
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
 
