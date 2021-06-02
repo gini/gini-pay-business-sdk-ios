@@ -84,7 +84,7 @@ The method above returns the completion block with the struct `DataForReview`, w
 
 ## Payment review screen initialization 
 ```swift
-let vc = PaymentReviewViewController.instantiate(with apiLib: giniApiLib,
+let vc = PaymentReviewViewController.instantiate(with giniPayBusiness: GiniPayBusiness,
                                                  data: dataForReview)
 ```
 The screen can be presented modally, used in a container view or pushed to a navigation view controller. Make sure to add your own navigational elements around the provided views.
