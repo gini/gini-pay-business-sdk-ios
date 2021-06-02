@@ -627,6 +627,8 @@ extension ComponentAPICoordinator {
     }
 }
 
+// MARK: GiniPayBusinessDelegate
+
 extension ComponentAPICoordinator: GiniPayBusinessDelegate {
     
     func didCreatePaymentRequest(paymentRequestID: String) {
