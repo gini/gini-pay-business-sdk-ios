@@ -2,23 +2,30 @@
   "warnings": [
     {
       "file": "/Users/mobilecd/.jenkins/workspace/gini-pay-business-sdk-ios_master/GiniPayBusiness/Classes/Core/GiniPayBusiness.swift",
-      "line": 24,
+      "line": 39,
       "symbol": "DataForReview.document",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mobilecd/.jenkins/workspace/gini-pay-business-sdk-ios_master/GiniPayBusiness/Classes/Core/GiniPayBusiness.swift",
-      "line": 25,
+      "line": 40,
       "symbol": "DataForReview.extractions",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mobilecd/.jenkins/workspace/gini-pay-business-sdk-ios_master/GiniPayBusiness/Classes/Core/GiniPayBusiness.swift",
-      "line": 26,
+      "line": 41,
       "symbol": "DataForReview.init(document:extractions:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mobilecd/.jenkins/workspace/gini-pay-business-sdk-ios_master/GiniPayBusiness/Classes/Core/GiniPayBusiness.swift",
+      "line": 57,
+      "symbol": "GiniPayBusiness.delegate",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
@@ -128,28 +135,28 @@
     },
     {
       "file": "/Users/mobilecd/.jenkins/workspace/gini-pay-business-sdk-ios_master/GiniPayBusiness/Classes/Core/PaymentReviewModel.swift",
-      "line": 33,
+      "line": 31,
       "symbol": "PaymentReviewModel.document",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mobilecd/.jenkins/workspace/gini-pay-business-sdk-ios_master/GiniPayBusiness/Classes/Core/PaymentReviewModel.swift",
-      "line": 41,
+      "line": 39,
       "symbol": "PaymentReviewModel.extractions",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mobilecd/.jenkins/workspace/gini-pay-business-sdk-ios_master/GiniPayBusiness/Classes/Core/PaymentReviewModel.swift",
-      "line": 47,
+      "line": 45,
       "symbol": "PaymentReviewModel.documentId",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mobilecd/.jenkins/workspace/gini-pay-business-sdk-ios_master/GiniPayBusiness/Classes/Core/PaymentReviewModel.swift",
-      "line": 72,
+      "line": 70,
       "symbol": "PaymentReviewModel.init(with:document:extractions:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -163,112 +170,119 @@
     },
     {
       "file": "/Users/mobilecd/.jenkins/workspace/gini-pay-business-sdk-ios_master/GiniPayBusiness/Classes/Core/PaymentReviewViewController.swift",
-      "line": 42,
+      "line": 45,
       "symbol": "PaymentReviewViewController.instantiate(with:document:extractions:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mobilecd/.jenkins/workspace/gini-pay-business-sdk-ios_master/GiniPayBusiness/Classes/Core/PaymentReviewViewController.swift",
-      "line": 50,
+      "line": 53,
       "symbol": "PaymentReviewViewController.instantiate(with:data:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mobilecd/.jenkins/workspace/gini-pay-business-sdk-ios_master/GiniPayBusiness/Classes/Core/PaymentReviewViewController.swift",
-      "line": 60,
+      "line": 63,
       "symbol": "PaymentReviewViewController.viewDidLoad()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mobilecd/.jenkins/workspace/gini-pay-business-sdk-ios_master/GiniPayBusiness/Classes/Core/PaymentReviewViewController.swift",
-      "line": 140,
+      "line": 144,
       "symbol": "PaymentReviewViewController.viewDidDisappear(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mobilecd/.jenkins/workspace/gini-pay-business-sdk-ios_master/GiniPayBusiness/Classes/Core/PaymentReviewViewController.swift",
-      "line": 144,
+      "line": 148,
       "symbol": "PaymentReviewViewController.viewWillLayoutSubviews()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mobilecd/.jenkins/workspace/gini-pay-business-sdk-ios_master/GiniPayBusiness/Classes/Core/PaymentReviewViewController.swift",
-      "line": 472,
+      "line": 535,
       "symbol": "PaymentReviewViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mobilecd/.jenkins/workspace/gini-pay-business-sdk-ios_master/GiniPayBusiness/Classes/Core/PaymentReviewViewController.swift",
-      "line": 491,
+      "line": 555,
       "symbol": "PaymentReviewViewController.textFieldDidEndEditing(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mobilecd/.jenkins/workspace/gini-pay-business-sdk-ios_master/GiniPayBusiness/Classes/Core/PaymentReviewViewController.swift",
-      "line": 500,
+      "line": 564,
       "symbol": "PaymentReviewViewController.textFieldDidBeginEditing(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mobilecd/.jenkins/workspace/gini-pay-business-sdk-ios_master/GiniPayBusiness/Classes/Core/PaymentReviewViewController.swift",
-      "line": 516,
+      "line": 578,
+      "symbol": "PaymentReviewViewController.textField(_:shouldChangeCharactersIn:replacementString:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mobilecd/.jenkins/workspace/gini-pay-business-sdk-ios_master/GiniPayBusiness/Classes/Core/PaymentReviewViewController.swift",
+      "line": 617,
       "symbol": "PaymentReviewViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mobilecd/.jenkins/workspace/gini-pay-business-sdk-ios_master/GiniPayBusiness/Classes/Core/PaymentReviewViewController.swift",
-      "line": 517,
+      "line": 618,
       "symbol": "PaymentReviewViewController.collectionView(_:numberOfItemsInSection:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mobilecd/.jenkins/workspace/gini-pay-business-sdk-ios_master/GiniPayBusiness/Classes/Core/PaymentReviewViewController.swift",
-      "line": 519,
+      "line": 620,
       "symbol": "PaymentReviewViewController.numberOfSections(in:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mobilecd/.jenkins/workspace/gini-pay-business-sdk-ios_master/GiniPayBusiness/Classes/Core/PaymentReviewViewController.swift",
-      "line": 523,
+      "line": 624,
       "symbol": "PaymentReviewViewController.collectionView(_:cellForItemAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mobilecd/.jenkins/workspace/gini-pay-business-sdk-ios_master/GiniPayBusiness/Classes/Core/PaymentReviewViewController.swift",
-      "line": 533,
+      "line": 634,
       "symbol": "PaymentReviewViewController.collectionView(_:layout:sizeForItemAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mobilecd/.jenkins/workspace/gini-pay-business-sdk-ios_master/GiniPayBusiness/Classes/Core/PaymentReviewViewController.swift",
-      "line": 541,
+      "line": 642,
       "symbol": "PaymentReviewViewController.scrollViewDidScroll(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mobilecd/.jenkins/workspace/gini-pay-business-sdk-ios_master/GiniPayBusiness/Classes/Core/PaymentReviewViewController.swift",
-      "line": 547,
+      "line": 648,
       "symbol": "PaymentReviewViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mobilecd/.jenkins/workspace/gini-pay-business-sdk-ios_master/GiniPayBusiness/Classes/Core/PaymentReviewViewController.swift",
-      "line": 548,
+      "line": 649,
       "symbol": "PaymentReviewViewController.showError(_:message:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -299,6 +313,13 @@
       "line": 10,
       "symbol": "UITextField.isReallyEmpty",
       "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mobilecd/.jenkins/workspace/gini-pay-business-sdk-ios_master/GiniPayBusiness/Classes/Core/UITextField+Utils.swift",
+      "line": 14,
+      "symbol": "UITextField.moveSelectedTextRange(from:to:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {

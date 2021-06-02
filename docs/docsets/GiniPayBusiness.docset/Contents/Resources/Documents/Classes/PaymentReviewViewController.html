@@ -140,6 +140,9 @@
             <a class="nav-group-name-link" href="../Other Protocols.html">Other Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/GiniPayBusinessDelegate.html">GiniPayBusinessDelegate</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/ImageScrollViewDelegate.html">ImageScrollViewDelegate</a>
               </li>
             </ul>
@@ -185,9 +188,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:15GiniPayBusiness27PaymentReviewViewControllerC11instantiate4with8document11extractionsAC0aB6ApiLib0alM0C_AH8DocumentVSayAH10ExtractionCGtFZ"></a>
+                    <a name="/s:15GiniPayBusiness27PaymentReviewViewControllerC11instantiate4with8document11extractionsAc2AC_0aB6ApiLib8DocumentVSayAI10ExtractionCGtFZ"></a>
                     <a name="//apple_ref/swift/Method/instantiate(with:document:extractions:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:15GiniPayBusiness27PaymentReviewViewControllerC11instantiate4with8document11extractionsAC0aB6ApiLib0alM0C_AH8DocumentVSayAH10ExtractionCGtFZ">instantiate(with:document:extractions:)</a>
+                    <a class="token" href="#/s:15GiniPayBusiness27PaymentReviewViewControllerC11instantiate4with8document11extractionsAc2AC_0aB6ApiLib8DocumentVSayAI10ExtractionCGtFZ">instantiate(with:document:extractions:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -202,7 +205,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">instantiate</span><span class="p">(</span><span class="n">with</span> <span class="nv">apiLib</span><span class="p">:</span> <span class="kt">GiniApiLib</span><span class="p">,</span> <span class="nv">document</span><span class="p">:</span> <span class="kt">Document</span><span class="p">,</span> <span class="nv">extractions</span><span class="p">:</span> <span class="p">[</span><span class="kt">Extraction</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">PaymentReviewViewController</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">instantiate</span><span class="p">(</span><span class="n">with</span> <span class="nv">giniPayBusiness</span><span class="p">:</span> <span class="kt"><a href="../Classes/GiniPayBusiness.html">GiniPayBusiness</a></span><span class="p">,</span> <span class="nv">document</span><span class="p">:</span> <span class="kt">Document</span><span class="p">,</span> <span class="nv">extractions</span><span class="p">:</span> <span class="p">[</span><span class="kt">Extraction</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">PaymentReviewViewController</span></code></pre>
 
                         </div>
                       </div>
@@ -212,9 +215,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:15GiniPayBusiness27PaymentReviewViewControllerC11instantiate4with4dataAC0aB6ApiLib0akL0C_AA07DataForE0VtFZ"></a>
+                    <a name="/s:15GiniPayBusiness27PaymentReviewViewControllerC11instantiate4with4dataAc2AC_AA07DataForE0VtFZ"></a>
                     <a name="//apple_ref/swift/Method/instantiate(with:data:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:15GiniPayBusiness27PaymentReviewViewControllerC11instantiate4with4dataAC0aB6ApiLib0akL0C_AA07DataForE0VtFZ">instantiate(with:data:)</a>
+                    <a class="token" href="#/s:15GiniPayBusiness27PaymentReviewViewControllerC11instantiate4with4dataAc2AC_AA07DataForE0VtFZ">instantiate(with:data:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -229,7 +232,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">instantiate</span><span class="p">(</span><span class="n">with</span> <span class="nv">apiLib</span><span class="p">:</span> <span class="kt">GiniApiLib</span><span class="p">,</span> <span class="nv">data</span><span class="p">:</span> <span class="kt"><a href="../Structs/DataForReview.html">DataForReview</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">PaymentReviewViewController</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">instantiate</span><span class="p">(</span><span class="n">with</span> <span class="nv">giniPayBusiness</span><span class="p">:</span> <span class="kt"><a href="../Classes/GiniPayBusiness.html">GiniPayBusiness</a></span><span class="p">,</span> <span class="nv">data</span><span class="p">:</span> <span class="kt"><a href="../Structs/DataForReview.html">DataForReview</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">PaymentReviewViewController</span></code></pre>
 
                         </div>
                       </div>
@@ -403,6 +406,33 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">textFieldDidBeginEditing</span><span class="p">(</span><span class="n">_</span> <span class="nv">textField</span><span class="p">:</span> <span class="kt">UITextField</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@GiniPayBusiness@objc(cs)PaymentReviewViewController(im)textField:shouldChangeCharactersInRange:replacementString:"></a>
+                    <a name="//apple_ref/swift/Method/textField(_:shouldChangeCharactersIn:replacementString:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@GiniPayBusiness@objc(cs)PaymentReviewViewController(im)textField:shouldChangeCharactersInRange:replacementString:">textField(_:shouldChangeCharactersIn:replacementString:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">textField</span><span class="p">(</span><span class="n">_</span> <span class="nv">textField</span><span class="p">:</span> <span class="kt">UITextField</span><span class="p">,</span> <span class="n">shouldChangeCharactersIn</span> <span class="nv">range</span><span class="p">:</span> <span class="kt">NSRange</span><span class="p">,</span> <span class="n">replacementString</span> <span class="nv">string</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
@@ -623,7 +653,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2021 <a class="link" href="https://gini.net" target="_blank" rel="external">Gini GmbH</a>. All rights reserved. (Last updated: 2021-05-27)</p>
+      <p>&copy; 2021 <a class="link" href="https://gini.net" target="_blank" rel="external">Gini GmbH</a>. All rights reserved. (Last updated: 2021-06-02)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
