@@ -595,6 +595,7 @@ extension PaymentReviewViewController: UITextFieldDelegate {
                     let selectedRange = textField.selectedTextRange
                     
                     textField.text = newAmount
+                    amountToPay?.value = decimalWithFraction
                     
                     // Move the cursor position after the inserted character
                     if let selectedRange = selectedRange {
