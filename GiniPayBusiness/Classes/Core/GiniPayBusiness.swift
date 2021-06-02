@@ -9,6 +9,21 @@ import Foundation
 import GiniPayApiLib
 
 /**
+ Delegate to inform about the current status of the Gini Pay Business SDK.
+ Makes use of callback for handling payment request creation.
+ 
+ */
+@objc public protocol GiniPayBusinessDelegate {
+    
+    /**
+     Called when the payment request was successfully created
+     
+     - parameter paymentRequestID: Id of created payment request.
+     */
+    
+    func didCreatePaymentRequest(paymentRequestID: String)
+}
+/**
  Errors thrown with GiniPayBusiness SDK.
  */
 public enum GiniPayBusinessError: Error {
@@ -39,6 +54,7 @@ public struct DataForReview {
     /// reponsible for the payment processing.
     public var paymentService: PaymentService
     private var bankProviders: [PaymentProvider] = []
+    public weak var delegate: GiniPayBusinessDelegate?
     
     /**
      Returns a GiniPayBusiness instance
@@ -214,6 +230,7 @@ public struct DataForReview {
                 switch result {
                 case let .success(requestID):
                     completion(.success(requestID))
+                    self.delegate?.didCreatePaymentRequest(paymentRequestID: requestID)
                 case let .failure(error):
                     completion(.failure(.apiError(error)))
                 }
