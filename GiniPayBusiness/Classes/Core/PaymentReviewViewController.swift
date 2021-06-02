@@ -42,18 +42,18 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
         case usageFieldTag
     }
     
-    public static func instantiate(with apiLib: GiniApiLib, document: Document, extractions: [Extraction]) -> PaymentReviewViewController {
+    public static func instantiate(with giniPayBusiness: GiniPayBusiness, document: Document, extractions: [Extraction]) -> PaymentReviewViewController {
         let vc = (UIStoryboard(name: "PaymentReview", bundle: giniPayBusinessBundle())
             .instantiateViewController(withIdentifier: "paymentReviewViewController") as? PaymentReviewViewController)!
-        vc.model = PaymentReviewModel(with: apiLib, document: document, extractions: extractions )
+        vc.model = PaymentReviewModel(with: giniPayBusiness, document: document, extractions: extractions )
         
         return vc
     }
     
-    public static func instantiate(with apiLib: GiniApiLib, data: DataForReview) -> PaymentReviewViewController {
+    public static func instantiate(with giniPayBusiness: GiniPayBusiness, data: DataForReview) -> PaymentReviewViewController {
         let vc = (UIStoryboard(name: "PaymentReview", bundle: giniPayBusinessBundle())
             .instantiateViewController(withIdentifier: "paymentReviewViewController") as? PaymentReviewViewController)!
-        vc.model = PaymentReviewModel(with: apiLib, document: data.document, extractions: data.extractions)
+        vc.model = PaymentReviewModel(with: giniPayBusiness, document: data.document, extractions: data.extractions)
         
         return vc
     }

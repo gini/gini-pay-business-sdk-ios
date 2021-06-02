@@ -51,6 +51,7 @@ final class AppCoordinator: Coordinator {
     
     private lazy var client: Client = CredentialsManager.fetchClientFromBundle()
     lazy var apiLib = GiniApiLib.Builder(client: client).build()
+    lazy var business = GiniPayBusiness(with: apiLib)
 
     private var documentMetadata: Document.Metadata?
     private let documentMetadataBranchId = "GiniPayBusinessExampleIOS"
@@ -110,7 +111,7 @@ final class AppCoordinator: Coordinator {
     fileprivate func showComponentAPI(with pages: [GiniCapturePage]? = nil) {
         let componentAPICoordinator = ComponentAPICoordinator(pages: pages ?? [],
                                                               configuration: giniConfiguration,
-                                                              documentService: componentAPIDocumentService(), giniApiLib: self.apiLib)
+                                                              documentService: componentAPIDocumentService(), giniPayBusiness: self.business)
         componentAPICoordinator.delegate = self
         componentAPICoordinator.start()
         add(childCoordinator: componentAPICoordinator)
@@ -135,13 +136,12 @@ final class AppCoordinator: Coordinator {
         
         // Show the close button to dismiss the payment review screen
         configuration.showPaymentReviewCloseButton = true
-        
-        let business = GiniPayBusiness(with: apiLib)
+        business.delegate = self
         business.setConfiguration(configuration)
         
         if let document = testDocument, let extractions = testDocumentExtractions {
             // Show the payment review screen
-            let vc = PaymentReviewViewController.instantiate(with: self.apiLib, document: document, extractions: extractions)
+            let vc = PaymentReviewViewController.instantiate(with: self.business, document: document, extractions: extractions)
             self.rootViewController.present(vc, animated: true)
         } else {
             // Upload the test document image
@@ -157,20 +157,20 @@ final class AppCoordinator: Coordinator {
                 switch result {
                 case .success(let createdDocument):
                     let partialDocInfo = PartialDocumentInfo(document: createdDocument.links.document)
-                    business.documentService.createDocument(fileName: nil,
+                    self.business.documentService.createDocument(fileName: nil,
                                                             docType: nil,
                                                             type: .composite(CompositeDocumentInfo(partialDocuments: [partialDocInfo])),
                                                             metadata: nil) { result in
                         switch result {
                         case .success(let compositeDocument):
-                            business.setDocumentForReview(documentId: createdDocument.id) { result in
+                            self.business.setDocumentForReview(documentId: createdDocument.id) { result in
                                 switch result {
                                 case .success(let extractions):
                                     self.testDocument = compositeDocument
                                     self.testDocumentExtractions = extractions
                                     
                                     // Show the payment review screen
-                                    let vc = PaymentReviewViewController.instantiate(with: self.apiLib, document: compositeDocument, extractions: extractions)
+                                    let vc = PaymentReviewViewController.instantiate(with: self.business, document: compositeDocument, extractions: extractions)
                                     self.rootViewController.present(vc, animated: true)
                                 case .failure(let error):
                                     print("❌ Setting document for review failed: \(String(describing: error))")
@@ -266,5 +266,13 @@ extension AppCoordinator: ComponentAPICoordinatorDelegate {
     func componentAPI(coordinator: ComponentAPICoordinator, didFinish: ()) {
         coordinator.rootViewController.dismiss(animated: true, completion: nil)
         self.remove(childCoordinator: coordinator)
+    }
+}
+
+// MARK: GiniPayBusinessDelegate
+
+extension AppCoordinator: GiniPayBusinessDelegate {
+    func didCreatePaymentRequest(paymentRequestID: String) {
+        print("✅ Created payment request with id \(paymentRequestID)")
     }
 }
