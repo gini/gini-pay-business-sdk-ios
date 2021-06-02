@@ -575,6 +575,42 @@ extension PaymentReviewViewController: UITextFieldDelegate {
         }
     }
     
+    public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if TextFieldType(rawValue: textField.tag) == .amountFieldTag,
+           let text = textField.text,
+           let textRange = Range(range, in: text) {
+            let updatedText = text.replacingCharacters(in: textRange, with: string)
+            
+            // Limit length to 7 digits
+            let onlyDigits = String(updatedText
+                                        .trimmingCharacters(in: .whitespaces)
+                                        .filter { c in c != "," && c != "."}
+                                        .prefix(7))
+            
+            if let decimal = Decimal(string: onlyDigits) {
+                let decimalWithFraction = decimal / 100
+                
+                if let newAmount = Price.stringWithoutSymbol(from: decimalWithFraction)?.trimmingCharacters(in: .whitespaces) {
+                    // Save the selected text range to restore the cursor position after replacing the text
+                    let selectedRange = textField.selectedTextRange
+                    
+                    textField.text = newAmount
+                    amountToPay?.value = decimalWithFraction
+                    
+                    // Move the cursor position after the inserted character
+                    if let selectedRange = selectedRange {
+                        let countDelta = newAmount.count - text.count
+                        let offset = countDelta == 0 ? 1 : countDelta
+                        textField.moveSelectedTextRange(from: selectedRange.start, to: offset)
+                    }
+                }
+            }
+            return false
+           }
+        return true
+    }
+
+    
 }
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
 
