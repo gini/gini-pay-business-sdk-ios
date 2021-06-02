@@ -132,7 +132,7 @@ struct Price {
     // Formatted string with currency symbol
     var string: String? {
         
-        let result = (stringWithoutSymbol(from: value) ?? "") + " " + (currencySymbol ?? "")
+        let result = (Price.stringWithoutSymbol(from: value) ?? "") + " " + (currencySymbol ?? "")
         
         if result.isEmpty { return nil }
         
@@ -140,10 +140,10 @@ struct Price {
     }
     // Formatted string without currency symbol
     var stringWithoutSymbol: String? {
-        return stringWithoutSymbol(from: value)
+        return Price.stringWithoutSymbol(from: value)
     }
     
-    private func stringWithoutSymbol(from value: Decimal) -> String? {
+    static func stringWithoutSymbol(from value: Decimal) -> String? {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         formatter.currencySymbol = ""
