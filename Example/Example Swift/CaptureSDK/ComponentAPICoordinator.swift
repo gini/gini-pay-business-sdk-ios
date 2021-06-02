@@ -25,13 +25,13 @@ final class ComponentAPICoordinator: NSObject, Coordinator {
     }
     fileprivate var documentService: ComponentAPIDocumentServiceProtocol?
     fileprivate var pages: [GiniCapturePage]
-    fileprivate var apiLib: GiniApiLib
     // When there was an error uploading a document or analyzing it and the analysis screen
     // had not been initialized yet, both the error message and action has to be saved to show in the analysis screen.
     fileprivate var analysisErrorAndAction: (message: String, action: () -> Void)?
     
     fileprivate let giniColor = UIColor(red: 0, green: (157/255), blue: (220/255), alpha: 1)
     fileprivate let giniConfiguration: GiniConfiguration
+    fileprivate var giniPayBusiness: GiniPayBusiness
     
     fileprivate lazy var storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
     fileprivate lazy var navigationController: UINavigationController = {
@@ -77,12 +77,11 @@ final class ComponentAPICoordinator: NSObject, Coordinator {
     
     init(pages: [GiniCapturePage],
          configuration: GiniConfiguration,
-         documentService: ComponentAPIDocumentServiceProtocol,
-         giniApiLib: GiniApiLib) {
+         documentService: ComponentAPIDocumentServiceProtocol, giniPayBusiness: GiniPayBusiness) {
         self.pages = pages
         self.giniConfiguration = configuration
         self.documentService = documentService
-        self.apiLib = giniApiLib
+        self.giniPayBusiness = giniPayBusiness
         super.init()
         
         GiniCapture.setConfiguration(configuration)
@@ -90,6 +89,7 @@ final class ComponentAPICoordinator: NSObject, Coordinator {
     
     func start() {
         self.setupTabBar()
+        self.giniPayBusiness.delegate = self
         self.navigationController.delegate = self
         
         if pages.isEmpty {
@@ -282,13 +282,11 @@ extension ComponentAPICoordinator {
     }
     
     fileprivate func startAnalysis() {
-        let giniApiLib = self.apiLib
         documentService?.startAnalysis(completion: { doc, result   in
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
+            DispatchQueue.main.async {
                 switch result {
                 case .success(let extractions):
-                    self.handleAnalysis(document: doc!, apiLib: giniApiLib, extractions: extractions)
+                    self.handleAnalysis(document: doc!, giniPayBusiness: self.giniPayBusiness, extractions: extractions)
                 case .failure( _):
                     self.showErrorInAnalysisScreen(with: AnalysisError.unknown.message) {
                         self.startAnalysis()
@@ -622,9 +620,17 @@ extension ComponentAPICoordinator {
 
 extension ComponentAPICoordinator {
     
-    fileprivate func handleAnalysis(document: Document, apiLib: GiniApiLib, extractions: [Extraction]) {
+    fileprivate func handleAnalysis(document: Document, giniPayBusiness: GiniPayBusiness, extractions: [Extraction]) {
         let fetchedData = DataForReview(document: document, extractions: extractions)
-        let vc = PaymentReviewViewController.instantiate(with: apiLib, data: fetchedData)
+        let vc = PaymentReviewViewController.instantiate(with: giniPayBusiness, data: fetchedData)
         navigationController.pushViewController(vc , animated: true)
+    }
+}
+
+extension ComponentAPICoordinator: GiniPayBusinessDelegate {
+    
+    func didCreatePaymentRequest(paymentRequestID: String) {
+        print("✅ Created payment request with id \(paymentRequestID)")
+        
     }
 }
