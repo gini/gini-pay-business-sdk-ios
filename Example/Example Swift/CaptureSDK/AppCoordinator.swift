@@ -136,7 +136,7 @@ final class AppCoordinator: Coordinator {
         
         // Show the close button to dismiss the payment review screen
         configuration.showPaymentReviewCloseButton = true
-        
+        business.delegate = self
         business.setConfiguration(configuration)
         
         if let document = testDocument, let extractions = testDocumentExtractions {
@@ -266,5 +266,13 @@ extension AppCoordinator: ComponentAPICoordinatorDelegate {
     func componentAPI(coordinator: ComponentAPICoordinator, didFinish: ()) {
         coordinator.rootViewController.dismiss(animated: true, completion: nil)
         self.remove(childCoordinator: coordinator)
+    }
+}
+
+// MARK: GiniPayBusinessDelegate
+
+extension AppCoordinator: GiniPayBusinessDelegate {
+    func didCreatePaymentRequest(paymentRequestID: String) {
+        print("✅ Created payment request with id \(paymentRequestID)")
     }
 }
