@@ -48,11 +48,6 @@ public final class GiniPayBusinessConfiguration: NSObject {
     @objc public var payButtonBackgroundColor = GiniColor(lightModeColor: UIColor.from(hex:0xFF6800), darkModeColor: UIColor.from(hex:0xFF6800))
     
     /**
-     Sets the font of the pay button on the payment review screen
-     */
-    @objc public var payButtonTextFont = UIFont.systemFont(ofSize: 20, weight: .bold)
-    
-    /**
      Sets the text color of the pay button on the payment review screen
      */
     @objc public var payButtonTextColor = GiniColor(lightModeColor: .white, darkModeColor: .white)
@@ -88,11 +83,6 @@ public final class GiniPayBusinessConfiguration: NSObject {
     @objc public var paymentInputFieldSelectionBackgroundColor = UIColor.white
     
     /**
-     Sets the font of the payment input fields on the payment review screen
-     */
-    @objc public var paymentInputFieldFont = UIFont.systemFont(ofSize: 17, weight: .semibold)
-    
-    /**
      Sets the background color of the payment input fields on the payment review screen
      */
     @objc public var paymentInputFieldBackgroundColor = GiniColor(lightModeColor: UIColor.from(hex: 0xF2F3F6), darkModeColor: UIColor.from(hex: 0xF2F3F6))
@@ -101,16 +91,16 @@ public final class GiniPayBusinessConfiguration: NSObject {
      Sets the text color of the payment input fields on the payment review screen
      */
     @objc public var paymentInputFieldTextColor = GiniColor(lightModeColor: UIColor.from(hex: 0x33406F), darkModeColor: UIColor.from(hex: 0x33406F))
-
-    /**
-     Sets the placeholder font of the payment input fields on the payment review screen
-     */
-    @objc public var paymentInputFieldPlaceholderFont = UIFont.systemFont(ofSize: 17, weight: .light)
     
     /**
      Sets the placeholder text color of the payment input fields on the payment review screen
      */
     @objc public var paymentInputFieldPlaceholderTextColor = GiniColor(lightModeColor: UIColor.from(hex: 0x999FB7), darkModeColor: UIColor.from(hex: 0x999FB7))
+    
+    /**
+     Sets the text color of the bank button on the payment review screen
+     */
+    @objc public var bankButtonTextColor = GiniColor(lightModeColor: UIColor.from(hex: 0x33406F), darkModeColor: UIColor.from(hex: 0x33406F))
     
     /**
      Sets the font used in the screens by default.
@@ -140,5 +130,18 @@ public final class GiniPayBusinessConfiguration: NSObject {
      */
     @objc public var loadingIndicatorScale: CGFloat = 1.0
     
-
+    /**
+     Sets the current page indicator on the review screen to the specified color.
+     */
+    @objc public var currentPageIndicatorTintColor = GiniColor(lightModeColor: UIColor.white, darkModeColor: UIColor.white)
+    
+    /**
+     Sets the page indicator on the review screen to the specified color.
+     */
+    @objc public var pageIndicatorTintColor = GiniColor(lightModeColor: UIColor.lightGray, darkModeColor: UIColor.lightGray)
+    
+    /**
+     Set to `true` to show a close button on the payment review screen.
+     */
+    @objc public var showPaymentReviewCloseButton = false
 }

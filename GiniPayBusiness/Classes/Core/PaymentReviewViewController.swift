@@ -10,11 +10,12 @@ import GiniPayApiLib
 
 public final class PaymentReviewViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet var pageControl: UIPageControl!
+    @IBOutlet weak var pageControlHeightConstraint: NSLayoutConstraint!
     @IBOutlet var recipientField: UITextField!
     @IBOutlet var ibanField: UITextField!
     @IBOutlet var amountField: UITextField!
     @IBOutlet var usageField: UITextField!
-    @IBOutlet var payButton: UIButton!
+    @IBOutlet var payButton: GiniCustomButton!
     @IBOutlet var paymentInputFieldsErrorLabels: [UILabel]!
     @IBOutlet var usageErrorLabel: UILabel!
     @IBOutlet var amountErrorLabel: UILabel!
@@ -22,11 +23,13 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     @IBOutlet var recipientErrorLabel: UILabel!
     @IBOutlet var paymentInputFields: [UITextField]!
     @IBOutlet var bankProviderButtonView: UIView!
+    @IBOutlet weak var bankProviderLabel: UILabel!
+    @IBOutlet weak var mainView: UIView!
     @IBOutlet var inputContainer: UIView!
     @IBOutlet var containerCollectionView: UIView!
     @IBOutlet var paymentInfoStackView: UIStackView!
-    @IBOutlet weak var mainContainerView: UIView!
     @IBOutlet var collectionView: UICollectionView!
+    @IBOutlet weak var closeButton: UIButton!
     
     var model: PaymentReviewModel?
     var paymentProviders: [PaymentProvider] = []
@@ -39,18 +42,18 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
         case usageFieldTag
     }
     
-    public static func instantiate(with apiLib: GiniApiLib, document: Document, extractions: [Extraction]) -> PaymentReviewViewController {
+    public static func instantiate(with giniPayBusiness: GiniPayBusiness, document: Document, extractions: [Extraction]) -> PaymentReviewViewController {
         let vc = (UIStoryboard(name: "PaymentReview", bundle: giniPayBusinessBundle())
             .instantiateViewController(withIdentifier: "paymentReviewViewController") as? PaymentReviewViewController)!
-        vc.model = PaymentReviewModel(with: apiLib, document: document, extractions: extractions )
+        vc.model = PaymentReviewModel(with: giniPayBusiness, document: document, extractions: extractions )
         
         return vc
     }
     
-    public static func instantiate(with apiLib: GiniApiLib, data: DataForReview) -> PaymentReviewViewController {
+    public static func instantiate(with giniPayBusiness: GiniPayBusiness, data: DataForReview) -> PaymentReviewViewController {
         let vc = (UIStoryboard(name: "PaymentReview", bundle: giniPayBusinessBundle())
             .instantiateViewController(withIdentifier: "paymentReviewViewController") as? PaymentReviewViewController)!
-        vc.model = PaymentReviewModel(with: apiLib, document: data.document, extractions: data.extractions)
+        vc.model = PaymentReviewModel(with: giniPayBusiness, document: data.document, extractions: data.extractions)
         
         return vc
     }
@@ -60,6 +63,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     override public func viewDidLoad() {
         super.viewDidLoad()
         subscribeOnKeyboardNotifications()
+        dismissKeyboardOnTap()
         congifureUI()
         setupViewModel()
     }
@@ -155,6 +159,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
         configurePaymentInputFields()
         configureBankProviderView()
         configurePageControl()
+        configureCloseButton()
         hideErrorLabels()
         fillInInputFields()
         addDoneButtonForNumPad(amountField)
@@ -167,12 +172,15 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
         bankProviderButtonView.layer.cornerRadius = self.giniPayBusinessConfiguration.paymentInputFieldCornerRadius
         bankProviderButtonView.layer.borderWidth = self.giniPayBusinessConfiguration.paymentInputFieldBorderWidth
         bankProviderButtonView.layer.borderColor = UIColor.from(hex: 0xE6E7ED).cgColor
+        bankProviderLabel.textColor = UIColor.from(giniColor:giniPayBusinessConfiguration.bankButtonTextColor)
+        bankProviderLabel.font = giniPayBusinessConfiguration.customFont.regular
     }
 
     fileprivate func configurePayButton() {
-        payButton.backgroundColor = UIColor.from(giniColor: giniPayBusinessConfiguration.payButtonBackgroundColor)
+        payButton.defaultBackgroundColor = UIColor.from(giniColor: giniPayBusinessConfiguration.payButtonBackgroundColor)
+        payButton.disabledBackgroundColor = .lightGray
         payButton.layer.cornerRadius = giniPayBusinessConfiguration.payButtonCornerRadius
-        payButton.titleLabel?.font = giniPayBusinessConfiguration.payButtonTextFont
+        payButton.titleLabel?.font = giniPayBusinessConfiguration.customFont.regular
         payButton.tintColor = UIColor.from(giniColor: giniPayBusinessConfiguration.payButtonTextColor)
     }
     
@@ -188,14 +196,26 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     }
     
     fileprivate func configurePageControl() {
+        pageControl.pageIndicatorTintColor = UIColor.from(giniColor:giniPayBusinessConfiguration.pageIndicatorTintColor)
+        pageControl.currentPageIndicatorTintColor = UIColor.from(giniColor:giniPayBusinessConfiguration.currentPageIndicatorTintColor)
         pageControl.hidesForSinglePage = true
         pageControl.numberOfPages = model?.document.pageCount ?? 1
+        if pageControl.numberOfPages == 1 {
+            pageControlHeightConstraint.constant = 0
+        } else {
+            pageControlHeightConstraint.constant = 20
+        }
+    }
+    
+    fileprivate func configureCloseButton() {
+        closeButton.isHidden = !giniPayBusinessConfiguration.showPaymentReviewCloseButton
+        closeButton.setImage(UIImageNamedPreferred(named: "paymentReviewCloseButton"), for: .normal)
     }
     
     fileprivate func configureScreenBackgroundColor() {
         let screenBackgroundColor = UIColor.from(giniColor:giniPayBusinessConfiguration.paymentScreenBackgroundColor)
-        mainContainerView.backgroundColor = screenBackgroundColor
-        containerCollectionView.backgroundColor = screenBackgroundColor
+        mainView.backgroundColor = screenBackgroundColor
+        collectionView.backgroundColor = screenBackgroundColor
         inputContainer.backgroundColor = UIColor.from(giniColor:giniPayBusinessConfiguration.inputFieldsContainerBackgroundColor)
     }
     
@@ -205,10 +225,10 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
         field.layer.cornerRadius = self.giniPayBusinessConfiguration.paymentInputFieldCornerRadius
         field.layer.borderWidth = 0.0
         field.backgroundColor = UIColor.from(giniColor: giniPayBusinessConfiguration.paymentInputFieldBackgroundColor)
-        field.font = giniPayBusinessConfiguration.paymentInputFieldFont
+        field.font = giniPayBusinessConfiguration.customFont.regular
         field.textColor = UIColor.from(giniColor: giniPayBusinessConfiguration.paymentInputFieldTextColor)
         let placeholderText = inputFieldPlaceholderText(field)
-        field.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: [NSAttributedString.Key.foregroundColor: UIColor.from(giniColor: giniPayBusinessConfiguration.paymentInputFieldPlaceholderTextColor), NSAttributedString.Key.font: giniPayBusinessConfiguration.paymentInputFieldPlaceholderFont])
+        field.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: [NSAttributedString.Key.foregroundColor: UIColor.from(giniColor: giniPayBusinessConfiguration.paymentInputFieldPlaceholderTextColor), NSAttributedString.Key.font: giniPayBusinessConfiguration.customFont.regular])
         field.layer.masksToBounds = true
     }
 
@@ -274,6 +294,10 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     
     // MARK: - Input fields validation
     
+    @IBAction func textFieldChanged(_ sender: UITextField) {
+        disablePayButtonIfNeeded()
+    }
+    
     fileprivate func validateTextField(_ textField: UITextField) {
         if let fieldIdentifier = TextFieldType(rawValue: textField.tag) {
             switch fieldIdentifier {
@@ -334,9 +358,16 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
         usageField.text = model?.extractions.first(where: {$0.name == "paymentPurpose"})?.value
         if let amountString = model?.extractions.first(where: {$0.name == "amountToPay"})?.value {
             amountToPay = Price(extractionString: amountString)
-            amountField.text = amountToPay?.string
+            let amountToPayText = amountToPay?.string
+            amountField.text = amountToPayText
         }
+        disablePayButtonIfNeeded()
     }
+    
+    fileprivate func disablePayButtonIfNeeded() {
+        payButton.isEnabled = paymentInputFields.allSatisfy { !$0.isReallyEmpty }
+    }
+
 
     fileprivate func showErrorLabel(textFieldTag: TextFieldType) {
         var errorLabel = UILabel()
@@ -423,7 +454,17 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
         }
     }
     
+    @IBAction func closeButtonClicked(_ sender: UIButton) {
+        if (keyboardWillShowCalled) {
+            view.endEditing(true)
+        } else {
+            dismiss(animated: true, completion: nil)
+        }
+    }
+    
     // MARK: - Keyboard handling
+    
+    private var keyboardWillShowCalled = false
     
     @objc func keyboardWillShow(notification: NSNotification) {
         guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
@@ -436,17 +477,33 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
          Moves the root view up by the distance of keyboard height  taking in account safeAreaInsets.bottom
          */
         if #available(iOS 11.0, *) {
-            view.frame.origin.y = 0 - keyboardSize.height + view.safeAreaInsets.bottom
+            mainView.bounds.origin.y = keyboardSize.height - view.safeAreaInsets.bottom
         } else {
-            view.frame.origin.y = 0 - keyboardSize.height
+            mainView.bounds.origin.y = keyboardSize.height
         }
+        
+        keyboardWillShowCalled = true
     }
 
     @objc func keyboardWillHide(notification: NSNotification) {
+        let animationDuration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double ?? 0.3
+        let animationCurve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt ?? UInt(UIView.AnimationCurve.easeOut.rawValue)
+        
+        self.keyboardWillShowCalled = false
+        
         /**
-         Moves back the root view origin to zero
+        Moves back the root view origin to zero. Schedules it on the main dispatch queue to prevent
+        the view jumping if another keyboard is shown right after this one is hidden.
          */
-        view.frame.origin.y = 0
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+            guard let self = self else { return }
+            
+            if !self.keyboardWillShowCalled {
+                UIView.animate(withDuration: animationDuration, delay: 0.0, options: UIView.AnimationOptions(rawValue: animationCurve), animations: {
+                    self.mainView.bounds.origin.y = 0
+                }, completion: nil)
+            }
+        }
     }
 
     func subscribeOnKeyboardNotifications() {
@@ -465,6 +522,12 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
+    
+    fileprivate func dismissKeyboardOnTap() {
+        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
+        tap.cancelsTouchesInView = false
+        mainView.addGestureRecognizer(tap)
+    }
 }
 
 // MARK: - UITextFieldDelegate
@@ -475,7 +538,7 @@ extension PaymentReviewViewController: UITextFieldDelegate {
      */
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        validateTextField(textField)
+        applyDefaultStyle(textField)
         return true
     }
 
@@ -484,7 +547,8 @@ extension PaymentReviewViewController: UITextFieldDelegate {
             if let priceValue = decimal(from: amountFieldText ) {
                 amountToPay?.value = priceValue
             }
-            amountField.text = amountToPay?.string
+            let amountToPayText = amountToPay?.string
+            amountField.text = amountToPayText
         }
     }
     
@@ -494,7 +558,7 @@ extension PaymentReviewViewController: UITextFieldDelegate {
         if TextFieldType(rawValue: textField.tag) == .amountFieldTag {
             updateAmoutToPayWithCurrencyFormat()
         }
-        validateTextField(textField)
+        applyDefaultStyle(textField)
     }
 
     public func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -510,6 +574,43 @@ extension PaymentReviewViewController: UITextFieldDelegate {
             }
         }
     }
+    
+    public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if TextFieldType(rawValue: textField.tag) == .amountFieldTag,
+           let text = textField.text,
+           let textRange = Range(range, in: text) {
+            let updatedText = text.replacingCharacters(in: textRange, with: string)
+            
+            // Limit length to 7 digits
+            let onlyDigits = String(updatedText
+                                        .trimmingCharacters(in: .whitespaces)
+                                        .filter { c in c != "," && c != "."}
+                                        .prefix(7))
+            
+            if let decimal = Decimal(string: onlyDigits) {
+                let decimalWithFraction = decimal / 100
+                
+                if let newAmount = Price.stringWithoutSymbol(from: decimalWithFraction)?.trimmingCharacters(in: .whitespaces) {
+                    // Save the selected text range to restore the cursor position after replacing the text
+                    let selectedRange = textField.selectedTextRange
+                    
+                    textField.text = newAmount
+                    amountToPay?.value = decimalWithFraction
+                    
+                    // Move the cursor position after the inserted character
+                    if let selectedRange = selectedRange {
+                        let countDelta = newAmount.count - text.count
+                        let offset = countDelta == 0 ? 1 : countDelta
+                        textField.moveSelectedTextRange(from: selectedRange.start, to: offset)
+                    }
+                }
+            }
+            return false
+           }
+        return true
+    }
+
+    
 }
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
 
@@ -553,5 +654,25 @@ extension PaymentReviewViewController {
                                                                              comment: "ok title for action"), style: .default, handler: nil)
         alertController.addAction(OKAction)
         present(alertController, animated: true, completion: nil)
+    }
+}
+
+class GiniCustomButton: UIButton {
+    var disabledBackgroundColor: UIColor? = .gray
+    var defaultBackgroundColor: UIColor? {
+        didSet {
+            backgroundColor = defaultBackgroundColor
+        }
+    }
+    override public var isEnabled: Bool {
+        didSet {
+            self.backgroundColor = isEnabled ? defaultBackgroundColor : disabledBackgroundColor
+        }
+    }
+    
+    override var isHighlighted: Bool {
+        didSet {
+            self.alpha = isHighlighted ? 0.5 : 1
+        }
     }
 }
