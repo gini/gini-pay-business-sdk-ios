@@ -8,8 +8,9 @@
 
 import UIKit
 import GiniCapture
+import GiniPayBusiness
 
-protocol SelectAPIViewControllerDelegate: class {
+protocol SelectAPIViewControllerDelegate: AnyObject {
     func selectAPI(viewController: SelectAPIViewController, didSelectApi api: GiniCaptureAPIType)
 }
 
@@ -19,6 +20,7 @@ protocol SelectAPIViewControllerDelegate: class {
 enum GiniCaptureAPIType {
     case screen
     case component
+    case paymentReview
 }
 
 /**
@@ -28,6 +30,9 @@ enum GiniCaptureAPIType {
 final class SelectAPIViewController: UIViewController {
     
     @IBOutlet weak var metaInformationButton: UIButton!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var startWithTestDocumentButton: UIButton!
+    @IBOutlet weak var startWithGiniCaptureButton: UIButton!
     
     weak var delegate: SelectAPIViewControllerDelegate?
         
@@ -45,6 +50,24 @@ final class SelectAPIViewController: UIViewController {
 
     @IBAction func launchComponentAPI(_ sender: Any) {
         delegate?.selectAPI(viewController: self, didSelectApi: .component)
+    }
+    
+    @IBAction func launchPaymentReview(_ sender: Any) {
+        delegate?.selectAPI(viewController: self, didSelectApi: .paymentReview)
+    }
+    
+    func showActivityIndicator() {
+        activityIndicator.startAnimating()
+        startWithGiniCaptureButton.isEnabled = false
+        startWithTestDocumentButton.isEnabled = false
+        metaInformationButton.isEnabled = false
+    }
+    
+    func hideActivityIndicator() {
+        activityIndicator.stopAnimating()
+        startWithGiniCaptureButton.isEnabled = true
+        startWithTestDocumentButton.isEnabled = true
+        metaInformationButton.isEnabled = true
     }
     
 }

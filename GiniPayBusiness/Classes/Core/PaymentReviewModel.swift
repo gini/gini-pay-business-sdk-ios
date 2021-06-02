@@ -12,8 +12,6 @@ import GiniPayApiLib
  View model class for review screen
   */
 public class PaymentReviewModel: NSObject {
-    private var apiLib: GiniApiLib
-
     var onDocumentUpdated: () -> Void = {}
     var onPaymentProvidersFetched: (_ provider: PaymentProviders) -> Void = { _ in }
 
@@ -69,9 +67,8 @@ public class PaymentReviewModel: NSObject {
         }
     }
 
-    public init(with giniApiLib: GiniApiLib, document: Document, extractions: [Extraction]) {
-        self.apiLib = giniApiLib
-        self.businessSDK = GiniPayBusiness(with: self.apiLib)
+    public init(with giniPayBusiness: GiniPayBusiness, document: Document, extractions: [Extraction]) {
+        self.businessSDK = giniPayBusiness
         self.documentId = document.id
         self.document = document
         self.extractions = extractions

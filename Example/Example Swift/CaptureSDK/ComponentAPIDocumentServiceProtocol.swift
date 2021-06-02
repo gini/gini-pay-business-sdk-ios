@@ -24,7 +24,7 @@ typealias ComponentAPIUploadDocumentCompletion = (Result<Document, GiniError>) -
 typealias ComponentAPIAnalysisCompletion = (Result<[Extraction], GiniError>) -> Void
 typealias ComponentAPIAnalysisBusinessSDKCompletion = (_ document: Document?, Result<[Extraction], GiniPayBusinessError>) -> Void
 
-protocol ComponentAPIDocumentServiceProtocol: class {
+protocol ComponentAPIDocumentServiceProtocol: AnyObject {
     
     var document: Document? { get set }
     var analysisCancellationToken: CancellationToken? { get set }

@@ -9,6 +9,21 @@ import Foundation
 import GiniPayApiLib
 
 /**
+ Delegate to inform about the current status of the Gini Pay Business SDK.
+ Makes use of callback for handling payment request creation.
+ 
+ */
+@objc public protocol GiniPayBusinessDelegate {
+    
+    /**
+     Called when the payment request was successfully created
+     
+     - parameter paymentRequestID: Id of created payment request.
+     */
+    
+    func didCreatePaymentRequest(paymentRequestID: String)
+}
+/**
  Errors thrown with GiniPayBusiness SDK.
  */
 public enum GiniPayBusinessError: Error {
@@ -39,6 +54,7 @@ public struct DataForReview {
     /// reponsible for the payment processing.
     public var paymentService: PaymentService
     private var bankProviders: [PaymentProvider] = []
+    public weak var delegate: GiniPayBusinessDelegate?
     
     /**
      Returns a GiniPayBusiness instance
@@ -204,17 +220,18 @@ public struct DataForReview {
      - parameter docId: id of the uploaded document.
      - parameter completion: An action for processing asynchronous data received from the service with Result type as a paramater. Result is a value that represents either a success or a failure, including an associated value in each case.
      Completion block called on main thread.
-     In success return the id of created payment request and opens the banking provider's app
+     In success it includes the id of created payment request.
      In case of failure error from the server side.
      
      */
     public func createPaymentRequest(paymentInfo: PaymentInfo, completion: @escaping (Result<String, GiniPayBusinessError>) -> Void) {
         paymentService.createPaymentRequest(sourceDocumentLocation: "", paymentProvider: paymentInfo.paymentProviderId, recipient: paymentInfo.recipient, iban: paymentInfo.iban, bic: "", amount: paymentInfo.amount, purpose: paymentInfo.purpose) { result in
-            switch result {
-            case let .success(requestID):
-                self.openPaymentProviderApp(requestID: requestID, appScheme: paymentInfo.paymentProviderScheme)
-            case let .failure(error):
-                DispatchQueue.main.async {
+            DispatchQueue.main.async {
+                switch result {
+                case let .success(requestID):
+                    completion(.success(requestID))
+                    self.delegate?.didCreatePaymentRequest(paymentRequestID: requestID)
+                case let .failure(error):
                     completion(.failure(.apiError(error)))
                 }
             }
