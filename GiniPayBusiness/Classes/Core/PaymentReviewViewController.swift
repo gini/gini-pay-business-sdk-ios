@@ -203,10 +203,8 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
         pageControl.numberOfPages = model?.document.pageCount ?? 1
         if pageControl.numberOfPages == 1 {
             pageControlHeightConstraint.constant = 0
-            collectionViewBottomConstraint.constant = -20
         } else {
             pageControlHeightConstraint.constant = 20
-            collectionViewBottomConstraint.constant = 0
         }
     }
     
