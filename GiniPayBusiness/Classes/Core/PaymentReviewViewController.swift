@@ -35,8 +35,6 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     var model: PaymentReviewModel?
     var paymentProviders: [PaymentProvider] = []
     private var amountToPay = Price(extractionString: "")
-    private let zoomWillBeginNotificationName = Notification.Name("ZoomedImageView.scrollViewWillBeginZooming")
-    
     enum TextFieldType: Int {
         case recipientFieldTag = 1
         case ibanFieldTag
@@ -510,7 +508,6 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     
     func subscribeOnNotifications() {
         subscribeOnKeyboardNotifications()
-        subscribeOnZoomNotifications()
     }
 
     func subscribeOnKeyboardNotifications() {
@@ -525,32 +522,13 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
         NotificationCenter.default.addObserver(self, selector: #selector(PaymentReviewViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    func subscribeOnZoomNotifications(){
-        /**
-         Calls the 'zoomWillBeginNotificationName' function when the view controlelr receive notification that imageView begin to zoom
-         */
-        NotificationCenter.default.addObserver(self, selector: #selector(PaymentReviewViewController.zoomWillBegin), name: zoomWillBeginNotificationName, object: nil)
-    }
-    
-    @objc fileprivate func zoomWillBegin() {
-        if pageControl.numberOfPages == 1 {
-            // corner radius for inputContainer = 12
-            collectionViewBottomConstraint.constant = -12
-        }
-    }
-    
     fileprivate func unsubscribeFromKeyboardNotifications() {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    fileprivate func unsubscribeFromZoomNotifications() {
-        NotificationCenter.default.removeObserver(self, name: zoomWillBeginNotificationName, object: nil)
-    }
-    
     fileprivate func unsubscribeFromNotifications() {
         unsubscribeFromKeyboardNotifications()
-        unsubscribeFromZoomNotifications()
     }
     
     fileprivate func dismissKeyboardOnTap() {
@@ -654,7 +632,7 @@ extension PaymentReviewViewController: UICollectionViewDelegate, UICollectionVie
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "pageCellIdentifier", for: indexPath) as! PageCollectionViewCell
         cell.pageImageView.frame = CGRect(x: 0, y: 0, width: collectionView.frame.width, height: collectionView.frame.height)
-        
+        cell.pageImageView.imageScrollViewDelegate = self
         let cellModel = model?.getCellViewModel(at: indexPath)
         cell.pageImageView.display(image: cellModel?.preview ?? UIImage())
         return cell
@@ -684,6 +662,20 @@ extension PaymentReviewViewController {
                                                                              comment: "ok title for action"), style: .default, handler: nil)
         alertController.addAction(OKAction)
         present(alertController, animated: true, completion: nil)
+    }
+}
+
+// MARK: - ImageScrollViewDelegate
+
+extension PaymentReviewViewController: ImageScrollViewDelegate {
+    public func imageScrollViewDidChangeOrientation(imageScrollView: ZoomedImageView) {
+    }
+    
+    public func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
+        if pageControl.numberOfPages == 1 {
+            // corner radius for inputContainer = 12
+            collectionViewBottomConstraint.constant = -12
+        }
     }
 }
 
