@@ -38,6 +38,7 @@ open class ZoomedImageView: UIScrollView {
     var imageSize: CGSize = CGSize.zero
     private var pointToCenterAfterResize: CGPoint = CGPoint.zero
     private var scaleToRestoreAfterResize: CGFloat = 1.0
+    private  let zoomBeginNotificationName = Notification.Name("ZoomedImageView.scrollViewWillBeginZooming")
     open var maxScaleFromMinScale: CGFloat = 3.0
     
     override open var frame: CGRect {
@@ -326,6 +327,9 @@ extension ZoomedImageView: UIScrollViewDelegate {
     }
     
     public func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
+       
+        NotificationCenter.default.post(name: zoomBeginNotificationName, object: nil)
+        
         imageScrollViewDelegate?.scrollViewWillBeginZooming?(scrollView, with: view)
     }
     
