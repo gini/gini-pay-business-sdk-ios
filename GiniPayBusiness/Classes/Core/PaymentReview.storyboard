@@ -255,10 +255,8 @@
                                 <constraints>
                                     <constraint firstItem="ekk-cJ-hxZ" firstAttribute="centerX" secondItem="X5k-EE-UQ6" secondAttribute="centerX" id="3Up-qV-3Sl"/>
                                     <constraint firstItem="ekk-cJ-hxZ" firstAttribute="leading" secondItem="X5k-EE-UQ6" secondAttribute="leading" id="3vD-Rk-Xvs"/>
-                                    <constraint firstItem="47Q-Qq-7ja" firstAttribute="leading" secondItem="X5k-EE-UQ6" secondAttribute="leading" constant="-32" id="APD-PO-B4D"/>
                                     <constraint firstItem="47Q-Qq-7ja" firstAttribute="top" secondItem="X5k-EE-UQ6" secondAttribute="top" id="CHQ-Ph-a8J"/>
                                     <constraint firstItem="ekk-cJ-hxZ" firstAttribute="top" secondItem="47Q-Qq-7ja" secondAttribute="bottom" id="Um0-7i-L3I"/>
-                                    <constraint firstAttribute="trailing" secondItem="47Q-Qq-7ja" secondAttribute="trailing" constant="-32" id="WFQ-eh-0qS"/>
                                     <constraint firstAttribute="trailing" secondItem="ekk-cJ-hxZ" secondAttribute="trailing" id="ZOM-nK-AJs"/>
                                     <constraint firstItem="47Q-Qq-7ja" firstAttribute="centerX" secondItem="X5k-EE-UQ6" secondAttribute="centerX" id="rFK-yg-iVc"/>
                                     <constraint firstAttribute="bottom" secondItem="ekk-cJ-hxZ" secondAttribute="bottom" id="yRU-DH-rpk"/>
@@ -275,9 +273,11 @@
                         <viewLayoutGuide key="safeArea" id="bnf-9Y-Eta"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="47Q-Qq-7ja" firstAttribute="trailing" secondItem="bnf-9Y-Eta" secondAttribute="trailing" constant="32" id="0sf-vp-r8c"/>
                             <constraint firstItem="bnf-9Y-Eta" firstAttribute="trailing" secondItem="X5k-EE-UQ6" secondAttribute="trailing" id="4bp-D7-CFZ"/>
                             <constraint firstItem="bnf-9Y-Eta" firstAttribute="trailing" secondItem="wxg-Qb-D9U" secondAttribute="trailing" constant="16" id="BTS-6B-frI"/>
                             <constraint firstItem="X5k-EE-UQ6" firstAttribute="top" secondItem="bnf-9Y-Eta" secondAttribute="top" id="Do4-wg-Ele"/>
+                            <constraint firstItem="bnf-9Y-Eta" firstAttribute="leading" secondItem="47Q-Qq-7ja" secondAttribute="leading" constant="32" id="QoA-aA-W9A"/>
                             <constraint firstItem="X5k-EE-UQ6" firstAttribute="leading" secondItem="bnf-9Y-Eta" secondAttribute="leading" id="SVl-pi-wsE"/>
                             <constraint firstItem="X5k-EE-UQ6" firstAttribute="centerX" secondItem="bnf-9Y-Eta" secondAttribute="centerX" id="eQ2-K2-0z8"/>
                             <constraint firstItem="bnf-9Y-Eta" firstAttribute="bottom" secondItem="X5k-EE-UQ6" secondAttribute="bottom" constant="-34" id="fa8-8k-ztT"/>
@@ -292,6 +292,7 @@
                         <outlet property="bankProviderLabel" destination="gKK-IC-PHC" id="EIG-gW-PJG"/>
                         <outlet property="closeButton" destination="wxg-Qb-D9U" id="T8m-hf-wQa"/>
                         <outlet property="collectionView" destination="VtW-En-y6v" id="Ax4-fE-dDV"/>
+                        <outlet property="collectionViewBottomConstraint" destination="Xk5-5t-LRe" id="3pM-Jz-fzd"/>
                         <outlet property="containerCollectionView" destination="47Q-Qq-7ja" id="wB1-BT-kZG"/>
                         <outlet property="ibanErrorLabel" destination="G08-A3-0LA" id="Hta-8O-0sR"/>
                         <outlet property="ibanField" destination="QXh-1z-x7c" id="h9e-5R-vDG"/>

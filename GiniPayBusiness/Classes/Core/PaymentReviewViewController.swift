@@ -11,6 +11,7 @@ import GiniPayApiLib
 public final class PaymentReviewViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet var pageControl: UIPageControl!
     @IBOutlet weak var pageControlHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var collectionViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet var recipientField: UITextField!
     @IBOutlet var ibanField: UITextField!
     @IBOutlet var amountField: UITextField!
@@ -202,8 +203,10 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
         pageControl.numberOfPages = model?.document.pageCount ?? 1
         if pageControl.numberOfPages == 1 {
             pageControlHeightConstraint.constant = 0
+            collectionViewBottomConstraint.constant = -20
         } else {
             pageControlHeightConstraint.constant = 20
+            collectionViewBottomConstraint.constant = 0
         }
     }
     
