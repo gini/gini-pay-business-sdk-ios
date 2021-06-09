@@ -196,6 +196,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     }
     
     fileprivate func configurePageControl() {
+        pageControl.layer.zPosition = 10
         pageControl.pageIndicatorTintColor = UIColor.from(giniColor:giniPayBusinessConfiguration.pageIndicatorTintColor)
         pageControl.currentPageIndicatorTintColor = UIColor.from(giniColor:giniPayBusinessConfiguration.currentPageIndicatorTintColor)
         pageControl.hidesForSinglePage = true
@@ -216,6 +217,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
         let screenBackgroundColor = UIColor.from(giniColor:giniPayBusinessConfiguration.paymentScreenBackgroundColor)
         mainView.backgroundColor = screenBackgroundColor
         collectionView.backgroundColor = screenBackgroundColor
+        pageControl.backgroundColor = screenBackgroundColor
         inputContainer.backgroundColor = UIColor.from(giniColor:giniPayBusinessConfiguration.inputFieldsContainerBackgroundColor)
     }
     
@@ -632,7 +634,7 @@ extension PaymentReviewViewController: UICollectionViewDelegate, UICollectionVie
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "pageCellIdentifier", for: indexPath) as! PageCollectionViewCell
         cell.pageImageView.frame = CGRect(x: 0, y: 0, width: collectionView.frame.width, height: collectionView.frame.height)
-        cell.pageImageView.imageScrollViewDelegate = self
+        cell.pageImageView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 20.0, right: 0.0)
         let cellModel = model?.getCellViewModel(at: indexPath)
         cell.pageImageView.display(image: cellModel?.preview ?? UIImage())
         return cell
@@ -662,20 +664,6 @@ extension PaymentReviewViewController {
                                                                              comment: "ok title for action"), style: .default, handler: nil)
         alertController.addAction(OKAction)
         present(alertController, animated: true, completion: nil)
-    }
-}
-
-// MARK: - ImageScrollViewDelegate
-
-extension PaymentReviewViewController: ImageScrollViewDelegate {
-    public func imageScrollViewDidChangeOrientation(imageScrollView: ZoomedImageView) {
-    }
-    
-    public func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
-        if pageControl.numberOfPages == 1 {
-            // corner radius for inputContainer = 12
-            collectionViewBottomConstraint.constant = -12
-        }
     }
 }
 

@@ -18,10 +18,6 @@ class PageCollectionViewCell: UICollectionViewCell {
 
     fileprivate func addImageView() {
         contentView.addSubview(pageImageView)
-        
-        pageImageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        pageImageView.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
-        pageImageView.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
     }
     
     override init(frame: CGRect) {
