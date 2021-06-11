@@ -28,7 +28,7 @@ open class ZoomedImageView: UIScrollView {
     
     static let kZoomInFactorFromMinWhenDoubleTap: CGFloat = 2
     
-    @objc open var imageContentMode: ScaleMode = .heightFill
+    @objc open var imageContentMode: ScaleMode = .aspectFit
     @objc open var initialOffset: Offset = .begining
     
     @objc public private(set) var zoomView: UIImageView? = nil
