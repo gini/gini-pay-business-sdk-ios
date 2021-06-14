@@ -13,7 +13,7 @@ import GiniPayApiLib
  Makes use of callback for handling payment request creation.
  
  */
-@objc public protocol GiniPayBusinessDelegate {
+public protocol GiniPayBusinessDelegate: AnyObject {
     
     /**
      Called when the payment request was successfully created
@@ -22,6 +22,15 @@ import GiniPayApiLib
      */
     
     func didCreatePaymentRequest(paymentRequestID: String)
+    
+    /**
+     Error handling. If delegate is set and error is going to  be handled internally the method should return true.
+     If error hadling is planned to be custom return false for specific error case.
+     
+     - parameter GiniPayBusinessError: error which will be handled.
+     */
+    
+    func shouldHandleErrorInternally(error: GiniPayBusinessError) -> Bool
 }
 /**
  Errors thrown with GiniPayBusiness SDK.
