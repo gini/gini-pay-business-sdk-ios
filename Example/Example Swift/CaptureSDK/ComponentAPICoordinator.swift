@@ -634,7 +634,15 @@ extension ComponentAPICoordinator: GiniPayBusinessDelegate {
         switch error {
         case .noInstalledApps:
             // shows own error
-            print("Didn't find any installed banking apps")
+            let alertViewController = UIAlertController(title: "",
+                                                        message: "We didn't find any banking apps installed which support Gini Pay",
+                                                        preferredStyle: .alert)
+            
+            alertViewController.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+                alertViewController.dismiss(animated: true, completion: nil)
+            })
+            navigationController.present(alertViewController, animated: true, completion: nil)
+
             return false
         default:
             return true
