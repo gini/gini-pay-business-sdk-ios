@@ -116,6 +116,24 @@ public struct DataForReview {
     }
     
     /**
+     Checks if there is any banking app which can support Gini Pay functionaly installed.
+     
+     - parameter appSchemes: A list of [LSApplicationQueriesSchemes] added in Info.plist. Scheme format: ginipay-bank://
+     Return boolean value.
+     
+     */
+    public func isAnyBankingAppInstalled(appSchemes: [String]) -> Bool {
+        for scheme in appSchemes {
+            if let url = URL(string:scheme) {
+                if UIApplication.shared.canOpenURL(url) {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    
+    /**
      Sets a configuration which is used to customize the look of the Gini Pay Business SDK,
      for example to change texts and colors displayed to the user.
      
