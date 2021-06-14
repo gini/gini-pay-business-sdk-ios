@@ -288,6 +288,10 @@ extension AppCoordinator: ComponentAPICoordinatorDelegate {
 // MARK: GiniPayBusinessDelegate
 
 extension AppCoordinator: GiniPayBusinessDelegate {
+    func shouldHandleErrorInternally(error: GiniPayBusinessError) -> Bool {
+        return true
+    }
+    
     func didCreatePaymentRequest(paymentRequestID: String) {
         print("✅ Created payment request with id \(paymentRequestID)")
     }

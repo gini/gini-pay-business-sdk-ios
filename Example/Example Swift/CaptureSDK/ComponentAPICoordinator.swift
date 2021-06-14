@@ -630,6 +630,17 @@ extension ComponentAPICoordinator {
 // MARK: GiniPayBusinessDelegate
 
 extension ComponentAPICoordinator: GiniPayBusinessDelegate {
+    func shouldHandleErrorInternally(error: GiniPayBusinessError) -> Bool {
+        switch error {
+        case .noInstalledApps:
+            // shows own error
+            print("Didn't find any installed banking apps")
+            return false
+        default:
+            return true
+        }
+    }
+    
     
     func didCreatePaymentRequest(paymentRequestID: String) {
         print("✅ Created payment request with id \(paymentRequestID)")
