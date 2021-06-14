@@ -24,10 +24,10 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>net.gini.ginipay-ingdiba</string>
+			<string>net.gini.ginipay-bank</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>ginipay-ingdiba</string>
+				<string>ginipay-bank</string>
 			</array>
 		</dict>
 	</array>

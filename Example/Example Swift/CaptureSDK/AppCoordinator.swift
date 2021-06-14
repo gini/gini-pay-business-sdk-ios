@@ -117,10 +117,25 @@ final class AppCoordinator: Coordinator {
         add(childCoordinator: componentAPICoordinator)
 
         rootViewController.present(componentAPICoordinator.rootViewController, animated: true, completion: nil)
+        checkIfAnyBankingAppsInstalled(from: componentAPICoordinator.rootViewController)
+
     }
     
     private var testDocument: Document?
     private var testDocumentExtractions: [Extraction]?
+    
+    fileprivate func checkIfAnyBankingAppsInstalled(from viewController: UIViewController) {
+        if !business.isAnyBankingAppInstalled(appSchemes: ["ginipay-bank://"]){
+            let alertViewController = UIAlertController(title: "",
+                                                        message: "We didn't find any banking apps installed",
+                                                        preferredStyle: .alert)
+            
+            alertViewController.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+                alertViewController.dismiss(animated: true, completion: nil)
+            })
+            viewController.present(alertViewController, animated: true, completion: nil)
+        }
+    }
     
     fileprivate func showPaymentReviewWithTestDocument() {
         let configuration = GiniPayBusinessConfiguration()
@@ -138,6 +153,7 @@ final class AppCoordinator: Coordinator {
         configuration.showPaymentReviewCloseButton = true
         business.delegate = self
         business.setConfiguration(configuration)
+        checkIfAnyBankingAppsInstalled(from: self.rootViewController)
         
         if let document = testDocument, let extractions = testDocumentExtractions {
             // Show the payment review screen
