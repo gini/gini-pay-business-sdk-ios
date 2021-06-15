@@ -630,6 +630,25 @@ extension ComponentAPICoordinator {
 // MARK: GiniPayBusinessDelegate
 
 extension ComponentAPICoordinator: GiniPayBusinessDelegate {
+    func shouldHandleErrorInternally(error: GiniPayBusinessError) -> Bool {
+        switch error {
+        case .noInstalledApps:
+            // shows own error
+            let alertViewController = UIAlertController(title: "",
+                                                        message: "We didn't find any banking apps installed which support Gini Pay",
+                                                        preferredStyle: .alert)
+            
+            alertViewController.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+                alertViewController.dismiss(animated: true, completion: nil)
+            })
+            navigationController.present(alertViewController, animated: true, completion: nil)
+
+            return false
+        default:
+            return true
+        }
+    }
+    
     
     func didCreatePaymentRequest(paymentRequestID: String) {
         print("✅ Created payment request with id \(paymentRequestID)")

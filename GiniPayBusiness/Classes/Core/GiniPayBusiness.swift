@@ -13,15 +13,22 @@ import GiniPayApiLib
  Makes use of callback for handling payment request creation.
  
  */
-@objc public protocol GiniPayBusinessDelegate {
+public protocol GiniPayBusinessDelegate: AnyObject {
     
     /**
      Called when the payment request was successfully created
      
      - parameter paymentRequestID: Id of created payment request.
      */
-    
     func didCreatePaymentRequest(paymentRequestID: String)
+    
+    /**
+     Error handling. If delegate is set and error is going to  be handled internally the method should return true.
+     If error hadling is planned to be custom return false for specific error case.
+     
+     - parameter GiniPayBusinessError: error which will be handled.
+     */
+    func shouldHandleErrorInternally(error: GiniPayBusinessError) -> Bool
 }
 /**
  Errors thrown with GiniPayBusiness SDK.
@@ -67,7 +74,7 @@ public struct DataForReview {
         self.paymentService = giniApiLib.paymentService()
     }
     /**
-     Getting a list of the installed banking apps which support Gini Pay functionaly.
+     Getting a list of the installed banking apps which support Gini Pay functionality.
      
      - parameter completion: An action for processing asynchronous data received from the service with Result type as a paramater. Result is a value that represents either a success or a failure, including an associated value in each case.
      Completion block called on main thread.
@@ -103,16 +110,32 @@ public struct DataForReview {
     }
 
     /**
-     Checks if there are any banking app which support Gini Pay functionaly installed.
+     Checks if there are any banking app which support Gini Pay functionality installed.
      
      - parameter completion: An action for processing asynchronous data received from the service with Result type as a paramater. Result is a value that represents either a success or a failure, including an associated value in each case.
      Completion block called on main thread.
      In success case it includes array of payment providers.
      In case of failure error that there are no supported banking apps installed.
-     
      */
     public func checkIfAnyPaymentProviderAvailiable(completion: @escaping (Result<PaymentProviders, GiniPayBusinessError>) -> Void){
         self.getInstalledBankingApps(completion: completion)
+    }
+    
+    /**
+     Checks if there is any banking app which can support Gini Pay functionality installed.
+     - Parameters:
+        -  appSchemes: A list of [LSApplicationQueriesSchemes] added in Info.plist. Scheme format: ginipay-bank://
+     - Returns: a boolean value.
+     */
+    public func isAnyBankingAppInstalled(appSchemes: [String]) -> Bool {
+        for scheme in appSchemes {
+            if let url = URL(string:scheme) {
+                if UIApplication.shared.canOpenURL(url) {
+                    return true
+                }
+            }
+        }
+        return false
     }
     
     /**

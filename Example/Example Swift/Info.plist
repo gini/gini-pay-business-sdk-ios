@@ -45,7 +45,7 @@
 	<string>1</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-		<string>ginipay-ingdiba</string>
+		<string>ginipay-bank</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
