@@ -19,11 +19,9 @@ Further documentation with installation, integration or customization guides can
 
 We are providing example app for Swift. This app demonstrates how to integrate the Gini Pay Business SDK with the Component API of Gini Capture library. To run the example project, clone the repo and run `pod install` from the Example directory first.
 To check the redirection to Banking app please run Bank example before Example Swift.
-To inject your API credentials into the Example app, just add to the Example directory the `Credentials.plist` file with the following format:
-
-<br>
-<center><img src="img/credentials_plist_format.png"/></center>
-</br>
+An example banking app is available in the [Gini Pay Bank SDK's](https://github.com/gini/gini-pay-bank-sdk-ios).
+To check the redirection to the Banking app please run Bank example before Example Swift. You can use the same Gini Pay API client credentials in the example banking app as in your app, if not otherwise specified.
+To inject your API credentials into the Business and Bank example apps you need to fill in your credentials in `Example/Business/Credentials.plist` and `Example/Bank/Credentials.plist`, respectively.
 
 ## Requirements
 
