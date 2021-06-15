@@ -37,7 +37,7 @@
 			<string>net.gini.ginipay</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>ginipay-test</string>
+				<string>ginipay-business</string>
 			</array>
 		</dict>
 	</array>
