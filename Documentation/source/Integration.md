@@ -113,7 +113,7 @@ businessSDK.setConfiguration(config)
 An example banking app is available in the [Gini Pay Bank SDK's](https://github.com/gini/gini-pay-bank-sdk-ios) repository.
 
 In order to test using our example banking app you need to use development client credentials. This will make sure
-the Gini Pay Business SDK uses a test payment provider which will open our example banking app. To inject your API credentials into the Bank example apps you need to fill in your credentials in `Example/Bank/Credentials.plist`.
+the Gini Pay Business SDK uses a test payment provider which will open our example banking app. To inject your API credentials into the Bank example app you need to fill in your credentials in `Example/Bank/Credentials.plist`.
 
 #### End to end testing
 
@@ -122,7 +122,7 @@ The app scheme in our banking example app: `ginipay-bank://`. Please, specify th
 After you've set the client credentials in the example banking app and installed it on your device you can run your app
 and verify that `businessSDK.isAnyBankingAppInstalled(appSchemes: [String])` returns true and check other preconditions.
 
-After following the integration steps above you'll be landed at the payment preview screen.
+After following the integration steps above you'll arrive at the payment review screen.
 
 Check that the extractions and the document preview are shown and then press the `Pay` button:
 
@@ -133,13 +133,13 @@ Check that the extractions and the document preview are shown and then press the
 You should be redirected to the example banking app where the final extractions are shown:
 
 <br>
-<center><img src="img/Customization guide/ReviewScreenBeforeResolvingPayment.PNG" height="500"/></center>
+<center><img src="img/Integration guide/ReviewScreenBeforeResolvingPayment.PNG" height="500"/></center>
 </br>
 
 After you press the `Pay` button the Gini Pay Bank SDK resolves the payment and allows you to return to your app:
 
 <br>
-<center><img src="img/Customization guide/ReviewScreenAfterResolvingPayment.PNG" height="500"/></center>
+<center><img src="img/Integration guide/ReviewScreenAfterResolvingPayment.PNG" height="500"/></center>
 </br>
 
 For handling incoming url in your app after redirecting back from the banking app you need to implement to handle the incoming url:
