@@ -146,9 +146,14 @@ For handling incoming url in your app after redirecting back from the banking ap
 The following is an example for the url `ginipay-business://payment-requester`:
 
 ```swift
-func application(_ app: UIApplication,
+    func application(_ app: UIApplication,
                      open url: URL,
-                     options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {}
+                     options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+        if url.host == "payment-requester" {
+            // hadle incoming url from the banking app
+        }
+        return true
+    }
 ```
 
 With these steps completed you have verified that your app, the Gini Pay API, the Gini Pay Business SDK and the Gini Pay
