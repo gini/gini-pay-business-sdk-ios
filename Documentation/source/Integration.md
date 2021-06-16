@@ -108,6 +108,16 @@ config.loadingIndicatorColor = .black
 .
 businessSDK.setConfiguration(config)
 ```
+## Gini Pay Deep Link For Your App
+
+In order for banking apps to be able to return the user to your app after the payment has been resolved you need register a scheme for your app to respond to a deep link scheme known by the Gini Pay API.
+
+You should already have a scheme and host from us. Please contact us in case you don't have them.
+
+The following is an example for the deep link ginipay-business://payment-requester:
+<br>
+<center><img src="img/Integration guide/SchemeExample.png" width="600"/></center>
+</br>
 ## Testing
 
 An example banking app is available in the [Gini Pay Bank SDK's](https://github.com/gini/gini-pay-bank-sdk-ios) repository.
@@ -166,3 +176,6 @@ credentials. This will make sure the Gini Pay Business SDK receives real payment
 
 You will also need to install a banking app which uses the Gini Pay Bank SDK. Please contact us in case you don't know
 which banking app(s) to install.
+
+Lastly make sure that for production you register the scheme we provided you for deep linking and you are not using 
+`ginipay-business://payment-requester`.
