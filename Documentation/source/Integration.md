@@ -76,9 +76,9 @@ let partialDocs = [PartialDocumentInfo(document: createdDocument.links.document)
 
 There are three methods in GiniPayBusiness:
 
-`businessSDK.isAnyBankingAppInstalled(appSchemes: [String])` without a networking call, returns true when at least the one of the listed among `LSApplicationQueriesSchemes` in your `Info.plist` is installed on the device and can support Gini Pay functionality,
-`businessSDK.checkIfAnyPaymentProviderAvailiable` with a networking call, returns a list of availible payment provider or informs that there are no supported banking apps installed,
-and `businessSDK.checkIfDocumentIsPayable(docId: String)` returns true if Iban was extracted.
+* `businessSDK.isAnyBankingAppInstalled(appSchemes: [String])` without a networking call, returns true when at least the one of the listed among `LSApplicationQueriesSchemes` in your `Info.plist` is installed on the device and can support Gini Pay functionality,
+* `businessSDK.checkIfAnyPaymentProviderAvailiable()` with a networking call, returns a list of availible payment provider or informs that there are no supported banking apps installed,
+* `businessSDK.checkIfDocumentIsPayable(docId: String)` returns true if Iban was extracted.
 
 ## Fetching data for payment review screen
 
