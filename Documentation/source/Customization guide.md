@@ -20,7 +20,7 @@ Some background and text colors use the `GiniColor` type with which you can set 
 ## Payment Review screen
 
 <br>
-<center><img src="img/Customization guide/PaymentReview.jpeg" height="500"/></center>
+<center><img src="img/Customization guide/PaymentReview.PNG" height="500"/></center>
 </br>
 
 ##### 1. Background color
