@@ -635,7 +635,9 @@ extension ComponentAPICoordinator {
                                                                     preferredStyle: .alert)
                         
                         alertViewController.addAction(UIAlertAction(title: "OK", style: .default) { _ in
-                            alertViewController.dismiss(animated: true, completion: nil)
+                            alertViewController.dismiss(animated: true) {
+                                self.closeComponentAPI()
+                            }
                         })
                         navigationController.present(alertViewController, animated: true, completion: nil)
                     }
@@ -645,7 +647,9 @@ extension ComponentAPICoordinator {
                                                             preferredStyle: .alert)
                 
                 alertViewController.addAction(UIAlertAction(title: "OK", style: .default) { _ in
-                    alertViewController.dismiss(animated: true, completion: nil)
+                    alertViewController.dismiss(animated: true) {
+                        self.closeComponentAPI()
+                    }
                 })
                 navigationController.present(alertViewController, animated: true, completion: nil)
             }
