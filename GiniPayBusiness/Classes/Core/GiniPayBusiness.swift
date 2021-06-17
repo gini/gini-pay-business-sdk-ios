@@ -155,8 +155,7 @@ public struct DataForReview {
      - parameter documentId: Id of uploaded document.
 
      */
-    public func checkIfDocumentIsPayable(docId: String) -> Bool {
-        var isIbanNotEmpty = false
+    public func checkIfDocumentIsPayable(docId: String, completion: @escaping (Result<Bool, GiniPayBusinessError>) -> Void) {
         documentService.fetchDocument(with: docId) { result in
             switch result {
             case let .success(createdDocument):
@@ -166,18 +165,20 @@ public struct DataForReview {
                         switch result {
                         case let .success(extractionResult):
                             if let iban = extractionResult.extractions.first(where: { $0.name == "iban" })?.value, !iban.isEmpty {
-                                isIbanNotEmpty = true
+                                completion(.success(true))
+                            } else {
+                                completion(.success(false))
                             }
-                        case .failure:
+                        case .failure(let error):
+                            completion(.failure(.apiError(error)))
                             break
                         }
                     }
                 }
-            case .failure:
-                break
+            case .failure(let error):
+                completion(.failure(.apiError(error)))
             }
         }
-        return isIbanNotEmpty
     }
     
     /**
