@@ -26,7 +26,7 @@ public protocol GiniPayBusinessDelegate: AnyObject {
      Error handling. If delegate is set and error is going to  be handled internally the method should return true.
      If error hadling is planned to be custom return false for specific error case.
      
-     - parameter GiniPayBusinessError: error which will be handled.
+     - parameter error: error which will be handled.
      */
     func shouldHandleErrorInternally(error: GiniPayBusinessError) -> Bool
 }
@@ -73,10 +73,13 @@ public struct DataForReview {
         self.documentService = giniApiLib.documentService()
         self.paymentService = giniApiLib.paymentService()
     }
+
     /**
      Getting a list of the installed banking apps which support Gini Pay functionality.
      
-     - parameter completion: An action for processing asynchronous data received from the service with Result type as a paramater. Result is a value that represents either a success or a failure, including an associated value in each case.
+     - Parameters:
+        - completion: An action for processing asynchronous data received from the service with Result type as a paramater.
+     Result is a value that represents either a success or a failure, including an associated value in each case.
      Completion block called on main thread.
      In success case it includes array of payment providers, which are represebt the installed on the phone apps.
      In case of failure error that there are no supported banking apps installed.
@@ -112,10 +115,10 @@ public struct DataForReview {
     /**
      Checks if there are any banking app which support Gini Pay functionality installed.
      
-     - parameter completion: An action for processing asynchronous data received from the service with Result type as a paramater. Result is a value that represents either a success or a failure, including an associated value in each case.
-     Completion block called on main thread.
-     In success case it includes array of payment providers.
-     In case of failure error that there are no supported banking apps installed.
+     - Parameters:
+        - completion: An action for processing asynchronous data received from the service with Result type as a paramater. Result is a value that represents either a success or a failure, including an associated value in each case. Completion block called on main thread.
+        In success case it includes array of payment providers.
+        In case of failure error that there are no supported banking apps installed.
      */
     public func checkIfAnyPaymentProviderAvailiable(completion: @escaping (Result<PaymentProviders, GiniPayBusinessError>) -> Void){
         self.getInstalledBankingApps(completion: completion)
@@ -142,7 +145,8 @@ public struct DataForReview {
      Sets a configuration which is used to customize the look of the Gini Pay Business SDK,
      for example to change texts and colors displayed to the user.
      
-     - parameter configuration: The configuration to set.
+     - Parameters:
+        - configuration: The configuration to set.
      
      */
     public func setConfiguration(_ configuration: GiniPayBusinessConfiguration) {
@@ -152,7 +156,11 @@ public struct DataForReview {
     /**
      Checks if the document is payable which looks for iban extraction.
      
-     - parameter documentId: Id of uploaded document.
+     - Parameters:
+        - docId: Id of uploaded document.
+        - completion: An action for processing asynchronous data received from the service with Result type as a paramater. Result is a value that represents either a success or a failure, including an associated value in each case. Completion block called on main thread.
+        In success case it includes a boolean value and returns true if iban was extracted.
+        In case of failure in case of failure error from the server side.
 
      */
     public func checkIfDocumentIsPayable(docId: String, completion: @escaping (Result<Bool, GiniPayBusinessError>) -> Void) {
@@ -184,11 +192,12 @@ public struct DataForReview {
     /**
      Polls the document via document id.
      
-     - parameter documentId: Id of uploaded document.
-     - parameter completion: An action for processing asynchronous data received from the service with Result type as a paramater. Result is a value that represents either a success or a failure, including an associated value in each case.
-     Completion block called on main thread.
-     In success returns the polled document.
-     In case of failure error from the server side.
+     - Parameters:
+        - docId: Id of uploaded document.
+        -  completion: An action for processing asynchronous data received from the service with Result type as a paramater. Result is a value that represents either a success or a failure, including an associated value in each case.
+        Completion block called on main thread.
+        In success returns the polled document.
+        In case of failure error from the server side.
 
      */
     public func pollDocument(docId: String, completion: @escaping (Result<Document, GiniPayBusinessError>) -> Void){
@@ -207,7 +216,7 @@ public struct DataForReview {
     /**
      Get extractions for the document.
      
-     - parameter docId: id of the uploaded document.
+     - parameter docId: Id of the uploaded document.
      - parameter completion: An action for processing asynchronous data received from the service with Result type as a paramater. Result is a value that represents either a success or a failure, including an associated value in each case.
      Completion block called on main thread.
      In success case it includes array of extractions.
@@ -241,11 +250,12 @@ public struct DataForReview {
     /**
      Creates a payment request
      
-     - parameter docId: id of the uploaded document.
-     - parameter completion: An action for processing asynchronous data received from the service with Result type as a paramater. Result is a value that represents either a success or a failure, including an associated value in each case.
-     Completion block called on main thread.
-     In success it includes the id of created payment request.
-     In case of failure error from the server side.
+     - Parameters:
+        - paymentInfo: Model object for payment information.
+        - completion: An action for processing asynchronous data received from the service with Result type as a paramater. Result is a value that represents either a success or a failure, including an associated value in each case.
+        Completion block called on main thread.
+        In success it includes the id of created payment request.
+        In case of failure error from the server side.
      
      */
     public func createPaymentRequest(paymentInfo: PaymentInfo, completion: @escaping (Result<String, GiniPayBusinessError>) -> Void) {
@@ -266,8 +276,9 @@ public struct DataForReview {
      Opens an app of selected payment provider.
         openUrl called on main thread.
      
-     - parameter requestID: id of the created payment request.
-     - parameter appScheme: app scheme for the selected payment provider
+     - Parameters:
+        - requestID: Id of the created payment request.
+        - appScheme: App scheme for the selected payment provider
      
      */
     public func openPaymentProviderApp(requestID: String, appScheme: String) {
@@ -284,12 +295,13 @@ public struct DataForReview {
     /**
      Sets a data for payment review screen
      
-     - parameter documentId: Id of uploaded document.
-     - parameter completion: An action for processing asynchronous data received from the service with Result type as a paramater.
-     Result is a value that represents either a success or a failure, including an associated value in each case.
-     Completion block called on main thread.
-     In success it includes array of extractions.
-     In case of failure error from the server side.
+     - Parameters:
+        - documentId: Id of uploaded document.
+        - completion: An action for processing asynchronous data received from the service with Result type as a paramater.
+        Result is a value that represents either a success or a failure, including an associated value in each case.
+        Completion block called on main thread.
+        In success it includes array of extractions.
+        In case of failure error from the server side.
      
      */
     public func setDocumentForReview(documentId: String, completion: @escaping (Result<[Extraction], GiniPayBusinessError>) -> Void) {
@@ -314,13 +326,14 @@ public struct DataForReview {
     
     /**
      Fetches document and extractions for payment review screen
-
-     - parameter documentId: Id of uploaded document.
-     - parameter completion: An action for processing asynchronous data received from the service with Result type as a paramater.
-     Result is a value that represents either a success or a failure, including an associated value in each case.
-     Completion block called on main thread.
-     In success returns DataForReview structure. It includes document and array of extractions.
-     In case of failure error from the server side and nil instead of document .
+     
+     - Parameters:
+        - documentId: Id of uploaded document.
+        - completion: An action for processing asynchronous data received from the service with Result type as a paramater.
+        Result is a value that represents either a success or a failure, including an associated value in each case.
+        Completion block called on main thread.
+        In success returns DataForReview structure. It includes document and array of extractions.
+        In case of failure error from the server side and nil instead of document .
 
      */
     public func fetchDataForReview(documentId: String, completion: @escaping (Result<DataForReview, GiniPayBusinessError>) -> Void) {
