@@ -11,6 +11,7 @@ import GiniPayApiLib
 public final class PaymentReviewViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet var pageControl: UIPageControl!
     @IBOutlet weak var pageControlHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var collectionViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet var recipientField: UITextField!
     @IBOutlet var ibanField: UITextField!
     @IBOutlet var amountField: UITextField!
@@ -34,7 +35,6 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     var model: PaymentReviewModel?
     var paymentProviders: [PaymentProvider] = []
     private var amountToPay = Price(extractionString: "")
-    
     enum TextFieldType: Int {
         case recipientFieldTag = 1
         case ibanFieldTag
@@ -62,7 +62,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     
     override public func viewDidLoad() {
         super.viewDidLoad()
-        subscribeOnKeyboardNotifications()
+        subscribeOnNotifications()
         dismissKeyboardOnTap()
         congifureUI()
         setupViewModel()
@@ -142,7 +142,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     }
 
     override public func viewDidDisappear(_ animated: Bool) {
-        unsubscribeFromKeyboardNotifications()
+        unsubscribeFromNotifications()
     }
     
     override public func viewWillLayoutSubviews() {
@@ -196,6 +196,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
     }
     
     fileprivate func configurePageControl() {
+        pageControl.layer.zPosition = 10
         pageControl.pageIndicatorTintColor = UIColor.from(giniColor:giniPayBusinessConfiguration.pageIndicatorTintColor)
         pageControl.currentPageIndicatorTintColor = UIColor.from(giniColor:giniPayBusinessConfiguration.currentPageIndicatorTintColor)
         pageControl.hidesForSinglePage = true
@@ -216,6 +217,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
         let screenBackgroundColor = UIColor.from(giniColor:giniPayBusinessConfiguration.paymentScreenBackgroundColor)
         mainView.backgroundColor = screenBackgroundColor
         collectionView.backgroundColor = screenBackgroundColor
+        pageControl.backgroundColor = screenBackgroundColor
         inputContainer.backgroundColor = UIColor.from(giniColor:giniPayBusinessConfiguration.inputFieldsContainerBackgroundColor)
     }
     
@@ -505,6 +507,10 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
             }
         }
     }
+    
+    func subscribeOnNotifications() {
+        subscribeOnKeyboardNotifications()
+    }
 
     func subscribeOnKeyboardNotifications() {
         /**
@@ -517,10 +523,14 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
          */
         NotificationCenter.default.addObserver(self, selector: #selector(PaymentReviewViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-
+    
     fileprivate func unsubscribeFromKeyboardNotifications() {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    fileprivate func unsubscribeFromNotifications() {
+        unsubscribeFromKeyboardNotifications()
     }
     
     fileprivate func dismissKeyboardOnTap() {
@@ -624,7 +634,7 @@ extension PaymentReviewViewController: UICollectionViewDelegate, UICollectionVie
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "pageCellIdentifier", for: indexPath) as! PageCollectionViewCell
         cell.pageImageView.frame = CGRect(x: 0, y: 0, width: collectionView.frame.width, height: collectionView.frame.height)
-        
+        cell.pageImageView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 20.0, right: 0.0)
         let cellModel = model?.getCellViewModel(at: indexPath)
         cell.pageImageView.display(image: cellModel?.preview ?? UIImage())
         return cell

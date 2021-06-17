@@ -39,3 +39,9 @@ Carthage
 #
 
 Pods/
+
+# Docs builds
+docs/
+
+# Documentation
+Documentation/Api

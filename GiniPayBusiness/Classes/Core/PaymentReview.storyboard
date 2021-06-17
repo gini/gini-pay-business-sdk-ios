@@ -19,13 +19,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X5k-EE-UQ6" userLabel="Main">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                                <rect key="frame" x="0.0" y="-8" width="414" height="816"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="47Q-Qq-7ja">
-                                        <rect key="frame" x="-32" y="0.0" width="478" height="527"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="535"/>
                                         <subviews>
+                                            <pageControl opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" hidesForSinglePage="YES" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="iQ0-i0-82S">
+                                                <rect key="frame" x="0.0" y="515" width="414" height="20"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20" id="rHy-jF-qFa"/>
+                                                </constraints>
+                                            </pageControl>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VtW-En-y6v">
-                                                <rect key="frame" x="8" y="0.0" width="462" height="507"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="535"/>
                                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Zec-6e-m0t" customClass="CollectionFlowLayout" customModule="GiniPayBusiness" customModuleProvider="target">
                                                     <size key="itemSize" width="348" height="408.66666666666669"/>
                                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -33,36 +39,30 @@
                                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 </collectionViewFlowLayout>
                                                 <cells>
-                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="pageCellIdentifier" id="c1L-5D-aNE" customClass="PageCollectionViewCell" customModule="GiniPayBusiness" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="49" width="348" height="408.66666666666669"/>
+                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" reuseIdentifier="pageCellIdentifier" id="c1L-5D-aNE" customClass="PageCollectionViewCell" customModule="GiniPayBusiness" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="63.5" width="348" height="408.5"/>
                                                         <autoresizingMask key="autoresizingMask"/>
-                                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Ucj-NS-kFh">
-                                                            <rect key="frame" x="0.0" y="0.0" width="348" height="408.66666666666669"/>
+                                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Ucj-NS-kFh">
+                                                            <rect key="frame" x="0.0" y="0.0" width="348" height="408.5"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </collectionViewCellContentView>
-                                                        <size key="customSize" width="348" height="408.66666666666669"/>
                                                     </collectionViewCell>
                                                 </cells>
                                             </collectionView>
-                                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" hidesForSinglePage="YES" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="iQ0-i0-82S">
-                                                <rect key="frame" x="178.5" y="507" width="121.5" height="20"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="20" id="rHy-jF-qFa"/>
-                                                </constraints>
-                                            </pageControl>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="VtW-En-y6v" firstAttribute="leading" secondItem="47Q-Qq-7ja" secondAttribute="leadingMargin" id="KX1-8Q-707"/>
-                                            <constraint firstAttribute="bottom" secondItem="iQ0-i0-82S" secondAttribute="bottom" id="Xk5-5t-LRe"/>
-                                            <constraint firstItem="VtW-En-y6v" firstAttribute="top" secondItem="47Q-Qq-7ja" secondAttribute="top" id="aan-nw-0UF"/>
-                                            <constraint firstAttribute="trailingMargin" secondItem="VtW-En-y6v" secondAttribute="trailing" id="p3U-F9-sKr"/>
-                                            <constraint firstItem="iQ0-i0-82S" firstAttribute="top" secondItem="VtW-En-y6v" secondAttribute="bottom" id="ts3-sr-USl"/>
+                                            <constraint firstItem="iQ0-i0-82S" firstAttribute="leading" secondItem="47Q-Qq-7ja" secondAttribute="leading" id="2Bu-N7-gLa"/>
+                                            <constraint firstItem="VtW-En-y6v" firstAttribute="width" secondItem="47Q-Qq-7ja" secondAttribute="width" id="9KV-zG-ibk"/>
+                                            <constraint firstAttribute="bottom" secondItem="iQ0-i0-82S" secondAttribute="bottom" id="Q1f-Le-idM"/>
+                                            <constraint firstAttribute="trailing" secondItem="iQ0-i0-82S" secondAttribute="trailing" id="Q2z-BM-tp4"/>
+                                            <constraint firstItem="iQ0-i0-82S" firstAttribute="top" secondItem="VtW-En-y6v" secondAttribute="bottom" constant="-20" id="Tnd-Gm-fFO"/>
+                                            <constraint firstItem="VtW-En-y6v" firstAttribute="topMargin" secondItem="47Q-Qq-7ja" secondAttribute="topMargin" id="aan-nw-0UF"/>
                                             <constraint firstItem="iQ0-i0-82S" firstAttribute="centerX" secondItem="47Q-Qq-7ja" secondAttribute="centerX" id="vwc-zA-1pw"/>
                                             <constraint firstItem="VtW-En-y6v" firstAttribute="centerX" secondItem="47Q-Qq-7ja" secondAttribute="centerX" id="xF5-Z0-zi2"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="ekk-cJ-hxZ">
-                                        <rect key="frame" x="0.0" y="527" width="414" height="281"/>
+                                        <rect key="frame" x="0.0" y="535" width="414" height="281"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="zSd-H8-kmA">
                                                 <rect key="frame" x="16" y="16" width="382" height="220"/>
@@ -79,7 +79,7 @@
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="alphabet"/>
                                                                 <connections>
-                                                            <action selector="textFieldChanged:" destination="QI6-9C-Fdg" eventType="editingChanged" id="9Jd-yx-Mrd"/>
+                                                                    <action selector="textFieldChanged:" destination="QI6-9C-Fdg" eventType="editingChanged" id="9Jd-yx-Mrd"/>
                                                                     <outlet property="delegate" destination="QI6-9C-Fdg" id="0iu-pw-xsY"/>
                                                                 </connections>
                                                             </textField>
@@ -109,7 +109,7 @@
                                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                         <textInputTraits key="textInputTraits"/>
                                                                         <connections>
-                                                                    <action selector="textFieldChanged:" destination="QI6-9C-Fdg" eventType="editingChanged" id="aeK-1h-LVL"/>
+                                                                            <action selector="textFieldChanged:" destination="QI6-9C-Fdg" eventType="editingChanged" id="aeK-1h-LVL"/>
                                                                             <outlet property="delegate" destination="QI6-9C-Fdg" id="m7I-0l-hOv"/>
                                                                         </connections>
                                                                     </textField>
@@ -123,7 +123,7 @@
                                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                         <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                                         <connections>
-                                                                    <action selector="textFieldChanged:" destination="QI6-9C-Fdg" eventType="editingChanged" id="9nT-5u-bfz"/>
+                                                                            <action selector="textFieldChanged:" destination="QI6-9C-Fdg" eventType="editingChanged" id="9nT-5u-bfz"/>
                                                                             <outlet property="delegate" destination="QI6-9C-Fdg" id="WY5-0t-Qu7"/>
                                                                         </connections>
                                                                     </textField>
@@ -177,7 +177,7 @@
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="alphabet"/>
                                                                 <connections>
-                                                            <action selector="textFieldChanged:" destination="QI6-9C-Fdg" eventType="editingChanged" id="e77-jX-ySK"/>
+                                                                    <action selector="textFieldChanged:" destination="QI6-9C-Fdg" eventType="editingChanged" id="e77-jX-ySK"/>
                                                                     <outlet property="delegate" destination="QI6-9C-Fdg" id="Ycx-5r-Ckx"/>
                                                                 </connections>
                                                             </textField>
@@ -255,10 +255,8 @@
                                 <constraints>
                                     <constraint firstItem="ekk-cJ-hxZ" firstAttribute="centerX" secondItem="X5k-EE-UQ6" secondAttribute="centerX" id="3Up-qV-3Sl"/>
                                     <constraint firstItem="ekk-cJ-hxZ" firstAttribute="leading" secondItem="X5k-EE-UQ6" secondAttribute="leading" id="3vD-Rk-Xvs"/>
-                                    <constraint firstItem="47Q-Qq-7ja" firstAttribute="leading" secondItem="X5k-EE-UQ6" secondAttribute="leading" constant="-32" id="APD-PO-B4D"/>
-                                    <constraint firstItem="47Q-Qq-7ja" firstAttribute="top" secondItem="X5k-EE-UQ6" secondAttribute="top" id="CHQ-Ph-a8J"/>
+                                    <constraint firstItem="47Q-Qq-7ja" firstAttribute="topMargin" secondItem="X5k-EE-UQ6" secondAttribute="topMargin" id="CHQ-Ph-a8J"/>
                                     <constraint firstItem="ekk-cJ-hxZ" firstAttribute="top" secondItem="47Q-Qq-7ja" secondAttribute="bottom" id="Um0-7i-L3I"/>
-                                    <constraint firstAttribute="trailing" secondItem="47Q-Qq-7ja" secondAttribute="trailing" constant="-32" id="WFQ-eh-0qS"/>
                                     <constraint firstAttribute="trailing" secondItem="ekk-cJ-hxZ" secondAttribute="trailing" id="ZOM-nK-AJs"/>
                                     <constraint firstItem="47Q-Qq-7ja" firstAttribute="centerX" secondItem="X5k-EE-UQ6" secondAttribute="centerX" id="rFK-yg-iVc"/>
                                     <constraint firstAttribute="bottom" secondItem="ekk-cJ-hxZ" secondAttribute="bottom" id="yRU-DH-rpk"/>
@@ -275,9 +273,11 @@
                         <viewLayoutGuide key="safeArea" id="bnf-9Y-Eta"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="47Q-Qq-7ja" firstAttribute="trailing" secondItem="bnf-9Y-Eta" secondAttribute="trailing" id="0sf-vp-r8c"/>
                             <constraint firstItem="bnf-9Y-Eta" firstAttribute="trailing" secondItem="X5k-EE-UQ6" secondAttribute="trailing" id="4bp-D7-CFZ"/>
                             <constraint firstItem="bnf-9Y-Eta" firstAttribute="trailing" secondItem="wxg-Qb-D9U" secondAttribute="trailing" constant="16" id="BTS-6B-frI"/>
-                            <constraint firstItem="X5k-EE-UQ6" firstAttribute="top" secondItem="bnf-9Y-Eta" secondAttribute="top" id="Do4-wg-Ele"/>
+                            <constraint firstItem="X5k-EE-UQ6" firstAttribute="topMargin" secondItem="bnf-9Y-Eta" secondAttribute="top" id="Do4-wg-Ele"/>
+                            <constraint firstItem="bnf-9Y-Eta" firstAttribute="leading" secondItem="47Q-Qq-7ja" secondAttribute="leading" id="QoA-aA-W9A"/>
                             <constraint firstItem="X5k-EE-UQ6" firstAttribute="leading" secondItem="bnf-9Y-Eta" secondAttribute="leading" id="SVl-pi-wsE"/>
                             <constraint firstItem="X5k-EE-UQ6" firstAttribute="centerX" secondItem="bnf-9Y-Eta" secondAttribute="centerX" id="eQ2-K2-0z8"/>
                             <constraint firstItem="bnf-9Y-Eta" firstAttribute="bottom" secondItem="X5k-EE-UQ6" secondAttribute="bottom" constant="-34" id="fa8-8k-ztT"/>

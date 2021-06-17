@@ -621,15 +621,65 @@ extension ComponentAPICoordinator {
 extension ComponentAPICoordinator {
     
     fileprivate func handleAnalysis(document: Document, giniPayBusiness: GiniPayBusiness, extractions: [Extraction]) {
-        let fetchedData = DataForReview(document: document, extractions: extractions)
-        let vc = PaymentReviewViewController.instantiate(with: giniPayBusiness, data: fetchedData)
-        navigationController.pushViewController(vc , animated: true)
+        
+        self.giniPayBusiness.checkIfDocumentIsPayable(docId: document.id) { [self] result in
+            switch result {
+            case let .success(isPayable):
+                    if isPayable {
+                        let fetchedData = DataForReview(document: document, extractions: extractions)
+                        let vc = PaymentReviewViewController.instantiate(with: giniPayBusiness, data: fetchedData)
+                        self.navigationController.pushViewController(vc , animated: true)
+                    } else {
+                        let alertViewController = UIAlertController(title: "",
+                                                                    message: "This document is unpayable",
+                                                                    preferredStyle: .alert)
+                        
+                        alertViewController.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+                            alertViewController.dismiss(animated: true) {
+                                self.closeComponentAPI()
+                            }
+                        })
+                        navigationController.present(alertViewController, animated: true, completion: nil)
+                    }
+            case let .failure(error):
+                let alertViewController = UIAlertController(title: "",
+                                                            message: error.localizedDescription,
+                                                            preferredStyle: .alert)
+                
+                alertViewController.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+                    alertViewController.dismiss(animated: true) {
+                        self.closeComponentAPI()
+                    }
+                })
+                navigationController.present(alertViewController, animated: true, completion: nil)
+            }
+        }
+        
     }
 }
 
 // MARK: GiniPayBusinessDelegate
 
 extension ComponentAPICoordinator: GiniPayBusinessDelegate {
+    func shouldHandleErrorInternally(error: GiniPayBusinessError) -> Bool {
+        switch error {
+        case .noInstalledApps:
+            // shows own error
+            let alertViewController = UIAlertController(title: "",
+                                                        message: "We didn't find any banking apps installed which support Gini Pay",
+                                                        preferredStyle: .alert)
+            
+            alertViewController.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+                alertViewController.dismiss(animated: true, completion: nil)
+            })
+            navigationController.present(alertViewController, animated: true, completion: nil)
+
+            return false
+        default:
+            return true
+        }
+    }
+    
     
     func didCreatePaymentRequest(paymentRequestID: String) {
         print("✅ Created payment request with id \(paymentRequestID)")
