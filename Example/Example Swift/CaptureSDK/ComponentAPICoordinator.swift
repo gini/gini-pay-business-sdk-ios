@@ -621,9 +621,36 @@ extension ComponentAPICoordinator {
 extension ComponentAPICoordinator {
     
     fileprivate func handleAnalysis(document: Document, giniPayBusiness: GiniPayBusiness, extractions: [Extraction]) {
-        let fetchedData = DataForReview(document: document, extractions: extractions)
-        let vc = PaymentReviewViewController.instantiate(with: giniPayBusiness, data: fetchedData)
-        navigationController.pushViewController(vc , animated: true)
+        
+        self.giniPayBusiness.checkIfDocumentIsPayable(docId: document.id) { [self] result in
+            switch result {
+            case let .success(isPayable):
+                    if isPayable {
+                        let fetchedData = DataForReview(document: document, extractions: extractions)
+                        let vc = PaymentReviewViewController.instantiate(with: giniPayBusiness, data: fetchedData)
+                        self.navigationController.pushViewController(vc , animated: true)
+                    } else {
+                        let alertViewController = UIAlertController(title: "",
+                                                                    message: "This document is unpayable",
+                                                                    preferredStyle: .alert)
+                        
+                        alertViewController.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+                            alertViewController.dismiss(animated: true, completion: nil)
+                        })
+                        navigationController.present(alertViewController, animated: true, completion: nil)
+                    }
+            case let .failure(error):
+                let alertViewController = UIAlertController(title: "",
+                                                            message: error.localizedDescription,
+                                                            preferredStyle: .alert)
+                
+                alertViewController.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+                    alertViewController.dismiss(animated: true, completion: nil)
+                })
+                navigationController.present(alertViewController, animated: true, completion: nil)
+            }
+        }
+        
     }
 }
 
