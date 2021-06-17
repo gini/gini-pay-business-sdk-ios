@@ -180,7 +180,9 @@
 
 <p>using <code>GiniApiLib</code>
 using <code>GiniCapture</code></p>
-<h4 id='giniapilib-initialization' class='heading'>GiniApiLib initialization</h4>
+<h2 id='giniapilib-initialization' class='heading'>GiniApiLib initialization</h2>
+
+<p>You should have received Gini Pay API client credentials from us. Please get in touch with us in case you don&rsquo;t have them.</p>
 
 <p>If you want to use a transparent proxy with your own authentication you can specify your own domain and add <code>AlternativeTokenSource</code> protocol implementation:</p>
 <pre class="highlight swift"><code> <span class="k">let</span> <span class="nv">apiLib</span> <span class="o">=</span>  <span class="kt">GiniApiLib</span><span class="o">.</span><span class="kt">Builder</span><span class="p">(</span><span class="nv">customApiDomain</span><span class="p">:</span> <span class="s">"api.custom.net"</span><span class="p">,</span>
@@ -234,7 +236,13 @@ using <code>GiniCapture</code></p>
 </code></pre>
 <h2 id='check-preconditions' class='heading'>Check preconditions</h2>
 
-<p>There are two methods in GiniPayBusiness <code>businessSDK.checkIfAnyPaymentProviderAvailiable</code> and <code>businessSDK.checkIfDocumentIsPayable(docId: String)</code> returns true if Iban was extracted.</p>
+<p>There are three methods in GiniPayBusiness:</p>
+
+<ul>
+<li><code>businessSDK.isAnyBankingAppInstalled(appSchemes: [String])</code> without a networking call, returns true when at least the one of the listed among <code>LSApplicationQueriesSchemes</code> in your <code>Info.plist</code> is installed on the device and can support Gini Pay functionality,</li>
+<li><code>businessSDK.checkIfAnyPaymentProviderAvailiable()</code> with a networking call, returns a list of availible payment provider or informs that there are no supported banking apps installed,</li>
+<li><code>businessSDK.checkIfDocumentIsPayable(docId: String)</code> returns true if Iban was extracted.</li>
+</ul>
 <h2 id='fetching-data-for-payment-review-screen' class='heading'>Fetching data for payment review screen</h2>
 
 <p>If the preconditions checks are succeeded you can fetch the document and extractions for Payment Review screen:</p>
@@ -258,6 +266,73 @@ using <code>GiniCapture</code></p>
 <span class="o">.</span>
 <span class="n">businessSDK</span><span class="o">.</span><span class="nf">setConfiguration</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
 </code></pre>
+<h2 id='gini-pay-deep-link-for-your-app' class='heading'>Gini Pay Deep Link For Your App</h2>
+
+<p>In order for banking apps to be able to return the user to your app after the payment has been resolved you need register a scheme for your app to respond to a deep link scheme known by the Gini Pay API.</p>
+
+<p>You should already have a scheme and host from us. Please contact us in case you don&rsquo;t have them.</p>
+
+<p>The following is an example for the deep link ginipay-business://payment-requester:
+<br>
+<center><img src="img/Integration guide/SchemeExample.png" width="600"/></center>
+</br></p>
+<h2 id='testing' class='heading'>Testing</h2>
+
+<p>An example banking app is available in the <a href="https://github.com/gini/gini-pay-bank-sdk-ios">Gini Pay Bank SDK&rsquo;s</a> repository.</p>
+
+<p>In order to test using our example banking app you need to use development client credentials. This will make sure
+the Gini Pay Business SDK uses a test payment provider which will open our example banking app. To inject your API credentials into the Bank example app you need to fill in your credentials in <code>Example/Bank/Credentials.plist</code>.</p>
+<h4 id='end-to-end-testing' class='heading'>End to end testing</h4>
+
+<p>The app scheme in our banking example app: <code>ginipay-bank://</code>. Please, specify this scheme <code>LSApplicationQueriesSchemes</code> in your app in <code>Info.plist</code> file.</p>
+
+<p>After you&rsquo;ve set the client credentials in the example banking app and installed it on your device you can run your app
+and verify that <code>businessSDK.isAnyBankingAppInstalled(appSchemes: [String])</code> returns true and check other preconditions.</p>
+
+<p>After following the integration steps above you&rsquo;ll arrive at the payment review screen.</p>
+
+<p>Check that the extractions and the document preview are shown and then press the <code>Pay</code> button:</p>
+
+<p><br>
+<center><img src="img/Customization guide/PaymentReview.PNG" height="500"/></center>
+</br></p>
+
+<p>You should be redirected to the example banking app where the final extractions are shown:</p>
+
+<p><br>
+<center><img src="img/Integration guide/ReviewScreenBeforeResolvingPayment.PNG" height="500"/></center>
+</br></p>
+
+<p>After you press the <code>Pay</code> button the Gini Pay Bank SDK resolves the payment and allows you to return to your app:</p>
+
+<p><br>
+<center><img src="img/Integration guide/ReviewScreenAfterResolvingPayment.PNG" height="500"/></center>
+</br></p>
+
+<p>For handling incoming url in your app after redirecting back from the banking app you need to implement to handle the incoming url:
+The following is an example for the url <code>ginipay-business://payment-requester</code>:</p>
+<pre class="highlight swift"><code>    <span class="kd">func</span> <span class="nf">application</span><span class="p">(</span><span class="n">_</span> <span class="nv">app</span><span class="p">:</span> <span class="kt">UIApplication</span><span class="p">,</span>
+                     <span class="kd">open</span> <span class="nv">url</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span>
+                     <span class="nv">options</span><span class="p">:</span> <span class="p">[</span><span class="kt">UIApplication</span><span class="o">.</span><span class="kt">OpenURLOptionsKey</span><span class="p">:</span> <span class="kt">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[:])</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="n">url</span><span class="o">.</span><span class="n">host</span> <span class="o">==</span> <span class="s">"payment-requester"</span> <span class="p">{</span>
+            <span class="c1">// hadle incoming url from the banking app</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="kc">true</span>
+    <span class="p">}</span>
+</code></pre>
+
+<p>With these steps completed you have verified that your app, the Gini Pay API, the Gini Pay Business SDK and the Gini Pay
+Bank SDK work together correctly.</p>
+<h4 id='testing-in-production' class='heading'>Testing in production</h4>
+
+<p>The steps are the same but instead of the development client credentials you will need to use production client
+credentials. This will make sure the Gini Pay Business SDK receives real payment providers which open real banking apps.</p>
+
+<p>You will also need to install a banking app which uses the Gini Pay Bank SDK. Please contact us in case you don&rsquo;t know
+which banking app(s) to install.</p>
+
+<p>Lastly make sure that for production you register the scheme we provided you for deep linking and you are not using 
+<code>ginipay-business://payment-requester</code>.</p>
 
           </div>
         </section>
@@ -266,7 +341,7 @@ using <code>GiniCapture</code></p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2021 <a class="link" href="https://gini.net" target="_blank" rel="external">Gini GmbH</a>. All rights reserved. (Last updated: 2021-06-02)</p>
+      <p>&copy; 2021 <a class="link" href="https://gini.net" target="_blank" rel="external">Gini GmbH</a>. All rights reserved. (Last updated: 2021-06-17)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

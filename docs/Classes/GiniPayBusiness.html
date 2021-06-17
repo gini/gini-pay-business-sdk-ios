@@ -351,7 +351,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Checks if there are any banking app which support Gini Pay functionaly installed.</p>
+                        <p>Checks if there are any banking app which support Gini Pay functionality installed.</p>
 
                       </div>
                       <div class="declaration">
@@ -374,8 +374,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>An action for processing asynchronous data received from the service with Result type as a paramater. Result is a value that represents either a success or a failure, including an associated value in each case.
-Completion block called on main thread.
+                                  <p>An action for processing asynchronous data received from the service with Result type as a paramater. Result is a value that represents either a success or a failure, including an associated value in each case. Completion block called on main thread.
 In success case it includes array of payment providers.
 In case of failure error that there are no supported banking apps installed.</p>
                                 </div>
@@ -383,6 +382,56 @@ In case of failure error that there are no supported banking apps installed.</p>
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:15GiniPayBusinessAAC24isAnyBankingAppInstalled10appSchemesSbSaySSG_tF"></a>
+                    <a name="//apple_ref/swift/Method/isAnyBankingAppInstalled(appSchemes:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:15GiniPayBusinessAAC24isAnyBankingAppInstalled10appSchemesSbSaySSG_tF">isAnyBankingAppInstalled(appSchemes:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Checks if there is any banking app which can support Gini Pay functionality installed.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">isAnyBankingAppInstalled</span><span class="p">(</span><span class="nv">appSchemes</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>appSchemes</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A list of [LSApplicationQueriesSchemes] added in Info.plist. Scheme format: ginipay-bank://</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>a boolean value.</p>
                       </div>
                     </section>
                   </div>
@@ -437,9 +486,9 @@ for example to change texts and colors displayed to the user.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:15GiniPayBusinessAAC24checkIfDocumentIsPayable5docIdSbSS_tF"></a>
-                    <a name="//apple_ref/swift/Method/checkIfDocumentIsPayable(docId:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:15GiniPayBusinessAAC24checkIfDocumentIsPayable5docIdSbSS_tF">checkIfDocumentIsPayable(docId:)</a>
+                    <a name="/s:15GiniPayBusinessAAC24checkIfDocumentIsPayable5docId10completionySS_ys6ResultOySbAA0abC5ErrorOGctF"></a>
+                    <a name="//apple_ref/swift/Method/checkIfDocumentIsPayable(docId:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:15GiniPayBusinessAAC24checkIfDocumentIsPayable5docId10completionySS_ys6ResultOySbAA0abC5ErrorOGctF">checkIfDocumentIsPayable(docId:completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -454,7 +503,7 @@ for example to change texts and colors displayed to the user.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">checkIfDocumentIsPayable</span><span class="p">(</span><span class="nv">docId</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">checkIfDocumentIsPayable</span><span class="p">(</span><span class="nv">docId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt">Bool</span><span class="p">,</span> <span class="kt"><a href="../Enums/GiniPayBusinessError.html">GiniPayBusinessError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -465,12 +514,26 @@ for example to change texts and colors displayed to the user.</p>
                             <tr>
                               <td>
                                 <code>
-                                <em>documentId</em>
+                                <em>docId</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
                                   <p>Id of uploaded document.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An action for processing asynchronous data received from the service with Result type as a paramater. Result is a value that represents either a success or a failure, including an associated value in each case. Completion block called on main thread.
+In success case it includes a boolean value and returns true if iban was extracted.
+In case of failure in case of failure error from the server side.</p>
                                 </div>
                               </td>
                             </tr>
@@ -511,7 +574,7 @@ for example to change texts and colors displayed to the user.</p>
                             <tr>
                               <td>
                                 <code>
-                                <em>documentId</em>
+                                <em>docId</em>
                                 </code>
                               </td>
                               <td>
@@ -577,7 +640,7 @@ In case of failure error from the server side.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>id of the uploaded document.</p>
+                                  <p>Id of the uploaded document.</p>
                                 </div>
                               </td>
                             </tr>
@@ -633,12 +696,12 @@ In case of failure in case of failure error from the server side.</p>
                             <tr>
                               <td>
                                 <code>
-                                <em>docId</em>
+                                <em>paymentInfo</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>id of the uploaded document.</p>
+                                  <p>Model object for payment information.</p>
                                 </div>
                               </td>
                             </tr>
@@ -700,7 +763,7 @@ In case of failure error from the server side.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>id of the created payment request.</p>
+                                  <p>Id of the created payment request.</p>
                                 </div>
                               </td>
                             </tr>
@@ -712,7 +775,7 @@ In case of failure error from the server side.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>app scheme for the selected payment provider</p>
+                                  <p>App scheme for the selected payment provider</p>
                                 </div>
                               </td>
                             </tr>
@@ -854,7 +917,7 @@ In case of failure error from the server side and nil instead of document .</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2021 <a class="link" href="https://gini.net" target="_blank" rel="external">Gini GmbH</a>. All rights reserved. (Last updated: 2021-06-02)</p>
+      <p>&copy; 2021 <a class="link" href="https://gini.net" target="_blank" rel="external">Gini GmbH</a>. All rights reserved. (Last updated: 2021-06-17)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
