@@ -452,6 +452,12 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
              {
                 let paymentInfo = PaymentInfo(recipient: recipientField.text ?? "", iban: ibanField.text ?? "", bic: "", amount: amountText, purpose: usageField.text ?? "", paymentProviderScheme: selectedPaymentProvider.appSchemeIOS, paymentProviderId: selectedPaymentProvider.id)
                 model?.createPaymentRequest(paymentInfo: paymentInfo)
+                let paymentRecipientExtraction = Extraction(box: nil, candidates: "", entity: "text", value: recipientField.text ?? "", name: "paymentRecipient")
+                let ibanExtraction = Extraction(box: nil, candidates: "", entity: "iban", value: paymentInfo.iban, name: "iban")
+                let referenceExtraction = Extraction(box: nil, candidates: "", entity: "reference", value: paymentInfo.purpose, name: "reference")
+                let amoutToPayExtraction = Extraction(box: nil, candidates: "", entity: "amount", value: paymentInfo.amount, name: "amountToPay")
+                let updatedExtractions = [paymentRecipientExtraction, ibanExtraction, referenceExtraction,amoutToPayExtraction ]
+                model?.sendFeedback(updatedExtractions: updatedExtractions)
             }
         }
     }

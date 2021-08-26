@@ -53,6 +53,8 @@
 	<string>for taking a picture of the document</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>for importing images from photo library</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>for importing images from photo library</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
