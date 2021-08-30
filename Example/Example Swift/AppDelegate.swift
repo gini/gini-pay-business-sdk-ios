@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      open url: URL,
                      options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
         
-        if (url.scheme == "ginipay-test") {
+        if (url.host == "payment-requester") {
             coordinator.processBankUrl()
         } else {
             coordinator.processExternalDocument(withUrl: url, sourceApplication: options[.sourceApplication] as? String)

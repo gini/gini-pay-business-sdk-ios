@@ -88,7 +88,9 @@ public class PaymentReviewModel: NSObject {
             case let .success(providers):
                 self?.onPaymentProvidersFetched(providers)
             case let .failure(error):
-                self?.onNoAppsErrorHandling(error)
+                if let delegate = self?.businessSDK.delegate, delegate.shouldHandleErrorInternally(error: error) {
+                    self?.onNoAppsErrorHandling(error)
+                }
             }
         }
     }
@@ -102,16 +104,18 @@ public class PaymentReviewModel: NSObject {
         }
     }
     
-    func createPaymentRequest(paymentInfo: PaymentInfo){
+    func createPaymentRequest(paymentInfo: PaymentInfo) {
         isLoading = true
         businessSDK.createPaymentRequest(paymentInfo: paymentInfo) {[weak self] result in
             switch result {
             case let .success(requestId):
                     self?.isLoading = false
                     self?.openPaymentProviderApp(requestId: requestId, appScheme: paymentInfo.paymentProviderScheme)
-            case .failure(_ ):
+            case let .failure(error):
                     self?.isLoading = false
+                if let delegate = self?.businessSDK.delegate, delegate.shouldHandleErrorInternally(error: error) {
                     self?.onCreatePaymentRequestErrorHandling()
+                }
             }
         }
     }
@@ -137,7 +141,9 @@ public class PaymentReviewModel: NSObject {
                             vms.append(cellModel)
                         }
                     case let .failure(error):
-                        self?.onErrorHandling(.apiError(error))
+                        if let delegate = self?.businessSDK.delegate, delegate.shouldHandleErrorInternally(error: .apiError(error)) {
+                            self?.onErrorHandling(.apiError(error))
+                        }
                     }
                     dispatchSemaphore.signal()
                     dispatchGroup.leave()
