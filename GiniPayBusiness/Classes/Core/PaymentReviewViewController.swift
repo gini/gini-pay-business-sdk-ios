@@ -234,7 +234,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
             field.rightViewMode = .always
         }
         field.layer.cornerRadius = self.giniPayBusinessConfiguration.paymentInputFieldCornerRadius
-        field.layer.borderWidth = 0.0
+        field.layer.borderWidth = giniPayBusinessConfiguration.paymentInputFieldBorderWidth
         field.backgroundColor = UIColor.from(giniColor: giniPayBusinessConfiguration.paymentInputFieldBackgroundColor)
         field.font = giniPayBusinessConfiguration.customFont.regular
         field.textColor = UIColor.from(giniColor: giniPayBusinessConfiguration.paymentInputFieldTextColor)
@@ -247,7 +247,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
         UIView.animate(withDuration: 0.3) {
             textField.layer.cornerRadius = self.giniPayBusinessConfiguration.paymentInputFieldCornerRadius
             textField.backgroundColor = UIColor.from(giniColor: self.giniPayBusinessConfiguration.paymentInputFieldBackgroundColor)
-            textField.layer.borderWidth = self.giniPayBusinessConfiguration.paymentInputFieldBorderWidth
+            textField.layer.borderWidth = self.giniPayBusinessConfiguration.paymentInputFieldErrorStyleBorderWidth
             textField.layer.borderColor = self.giniPayBusinessConfiguration.paymentInputFieldErrorStyleColor.cgColor
             textField.layer.masksToBounds = true
         }
@@ -257,7 +257,7 @@ public final class PaymentReviewViewController: UIViewController, UIGestureRecog
         UIView.animate(withDuration: 0.3) {
             textField.layer.cornerRadius = self.giniPayBusinessConfiguration.paymentInputFieldCornerRadius
             textField.backgroundColor = self.giniPayBusinessConfiguration.paymentInputFieldSelectionBackgroundColor
-            textField.layer.borderWidth = self.giniPayBusinessConfiguration.paymentInputFieldBorderWidth
+            textField.layer.borderWidth = self.giniPayBusinessConfiguration.paymentInputFieldSelectionStyleBorderWidth
             textField.layer.borderColor = self.giniPayBusinessConfiguration.paymentInputFieldSelectionStyleColor.cgColor
             textField.layer.masksToBounds = true
         }
