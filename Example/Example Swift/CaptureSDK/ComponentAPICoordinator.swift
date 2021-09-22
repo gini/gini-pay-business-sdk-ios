@@ -35,21 +35,34 @@ final class ComponentAPICoordinator: NSObject, Coordinator {
     
     fileprivate lazy var storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
     fileprivate lazy var navigationController: UINavigationController = {
-        let navBarViewController = UINavigationController()
-        navBarViewController.navigationBar.barTintColor = self.giniColor
-        navBarViewController.navigationBar.tintColor = .white
+        let navBarViewController = UINavigationController()        
+        navBarViewController.applyStyle(withConfiguration: giniConfiguration)
         navBarViewController.view.backgroundColor = .black
-        
+
         return navBarViewController
     }()
     
     fileprivate lazy var componentAPITabBarController: UITabBarController = {
         let tabBarViewController = UITabBarController()
-        tabBarViewController.tabBar.barTintColor = self.giniColor
-        tabBarViewController.tabBar.tintColor = .white
+        if #available(iOS 15.0, *) {
+            let appearance = UITabBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = self.giniColor
+
+            appearance.stackedLayoutAppearance.normal.iconColor = UIColor.white.withAlphaComponent(0.6)
+            appearance.stackedLayoutAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white.withAlphaComponent(0.6)]
+            appearance.stackedLayoutAppearance.selected.iconColor = .white
+            appearance.stackedLayoutAppearance.selected.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+
+            tabBarViewController.tabBar.standardAppearance = appearance
+            tabBarViewController.tabBar.scrollEdgeAppearance = tabBarViewController.tabBar.standardAppearance
+        } else {
+            tabBarViewController.tabBar.barTintColor = self.giniColor
+            tabBarViewController.tabBar.tintColor = .white
+            tabBarViewController.tabBar.unselectedItemTintColor = UIColor.white.withAlphaComponent(0.6)
+        }
+
         tabBarViewController.view.backgroundColor = .black
-        
-        tabBarViewController.tabBar.unselectedItemTintColor = UIColor.white.withAlphaComponent(0.6)
         tabBarViewController.tabBar.isHidden = true
 
         return tabBarViewController
@@ -80,6 +93,7 @@ final class ComponentAPICoordinator: NSObject, Coordinator {
          documentService: ComponentAPIDocumentServiceProtocol, giniPayBusiness: GiniPayBusiness) {
         self.pages = pages
         self.giniConfiguration = configuration
+        self.giniConfiguration.onboardingShowAtFirstLaunch = false
         self.documentService = documentService
         self.giniPayBusiness = giniPayBusiness
         super.init()
@@ -454,6 +468,17 @@ extension ComponentAPICoordinator: CameraViewControllerDelegate {
 // MARK: - DocumentPickerCoordinatorDelegate
 
 extension ComponentAPICoordinator: DocumentPickerCoordinatorDelegate {
+    func documentPicker(_ coordinator: DocumentPickerCoordinator, failedToPickDocumentsAt urls: [URL]) {
+        let error = FilePickerError.failedToOpenDocument
+        if coordinator.currentPickerDismissesAutomatically {
+            self.cameraScreen?.showErrorDialog(for: error,
+                                               positiveAction: nil)
+        } else {
+            coordinator.currentPickerViewController?.showErrorDialog(for: error,
+                                                                     positiveAction: nil)
+        }
+    }
+    
     
     func documentPicker(_ coordinator: DocumentPickerCoordinator, didPick documents: [GiniCaptureDocument]) {
         self.validate(documents) { result in
@@ -483,6 +508,8 @@ extension ComponentAPICoordinator: DocumentPickerCoordinatorDelegate {
                         }
                         
                     case .photoLibraryAccessDenied:
+                        break
+                    case .failedToOpenDocument:
                         break
                     }
                 }
