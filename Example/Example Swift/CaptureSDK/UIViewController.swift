@@ -45,6 +45,8 @@ extension UIViewController {
                 confirmActionTitle = NSLocalizedString("ginicapture.camera.mixedarrayspopup.usePhotos",
                                                        bundle: Bundle(for: GiniCapture.self),
                                                        comment: "use photos button text in popup")
+            case .failedToOpenDocument:
+                break
             }
         case let visionError as CustomAnalysisError:
             message = visionError.message
