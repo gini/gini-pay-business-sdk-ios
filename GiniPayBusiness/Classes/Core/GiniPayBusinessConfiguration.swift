@@ -65,7 +65,17 @@ public final class GiniPayBusinessConfiguration: NSObject {
     /**
      Sets the border width of the payment input fields on the payment review screen
      */
-    @objc public var paymentInputFieldBorderWidth: CGFloat = 1.0
+    @objc public var paymentInputFieldBorderWidth: CGFloat = 0.0
+    
+    /**
+     Sets the border width of the payment input field with selection style on the payment review screen
+     */
+    @objc public var paymentInputFieldSelectionStyleBorderWidth: CGFloat = 1.0
+    
+    /**
+     Sets the border width of the payment input field with error style on the payment review screen
+     */
+    @objc public var paymentInputFieldErrorStyleBorderWidth: CGFloat = 1.0
     
     /**
      Sets the error style color and error text color for the payment input fields on the payment review screen
