@@ -1,3 +1,13 @@
+**Deprecation Notice**
+ ----------------------
+
+ The Gini Pay Business SDK for iOS was replaced by the 
+ [Gini Health SDK](https://github.com/gini/health-sdk-ios).
+
+ This SDK won't be developed further and we kindly ask you to switch to the Gini Health SDK. Migration entails only a
+ few steps which you can find in this 
+ [migration guide](https://developer.gini.net/gini-mobile-ios/GiniHealthSDK/migration-guide.html).
+
 ![Gini Pay Business SDK for iOS](img/GiniPayBusiness_Logo.png?raw=true)
 
 # Gini Pay Business SDK for iOS
